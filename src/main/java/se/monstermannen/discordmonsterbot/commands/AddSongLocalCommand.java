@@ -44,8 +44,7 @@ public class AddSongLocalCommand implements Command {
         try {
             final AudioPlayer.Track t = player.queue(f);    // add audio to queue
             //setTrackTitle(t, f.toString());                 // add title
-            channel.sendMessage(f.getName() + " added");
-        } catch (IOException | UnsupportedAudioFileException | DiscordException | RateLimitException | MissingPermissionsException e) {
+        } catch (IOException | UnsupportedAudioFileException e) {
             e.printStackTrace();
         }
     }

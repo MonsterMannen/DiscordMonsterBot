@@ -47,6 +47,8 @@ public class DiscordMonsterBot {
             commands.add(new SkipCommand());
             commands.add(new VolumeCommand());
             commands.add(new AddSongLocalCommand());
+            commands.add(new AddSongURLCommand());
+            commands.add(new StatsCommand());
 
         } catch (DiscordException | RateLimitException e) {
             e.printStackTrace();
@@ -75,7 +77,6 @@ public class DiscordMonsterBot {
         readmessages++;
 
         if(!msg.startsWith(PREFIX) || msg.length() < 2) return;	// return if not correct prefix or only one char
-        readCommands++;
 
         msg = msg.substring(1);	// remove prefix character
         String[] args = new String[0];
@@ -90,6 +91,7 @@ public class DiscordMonsterBot {
         for(Command cmd : commands){
             if(cmd.getCommand().equals(command)){
                 cmd.runCommand(user, channel, message, args);
+                readCommands++;
             }
         }
 
@@ -132,12 +134,13 @@ public class DiscordMonsterBot {
         */
     }
 
+    // todo take all args as songname (so space in filename works)
+    // todo ontrackload set songtitle as game playing
     // todo info/help command
     // todo set avatar command
     // todo userinfo @derp
     // todo check who wrote most in the last 24h?
     // todo set game func
-    // todo song next() use skipTo()?
     // todo make currentSong output cool with a volume bar :D
 
     // returns the message typed. for testing
