@@ -1,5 +1,6 @@
-package se.monstermannen;
+package se.monstermannen.discordmonsterbot;
 
+import se.monstermannen.discordmonsterbot.commands.*;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.EventSubscriber;
@@ -16,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Created by Viktor on 2017-01-12.
@@ -26,6 +28,7 @@ public class DiscordMonsterBot {
     private static final String TOKEN = token.TOKEN;    // bot token in secret file token.java
     private static final String PREFIX = "!";	// prefix for commands
     private static IDiscordClient client;
+    private static ArrayList<Command> commands = new ArrayList<>();
     private static int readmessages = 0;    // todo save to file
     private static int readCommands = 0;
     private static int uptime = 0;  // todo fix a timer
@@ -34,18 +37,27 @@ public class DiscordMonsterBot {
         try {
             client = new ClientBuilder().withToken(TOKEN).build();	// builds client
             client.getDispatcher().registerListener(new DiscordMonsterBot());	// add listener
-            client.login();													// login :^)
-            client.changeStatus(Status.game("Hentai School 3D"));               // xD
+            client.login();													        // login :^)
+
+            // add all commands
+            commands.add(new HelloCommand());
+            commands.add(new JoinCommand());
+            commands.add(new PausCommand());
+            commands.add(new PlayCommand());
+            commands.add(new SkipCommand());
+            commands.add(new VolumeCommand());
+            commands.add(new AddSongLocalCommand());
+
         } catch (DiscordException | RateLimitException e) {
             e.printStackTrace();
         }
-
     }
 
     // event when bot is ready
     @EventSubscriber
     public void onReady(ReadyEvent event) {
         System.out.println("Bot is now ready!");
+        client.changeStatus(Status.game("Hentai School 3D"));
     }
 
     // event when bot reads a message
@@ -66,7 +78,23 @@ public class DiscordMonsterBot {
         readCommands++;
 
         msg = msg.substring(1);	// remove prefix character
+        String[] args = new String[0];
+        String command = msg;
 
+        if(msg.contains(" ")){
+            command = msg.substring(0, msg.indexOf(" "));           // get first word in string as command
+            args = msg.substring(msg.indexOf(" ") + 1).split(" ");  // get rest of words in string as args
+        }
+
+        // run command
+        for(Command cmd : commands){
+            if(cmd.getCommand().equals(command)){
+                cmd.runCommand(user, channel, message, args);
+            }
+        }
+
+        // old todo remove
+        /*
         if(msg.startsWith("tts")){
             printTTS(channel, message);
         }
@@ -101,6 +129,7 @@ public class DiscordMonsterBot {
         else if(msg.equals("currentSong")){
             currentSong(channel);
         }
+        */
     }
 
     // todo info/help command
@@ -128,8 +157,8 @@ public class DiscordMonsterBot {
 
     private void scanned(IChannel channel) throws RateLimitException, DiscordException, MissingPermissionsException {
         channel.sendMessage(
-                "messages scanned: " + readmessages +
-                        "\ncommands scanned: " + readCommands
+                "messages scanned: **" + readmessages + "**" +
+                "\ncommands scanned: **" + readCommands + "**"
         );
     }
 
@@ -211,7 +240,7 @@ public class DiscordMonsterBot {
     }
 
     // return the player
-    private AudioPlayer getPlayer(IGuild guild) {
+    public static AudioPlayer getPlayer(IGuild guild) {
         return AudioPlayer.getAudioPlayerForGuild(guild);
     }
 
