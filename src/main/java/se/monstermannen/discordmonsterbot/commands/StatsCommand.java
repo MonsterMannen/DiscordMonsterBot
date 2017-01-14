@@ -1,6 +1,8 @@
 package se.monstermannen.discordmonsterbot.commands;
 
+import com.sun.management.OperatingSystemMXBean;
 import se.monstermannen.discordmonsterbot.Command;
+import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
@@ -10,11 +12,20 @@ import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RateLimitException;
 
 import java.awt.*;
+import java.lang.management.ManagementFactory;
 
 /**
  * Give stats about the bot
  */
 public class StatsCommand implements Command {
+    private Runtime runtime;
+    private int mem;
+
+    public StatsCommand(){
+        runtime = Runtime.getRuntime();
+        mem = (int) (runtime.totalMemory() - runtime.freeMemory());
+        mem /= 1024*1024;
+    }
 
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
@@ -23,17 +34,18 @@ public class StatsCommand implements Command {
                 .withAuthorIcon(channel.getClient().getOurUser().getAvatarURL())
                 .withColor(Color.GRAY)
                 .withDesc("bot stats")
-                .appendField("Servers:", "1", true)
-                .appendField("Uptime:", "1", true)
+                .appendField("Servers:", channel.getClient().getGuilds().size() + "", true)
+                .appendField("Uptime:", DiscordMonsterBot.getUptime(), true)
                 .appendField("\u200B", "\u200B", true)
-                .appendField("Text Channels:", "1", true)
-                .appendField("Voice Channels:", "1", true)
+                .appendField("Text Channels:", channel.getClient().getChannels(false).size() + "", true) // ignore private channels
+                .appendField("Voice Connections:", channel.getClient().getConnectedVoiceChannels().size()+"", true)
                 .appendField("\u200B", "\u200B", true) // newline? stole from flarebot hihi :^)
-                .appendField("CPU Usage:", "1", true)
-                .appendField("Memory Usage:", "1", true)
+                .appendField("CPU Usage:", ((int) (ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class)
+                        .getSystemCpuLoad() * 10000)) / 100f + "%", true)   // ty FlareBot
+                .appendField("Memory Usage:", mem + "MB", true)
                 .appendField("\u200B", "\u200B", true)
                 .appendField("\u200B", "\u200B", false)
-                .appendField("Source: ", "[`GitHub`](https://github.com/#)", true);
+                .appendField("Source: ", "[`GitHub`](https://github.com/MonsterMannen/DiscordMonsterBot)", true);
         try {
             channel.sendMessage("", embed.build(), false);
         } catch (RateLimitException | DiscordException | MissingPermissionsException e) {

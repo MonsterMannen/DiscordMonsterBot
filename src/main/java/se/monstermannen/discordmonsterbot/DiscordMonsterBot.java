@@ -20,13 +20,14 @@ public class DiscordMonsterBot {
     public static final String PREFIX = "!";	// prefix for commands
     private static IDiscordClient client;
     private static ArrayList<Command> commands = new ArrayList<>();
-    private static int readMessages = 0;    // todo save to file
-    private static int readCommands = 0;
-    private static int uptime = 0;  // todo fix a timer
+    private static int readMessages;    // todo save to file
+    private static int readCommands;
+    public static long startTime;
 
     public static void main(String[] args){
         try {
             DiscordMonsterBot bot = new DiscordMonsterBot();
+            DiscordMonsterBot.startTime = System.currentTimeMillis();
             client = new ClientBuilder().withToken(TOKEN).build();	// builds client
             client.getDispatcher().registerListener(new Events(bot));	// add listener
             client.login();											         // login :^)
@@ -61,6 +62,18 @@ public class DiscordMonsterBot {
 
     public void setStatus(Status status){
         client.changeStatus(status);
+    }
+
+    public static String getUptime(){
+        long totalsec = (System.currentTimeMillis() - startTime) / 1000;
+        long hours = totalsec / 3600;
+        long minutes = (totalsec / 60) % 60;
+        long seconds = totalsec % 60;
+        String ret = (hours < 10 ? "0" : "") + hours + "h "
+                + (minutes < 10 ? "0"  : "") + minutes + "m "
+                + (seconds < 10 ? "0" : "") + seconds + "s";
+
+        return ret;
     }
 
     public int getReadmessages(){
