@@ -44,6 +44,9 @@ public class StatsCommand implements Command {
                         .getSystemCpuLoad() * 10000)) / 100f + "%", true)   // ty FlareBot
                 .appendField("Memory Usage:", mem + "MB", true)
                 .appendField("\u200B", "\u200B", true)
+                .appendField("Read Messages:", DiscordMonsterBot.getReadmessages() + "", true)
+                .appendField("Executed Commands:", DiscordMonsterBot.getReadCommands() + "", true)
+                .appendField("\u200B", "\u200B", true)
                 .appendField("\u200B", "\u200B", false)
                 .appendField("Source: ", "[`GitHub`](https://github.com/MonsterMannen/DiscordMonsterBot)", true);
         try {

@@ -39,7 +39,7 @@ public class JoinCommand implements Command {
 
     @Override
     public String getDescription() {
-        return "Join the users voicechannel";
+        return "Join your voicechannel.";
     }
 
 }

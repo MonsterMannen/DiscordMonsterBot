@@ -9,6 +9,7 @@ import sx.blah.discord.util.RateLimitException;
 import sx.blah.discord.util.audio.AudioPlayer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Viktor on 2017-01-12.
@@ -20,6 +21,7 @@ public class DiscordMonsterBot {
     public static final String PREFIX = "!";	// prefix for commands
     private static IDiscordClient client;
     private static ArrayList<Command> commands = new ArrayList<>();
+    public static HashMap<AudioPlayer.Track, String> playlist = new HashMap<>();
     private static int readMessages;    // todo save to file
     private static int readCommands;
     public static long startTime;
@@ -36,12 +38,12 @@ public class DiscordMonsterBot {
             commands.add(new HelpCommand());
             commands.add(new HelloCommand());
             commands.add(new JoinCommand());
+            commands.add(new LeaveCommand());
             commands.add(new PausCommand());
             commands.add(new PlayCommand());
             commands.add(new SkipCommand());
             commands.add(new VolumeCommand());
-            commands.add(new AddSongLocalCommand());
-            commands.add(new AddSongURLCommand());
+            commands.add(new AddSongCommand());
             commands.add(new SongCommand());
             commands.add(new StatsCommand());
 
@@ -51,6 +53,7 @@ public class DiscordMonsterBot {
     }
 
 
+    // loop playlist. check ontrackend
     // todo take all args as songname (so space in filename works)
     // todo ontrackload set songtitle as game playing
     // todo info/help command
@@ -76,11 +79,11 @@ public class DiscordMonsterBot {
         return ret;
     }
 
-    public int getReadmessages(){
+    public static int getReadmessages(){
         return readMessages;
     }
 
-    public int getReadCommands(){
+    public static int getReadCommands(){
         return readCommands;
     }
 

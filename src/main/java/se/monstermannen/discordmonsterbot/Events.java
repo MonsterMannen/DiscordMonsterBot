@@ -10,6 +10,11 @@ import sx.blah.discord.handle.obj.Status;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RateLimitException;
+import sx.blah.discord.util.audio.AudioPlayer;
+import sx.blah.discord.util.audio.events.TrackFinishEvent;
+import sx.blah.discord.util.audio.events.TrackSkipEvent;
+
+import java.util.HashMap;
 
 /**
  * Handle all events
@@ -58,6 +63,24 @@ public class Events {
             if(cmd.getCommand().equals(command)){
                 cmd.runCommand(user, channel, message, args);
                 bot.increaseReadCommands();
+            }
+        }
+    }
+
+    @EventSubscriber
+    public void onTrackFinish(TrackFinishEvent event){
+        if(event.getNewTrack() == null){    // last song ended
+            for(AudioPlayer.Track t : DiscordMonsterBot.playlist.keySet()){ // readd every song to queue
+                event.getPlayer().queue(t);
+            }
+        }
+    }
+
+    @EventSubscriber
+    public void onTrackSkip(TrackSkipEvent event){
+        if(event.getTrack() == null){    // last song ended todo change to next song somehow
+            for(AudioPlayer.Track t : DiscordMonsterBot.playlist.keySet()){ // readd every song to queue
+                event.getPlayer().queue(t);
             }
         }
     }
