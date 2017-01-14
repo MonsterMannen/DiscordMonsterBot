@@ -1,2 +1,10 @@
 # DiscordMonsterBot
-java discord bot
+## About 
+A Java Discord bot. Pretty cool :D
+
+Using [Discord4Java](https://github.com/austinv11/Discord4J)
+
+## Stuff the bot can do
+Play music.
+
+Show some stats.
