@@ -15,7 +15,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Created by Viktor on 2017-01-13.
+ * Add a song to play queue from the specified url
  */
 public class AddSongURLCommand implements Command {
 

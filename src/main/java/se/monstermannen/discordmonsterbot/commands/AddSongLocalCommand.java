@@ -5,6 +5,7 @@ import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
+import sx.blah.discord.handle.obj.Status;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RateLimitException;
@@ -30,7 +31,14 @@ public class AddSongLocalCommand implements Command {
             return;
         }
 
-        File f = new File(args[0]);
+        String song = "";
+        for(String s : args){
+            song += s + " ";
+        }
+        song = song.substring(0, song.length()-1);
+        System.out.println(song);
+
+        File f = new File(song);
         if(!f.exists()){
             try {
                 channel.sendMessage("File doesn't exist");
@@ -43,7 +51,7 @@ public class AddSongLocalCommand implements Command {
         AudioPlayer player = DiscordMonsterBot.getPlayer(channel.getGuild());
         try {
             final AudioPlayer.Track t = player.queue(f);    // add audio to queue
-            //setTrackTitle(t, f.toString());                 // add title
+            channel.getClient().changeStatus(Status.stream(f.getName()+"", ""));
         } catch (IOException | UnsupportedAudioFileException e) {
             e.printStackTrace();
         }

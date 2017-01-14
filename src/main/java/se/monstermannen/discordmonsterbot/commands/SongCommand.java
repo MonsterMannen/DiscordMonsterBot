@@ -1,20 +1,30 @@
 package se.monstermannen.discordmonsterbot.commands;
 
 import se.monstermannen.discordmonsterbot.Command;
-import sun.misc.MessageUtils;
+import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
-import sx.blah.discord.util.EmbedBuilder;
+import sx.blah.discord.util.DiscordException;
+import sx.blah.discord.util.MissingPermissionsException;
+import sx.blah.discord.util.RateLimitException;
 
 /**
- * Print infp on current song
+ * Print info on current song
  */
 public class SongCommand implements Command {
 
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
-        // todo implement
+        if(DiscordMonsterBot.getPlayer(channel.getGuild()).getCurrentTrack() == null) return;
+
+        String songname = "not implemented";    // todo fix
+
+        try {
+            channel.sendMessage(songname);
+        } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
