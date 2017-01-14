@@ -19,6 +19,7 @@ import java.util.HashMap;
 public class DiscordMonsterBot {
     private static final String TOKEN = token.TOKEN;    // bot token in secret file token.java
     public static final String PREFIX = "!";	// prefix for commands
+    public static final String MUSICDIR = "E:\\Musik";   // directory with songs
     private static IDiscordClient client;
     private static ArrayList<Command> commands = new ArrayList<>();
     public static HashMap<AudioPlayer.Track, String> playlist = new HashMap<>();
@@ -44,6 +45,7 @@ public class DiscordMonsterBot {
             commands.add(new SkipCommand());
             commands.add(new VolumeCommand());
             commands.add(new AddSongCommand());
+            commands.add(new ListSongsCommand());
             commands.add(new SongCommand());
             commands.add(new StatsCommand());
 
@@ -63,9 +65,6 @@ public class DiscordMonsterBot {
     // todo set game func
     // todo make currentSong output cool with a volume bar :D
 
-    public void setStatus(Status status){
-        client.changeStatus(status);
-    }
 
     public static String getUptime(){
         long totalsec = (System.currentTimeMillis() - startTime) / 1000;

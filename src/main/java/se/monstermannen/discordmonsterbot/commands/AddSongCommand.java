@@ -5,7 +5,6 @@ import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
-import sx.blah.discord.handle.obj.Status;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RateLimitException;
@@ -16,6 +15,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Add a song via file or url to the play queue
@@ -27,6 +28,29 @@ public class AddSongCommand implements Command {
         if(args.length == 0){
             try {
                 channel.sendMessage("No song specified");
+            } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+
+        // only a number. chose song from list
+        if(args.length == 1 && isInteger(args[0])){
+            int index = Integer.parseInt(args[0]);
+
+            List<String> results = new ArrayList<>();
+            File[] files = new File(DiscordMonsterBot.MUSICDIR).listFiles();
+
+            for (File file : files) {
+                if (file.isFile()) {
+                    results.add(file.getName());
+                }
+            }
+            String path = DiscordMonsterBot.MUSICDIR + "/" + results.get(index);
+
+            songFromFile(channel, path);
+            try {
+                channel.sendMessage(results.get(index) + " added to play queue");
             } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
                 e.printStackTrace();
             }
@@ -101,5 +125,14 @@ public class AddSongCommand implements Command {
                 e1.printStackTrace();
             }
         }
+    }
+
+    private boolean isInteger(String s) {
+        try {
+            Integer.parseInt(s);
+        } catch(Exception e){
+            return false;
+        }
+        return true;
     }
 }
