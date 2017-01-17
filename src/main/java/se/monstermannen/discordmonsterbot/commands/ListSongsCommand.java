@@ -33,7 +33,7 @@ public class ListSongsCommand implements Command {
                         "---------------------------------------------------------------------------------------";
 
         for(int i = 0; i < results.size(); i++){
-            if(msg.length() > 1900) break;
+            if(msg.length() > 1900) break;  // todo do something smart here (discord msg max length 2000)
             msg += "\n";
             if(i < 10) msg += " ";
             msg += i + ". " + results.get(i);

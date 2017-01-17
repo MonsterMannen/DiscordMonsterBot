@@ -54,16 +54,15 @@ public class DiscordMonsterBot {
         }
     }
 
-
-    // loop playlist. check ontrackend
-    // todo take all args as songname (so space in filename works)
-    // todo ontrackload set songtitle as game playing
-    // todo info/help command
+    // yt download songs
+    // todo properties file with #scanmsgs
+    // todo loop playlist. check ontrackend
     // todo set avatar command
     // todo userinfo @derp
     // todo check who wrote most in the last 24h?
     // todo set game func
     // todo make currentSong output cool with a volume bar :D
+    // 70% `|==================================                        |`
 
 
     public static String getUptime(){
