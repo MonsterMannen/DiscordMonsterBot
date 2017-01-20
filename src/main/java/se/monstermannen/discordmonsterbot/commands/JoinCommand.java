@@ -25,7 +25,11 @@ public class JoinCommand implements Command {
         }else { // user in a voicechannel
             try {
                 IVoiceChannel voiceChannel = user.getConnectedVoiceChannels().get(0);
-                voiceChannel.join();
+
+                if(channel.getGuild().equals(voiceChannel.getGuild())){ // check that voicechannel is in correct guild
+                    voiceChannel.join();
+                }
+
             } catch (MissingPermissionsException e) {
                 e.printStackTrace();
             }

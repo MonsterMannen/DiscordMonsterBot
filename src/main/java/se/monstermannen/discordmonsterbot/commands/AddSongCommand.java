@@ -17,6 +17,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Add a song via file or url to the play queue
@@ -34,10 +35,8 @@ public class AddSongCommand implements Command {
             return;
         }
 
-        // only a number. chose song from list
-        if(args.length == 1 && isInteger(args[0])){
-            int index = Integer.parseInt(args[0]);
-
+        // only a number or "random". chose song from list
+        if(args.length == 1){
             List<String> results = new ArrayList<>();
             File[] files = new File(DiscordMonsterBot.MUSICDIR).listFiles();
 
@@ -46,6 +45,19 @@ public class AddSongCommand implements Command {
                     results.add(file.getName());
                 }
             }
+
+            int index = 0;
+
+            if(isInteger(args[0])){
+                index = Integer.parseInt(args[0]);
+            }else if(args[0].equals("random")){
+                index = (int)(Math.random() * results.size());    // random number 0 to size-1
+            }else{
+                return;
+            }
+
+            if(index < 0 || index > results.size()) return;
+
             String path = DiscordMonsterBot.MUSICDIR + "/" + results.get(index);
 
             songFromFile(channel, path);
@@ -67,7 +79,7 @@ public class AddSongCommand implements Command {
         if(song.startsWith("www.") || song.startsWith("http://") || song.startsWith("https://")){
             songFromURL(channel, song);
         }else{
-            songFromFile(channel, song);
+            songFromFile(channel, DiscordMonsterBot.MUSICDIR + "/" + song); // adding music directory to path
         }
     }
 

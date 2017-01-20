@@ -3,10 +3,7 @@ package se.monstermannen.discordmonsterbot;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.events.ReadyEvent;
-import sx.blah.discord.handle.obj.IChannel;
-import sx.blah.discord.handle.obj.IMessage;
-import sx.blah.discord.handle.obj.IUser;
-import sx.blah.discord.handle.obj.Status;
+import sx.blah.discord.handle.obj.*;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RateLimitException;
@@ -14,7 +11,7 @@ import sx.blah.discord.util.audio.AudioPlayer;
 import sx.blah.discord.util.audio.events.TrackFinishEvent;
 import sx.blah.discord.util.audio.events.TrackSkipEvent;
 
-import java.util.HashMap;
+import java.util.List;
 
 /**
  * Handle all events
@@ -30,7 +27,13 @@ public class Events {
     @EventSubscriber
     public void onReady(ReadyEvent event) {
         System.out.println("Bot online!");
-        bot.getClient().changeStatus(Status.game("Hentai School 3D"));   // hehe
+        bot.getClient().changeStatus(Status.game("Riven xD"));   // hehe
+
+        List<IGuild> guilds = bot.getClient().getGuilds();
+        for(IGuild g : guilds){
+            DiscordMonsterBot.getPlayer(g).setLoop(DiscordMonsterBot.LOOPPLAYLIST);   // set loop for all guilds
+            DiscordMonsterBot.getPlayer(g).setVolume((float) 50 / 100);               // set volume to 50
+        }
     }
 
     // event when bot reads a message
