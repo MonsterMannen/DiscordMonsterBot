@@ -60,7 +60,7 @@ public class Events {
 
         // run command
         for(Command cmd : DiscordMonsterBot.getCommands()){
-            if(cmd.getCommand().equals(command)){
+            if(cmd.getCommand().equalsIgnoreCase(command)){
                 cmd.runCommand(user, channel, message, args);
                 bot.increaseReadCommands();
             }

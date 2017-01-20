@@ -47,6 +47,9 @@ public class DiscordMonsterBot {
             commands.add(new AddSongCommand());
             commands.add(new ListSongsCommand());
             commands.add(new SongCommand());
+            commands.add(new UserInfoCommand());
+            commands.add(new SetBotGameCommand());
+            commands.add(new SetBotAvatarCommand());
             commands.add(new StatsCommand());
 
         } catch (DiscordException | RateLimitException e) {
@@ -58,11 +61,16 @@ public class DiscordMonsterBot {
     // todo properties file with #scanmsgs
     // todo loop playlist. check ontrackend
     // todo set avatar command
-    // todo userinfo @derp
     // todo check who wrote most in the last 24h?
     // todo set game func
     // todo make currentSong output cool with a volume bar :D
     // 70% `|==================================                        |`
+
+    // smarter join?
+    // if (message.getAuthor().getVoiceChannel().isPresent())
+    // message.getAuthor().getVoiceChannel().get().join();
+
+    // https://github.com/GrandPanda/RadioModule/blob/master/src/main/java/com/darichey/radiomodule/CommandQueue.java
 
 
     public static String getUptime(){
