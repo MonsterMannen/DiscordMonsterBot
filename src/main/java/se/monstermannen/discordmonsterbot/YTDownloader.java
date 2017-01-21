@@ -10,6 +10,7 @@ import java.io.PrintWriter;
  */
 public class YTDownloader {
     /**
+     * Download a youtube video to mp3
      *
      * @param url to youtube video
      * @return path to song if success or an error message starting with 'ERROR:' if not

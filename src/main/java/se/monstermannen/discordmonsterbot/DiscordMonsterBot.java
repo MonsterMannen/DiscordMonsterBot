@@ -59,10 +59,10 @@ public class DiscordMonsterBot {
     }
 
     // todo show playlist command
-    // todo yt download songs
     // todo properties file with #scanmsgs
     // todo check who wrote most in the last 24h?
     // todo make date format better (userinfo)
+    // todo better YT download. google api?
     // https://github.com/GrandPanda/RadioModule/blob/master/src/main/java/com/darichey/radiomodule/CommandQueue.java
 
 
