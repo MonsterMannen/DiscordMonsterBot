@@ -2,6 +2,7 @@ package se.monstermannen.discordmonsterbot.commands;
 
 import se.monstermannen.discordmonsterbot.Command;
 import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
+import se.monstermannen.discordmonsterbot.YTDownloader;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
@@ -11,13 +12,11 @@ import sx.blah.discord.util.RateLimitException;
 import sx.blah.discord.util.audio.AudioPlayer;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Add a song via file or url to the play queue
@@ -26,6 +25,7 @@ public class AddSongCommand implements Command {
 
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
+        // no args
         if(args.length == 0){
             try {
                 channel.sendMessage("No song specified");
@@ -35,31 +35,54 @@ public class AddSongCommand implements Command {
             return;
         }
 
-        // only a number or "random". chose song from list
-        if(args.length == 1){
+        // youtube arg
+        if(args[0].contains("youtube.com/watch?v=") || args[0].contains("youtu.be/")){
+            channel.setTypingStatus(true);
+            String path = YTDownloader.download(args[0]);
+            System.out.println("got: " + path);
+            if(path.startsWith("ERROR")){
+                try {
+                    channel.sendMessage(path);
+                } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
+                    e.printStackTrace();
+                }
+                channel.setTypingStatus(false);
+                return;
+            }
+            try {
+                Thread.sleep(1000); // need to wait for song to complete? wtf?
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            channel.setTypingStatus(false);
+            songFromFile(channel, path);
+            return;
+        }
+
+        // number or 'random'. Chose song from list
+        if(args.length == 1 && (isInteger(args[0]) || args[0].equals("random"))){
+            // get a list of all songs
             List<String> results = new ArrayList<>();
             File[] files = new File(DiscordMonsterBot.MUSICDIR).listFiles();
-
             for (File file : files) {
                 if (file.isFile()) {
                     results.add(file.getName());
                 }
             }
 
-            int index = 0;
+
+            int index = -1;
 
             if(isInteger(args[0])){
                 index = Integer.parseInt(args[0]);
+                if(index < 0 || index >= results.size()) return; // check that number is in range
             }else if(args[0].equals("random")){
                 index = (int)(Math.random() * results.size());    // random number 0 to size-1
-            }else{
-                return;
             }
-
-            if(index < 0 || index > results.size()) return;
 
             String path = DiscordMonsterBot.MUSICDIR + "/" + results.get(index);
 
+            // add song
             songFromFile(channel, path);
             try {
                 channel.sendMessage(results.get(index) + " added to play queue");
@@ -69,6 +92,7 @@ public class AddSongCommand implements Command {
             return;
         }
 
+        // get here means args array contains the song name
         // put all arguments into one string
         String song = "";
         for(String s : args){

@@ -37,6 +37,7 @@ public class UserInfoCommand implements Command {
                         + "\nJoined: \t" + channel.getGuild().getJoinTimeForUser(u).toString()
                         + "\nID: \t\t" + u.getID()
                         + "\nAvatar: \t" + u.getAvatarURL();
+
         } catch (DiscordException e) {
             e.printStackTrace();
         }

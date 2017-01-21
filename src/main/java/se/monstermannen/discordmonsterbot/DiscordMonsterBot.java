@@ -19,8 +19,8 @@ import java.util.HashMap;
 public class DiscordMonsterBot {
     private static final String TOKEN = token.TOKEN;    // bot token in secret file token.java
     public static final String PREFIX = "!";	// prefix for commands
-    public static final String MUSICDIR = "E:\\Musik";   // directory with songs
-    public static final boolean LOOPPLAYLIST = true;
+    public static final String MUSICDIR = "E:/Musik";   // directory with songs
+    public static final boolean LOOPPLAYLIST = false;
     private static IDiscordClient client;
     private static ArrayList<Command> commands = new ArrayList<>();
     public static HashMap<AudioPlayer.Track, String> playlist = new HashMap<>();
@@ -62,6 +62,7 @@ public class DiscordMonsterBot {
     // todo yt download songs
     // todo properties file with #scanmsgs
     // todo check who wrote most in the last 24h?
+    // todo make date format better (userinfo)
     // https://github.com/GrandPanda/RadioModule/blob/master/src/main/java/com/darichey/radiomodule/CommandQueue.java
 
 
@@ -75,10 +76,6 @@ public class DiscordMonsterBot {
                 + (seconds < 10 ? "0" : "") + seconds + "s";
 
         return ret;
-    }
-
-    public void initPlayer(boolean loop){
-
     }
 
     public static int getReadmessages(){
