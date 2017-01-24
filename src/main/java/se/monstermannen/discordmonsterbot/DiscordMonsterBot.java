@@ -51,6 +51,8 @@ public class DiscordMonsterBot {
             commands.add(new UserInfoCommand());
             commands.add(new SetBotGameCommand());
             commands.add(new SetBotAvatarCommand());
+            commands.add(new VirusCommand());
+            commands.add(new FlipCommand());
             commands.add(new StatsCommand());
 
         } catch (DiscordException | RateLimitException e) {
@@ -62,7 +64,9 @@ public class DiscordMonsterBot {
     // todo properties file with #scanmsgs
     // todo check who wrote most in the last 24h?
     // todo make date format better (userinfo)
-    // todo better YT download. google api?
+    // todo better YT download. google api? skip bat file?
+    // todo logger
+    // todo command types. admin privs
     // https://github.com/GrandPanda/RadioModule/blob/master/src/main/java/com/darichey/radiomodule/CommandQueue.java
 
 

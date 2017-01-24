@@ -27,7 +27,7 @@ public class Events {
     @EventSubscriber
     public void onReady(ReadyEvent event) {
         System.out.println("Bot online!");
-        bot.getClient().changeStatus(Status.game("Riven xD"));   // hehe
+        bot.getClient().changeStatus(Status.stream("xD", "https://www.twitch.tv/phantomn00b"));   // hehe
 
         List<IGuild> guilds = bot.getClient().getGuilds();
         for(IGuild g : guilds){
