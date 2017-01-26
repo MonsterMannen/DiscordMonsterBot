@@ -1,6 +1,7 @@
 package se.monstermannen.discordmonsterbot.commands;
 
 import se.monstermannen.discordmonsterbot.Command;
+import se.monstermannen.discordmonsterbot.CommandType;
 import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
@@ -24,6 +25,11 @@ public class PausCommand implements Command {
     @Override
     public String getDescription() {
         return "Paus current song.";
+    }
+
+    @Override
+    public CommandType getCommandType(){
+        return CommandType.GENERAL;
     }
 
 }

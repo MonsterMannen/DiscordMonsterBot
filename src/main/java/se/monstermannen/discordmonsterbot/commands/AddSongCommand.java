@@ -1,6 +1,7 @@
 package se.monstermannen.discordmonsterbot.commands;
 
 import se.monstermannen.discordmonsterbot.Command;
+import se.monstermannen.discordmonsterbot.CommandType;
 import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
 import se.monstermannen.discordmonsterbot.YTDownloader;
 import sx.blah.discord.handle.obj.IChannel;
@@ -115,6 +116,11 @@ public class AddSongCommand implements Command {
     @Override
     public String getDescription() {
         return "Add a song via file or url to the play queue.";
+    }
+
+    @Override
+    public CommandType getCommandType(){
+        return CommandType.GENERAL;
     }
 
     private void songFromFile(IChannel channel, String file) {

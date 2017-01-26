@@ -2,6 +2,7 @@ package se.monstermannen.discordmonsterbot.commands;
 
 import se.monstermannen.discordmonsterbot.Command;
 import se.monstermannen.discordmonsterbot.CommandType;
+import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
@@ -10,32 +11,33 @@ import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RateLimitException;
 
 /**
- * Flip a coin command
+ * Set prefix for bot commands. Owner only.
  */
-public class FlipCommand implements Command {
+public class SetBotPrefixCommand implements Command {
+
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
-        int x = (int)(Math.random() * 2);
+        DiscordMonsterBot.PREFIX = args[0];
         try {
-            channel.sendMessage(x + "");
+            channel.sendMessage("Prefix set to " + DiscordMonsterBot.PREFIX);
         } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
     public String getCommand() {
-        return "flip";
+        return "setBotPrefix";
     }
 
     @Override
     public String getDescription() {
-        return "Return 1 or 0";
+        return "Set the prefix for commands.";
     }
 
     @Override
     public CommandType getCommandType(){
-        return CommandType.GENERAL;
+        return CommandType.ADMIN;
     }
+
 }

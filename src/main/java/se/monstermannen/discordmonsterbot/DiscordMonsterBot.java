@@ -25,6 +25,7 @@ public class DiscordMonsterBot {
     public static String PREFIX = "!";	// prefix for commands
     public static String MUSICDIR = "E:/Musik";   // directory with songs
     public static boolean LOOPPLAYLIST = false;
+    public static String ADMIN_ID = "101041126537973760";
     private static IDiscordClient client;
     private static ArrayList<Command> commands = new ArrayList<>();
     public static HashMap<AudioPlayer.Track, String> playlist = new HashMap<>();
@@ -56,11 +57,14 @@ public class DiscordMonsterBot {
             commands.add(new ListSongsCommand());
             commands.add(new SongCommand());
             commands.add(new UserInfoCommand());
-            commands.add(new SetBotGameCommand());
-            commands.add(new SetBotAvatarCommand());
             commands.add(new VirusCommand());
             commands.add(new FlipCommand());
             commands.add(new StatsCommand());
+
+            // admin only commands
+            commands.add(new SetBotGameCommand());
+            commands.add(new SetBotAvatarCommand());
+            commands.add(new SetBotPrefixCommand());
 
         } catch (DiscordException | RateLimitException e) {
             e.printStackTrace();

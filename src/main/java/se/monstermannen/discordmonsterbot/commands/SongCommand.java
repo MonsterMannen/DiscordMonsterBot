@@ -1,6 +1,7 @@
 package se.monstermannen.discordmonsterbot.commands;
 
 import se.monstermannen.discordmonsterbot.Command;
+import se.monstermannen.discordmonsterbot.CommandType;
 import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
@@ -73,6 +74,11 @@ public class SongCommand implements Command {
     @Override
     public String getDescription() {
         return "Give info about current song playing";
+    }
+
+    @Override
+    public CommandType getCommandType(){
+        return CommandType.GENERAL;
     }
 
 }

@@ -1,8 +1,7 @@
 package se.monstermannen.discordmonsterbot.commands;
 
 import se.monstermannen.discordmonsterbot.Command;
-import sx.blah.discord.api.internal.json.objects.EmojiObject;
-import sx.blah.discord.handle.impl.obj.Emoji;
+import se.monstermannen.discordmonsterbot.CommandType;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
@@ -18,7 +17,7 @@ public class VirusCommand implements Command {
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
         try {
-            channel.sendMessage("https://monstermannen.github.io/freemovie.exe?xd=sexy_girl.jpg \uD83D\uDE02");
+            channel.sendMessage("https://monstermannen.github.io/freemovie.exe?xd=sexy_girl.jpg \uD83D\uDE02"); // laughing emoji code
         } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
             e.printStackTrace();
         }
@@ -32,6 +31,11 @@ public class VirusCommand implements Command {
     @Override
     public String getDescription() {
         return "Gives a link to a free movie.";
+    }
+
+    @Override
+    public CommandType getCommandType(){
+        return CommandType.GENERAL;
     }
 
 }

@@ -1,6 +1,7 @@
 package se.monstermannen.discordmonsterbot.commands;
 
 import se.monstermannen.discordmonsterbot.Command;
+import se.monstermannen.discordmonsterbot.CommandType;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
@@ -63,6 +64,11 @@ public class UserInfoCommand implements Command {
     @Override
     public String getDescription() {
         return "Give info about mentioned user.";
+    }
+
+    @Override
+    public CommandType getCommandType(){
+        return CommandType.GENERAL;
     }
 
 }

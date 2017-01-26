@@ -15,4 +15,6 @@ public interface Command {
 
     String getDescription();
 
+    CommandType getCommandType();
+
 }

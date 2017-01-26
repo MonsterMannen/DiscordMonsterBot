@@ -1,6 +1,7 @@
 package se.monstermannen.discordmonsterbot.commands;
 
 import se.monstermannen.discordmonsterbot.Command;
+import se.monstermannen.discordmonsterbot.CommandType;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
@@ -32,4 +33,10 @@ public class SetBotGameCommand implements Command {
     public String getDescription() {
         return "Changes the bots status game to specified string";
     }
+
+    @Override
+    public CommandType getCommandType(){
+        return CommandType.ADMIN;
+    }
+
 }

@@ -28,7 +28,7 @@ public class Events {
     @EventSubscriber
     public void onReady(ReadyEvent event) {
         System.out.println("Bot online!");
-        bot.getClient().changeStatus(Status.stream("xD", "https://www.twitch.tv/phantomn00b"));   // hehe
+        bot.getClient().changeStatus(Status.stream("4chan games", "https://www.twitch.tv/phantomn00b"));   // hehe
 
         List<IGuild> guilds = bot.getClient().getGuilds();
         for(IGuild g : guilds){
@@ -67,8 +67,12 @@ public class Events {
         // run command
         for(Command cmd : DiscordMonsterBot.getCommands()){
             if(cmd.getCommand().equalsIgnoreCase(command)){
-                cmd.runCommand(user, channel, message, args);
-                bot.increaseReadCommands();
+                if(cmd.getCommandType() == CommandType.ADMIN && !user.getID().equals(DiscordMonsterBot.ADMIN_ID)){
+                    channel.sendMessage("Admin only command \uD83D\uDE0E"); // sunglasses smiley
+                }else {
+                    cmd.runCommand(user, channel, message, args);
+                    bot.increaseReadCommands();
+                }
             }
         }
     }

@@ -1,6 +1,7 @@
 package se.monstermannen.discordmonsterbot.commands;
 
 import se.monstermannen.discordmonsterbot.Command;
+import se.monstermannen.discordmonsterbot.CommandType;
 import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
@@ -20,7 +21,7 @@ public class HelpCommand implements Command {
             help(channel);
         }else{
             if(args[0].startsWith(DiscordMonsterBot.PREFIX)){
-                args[0] = args[0].substring(1); // remove potential prefix
+                args[0] = args[0].substring(DiscordMonsterBot.PREFIX.length()); // remove potential prefix
             }
             helpCommand(channel, args[0]);
         }
@@ -31,7 +32,9 @@ public class HelpCommand implements Command {
             String msg = "Type `" + DiscordMonsterBot.PREFIX + "help` and a command for more info.";
             msg += "\n\nCommands:";
             for(Command cmd : DiscordMonsterBot.getCommands()){
-                msg += "\n  `" + DiscordMonsterBot.PREFIX + cmd.getCommand() + "`";
+                if(cmd.getCommandType() != CommandType.GENERAL.ADMIN) {
+                    msg += "\n  `" + DiscordMonsterBot.PREFIX + cmd.getCommand() + "`";
+                }
             }
             channel.sendMessage(msg);
 
@@ -44,7 +47,7 @@ public class HelpCommand implements Command {
         String msg = "";
         boolean found = false;
         for(Command cmd : DiscordMonsterBot.getCommands()){
-            if(cmd.getCommand().equals(command)){
+            if(cmd.getCommand().equalsIgnoreCase(command)){
                 msg = cmd.getDescription();
                 found = true;
             }
@@ -67,6 +70,11 @@ public class HelpCommand implements Command {
     @Override
     public String getDescription() {
         return "Print help info.";
+    }
+
+    @Override
+    public CommandType getCommandType(){
+        return CommandType.GENERAL;
     }
 
 }

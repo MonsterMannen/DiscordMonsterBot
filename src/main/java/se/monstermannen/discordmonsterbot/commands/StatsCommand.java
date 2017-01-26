@@ -2,6 +2,7 @@ package se.monstermannen.discordmonsterbot.commands;
 
 import com.sun.management.OperatingSystemMXBean;
 import se.monstermannen.discordmonsterbot.Command;
+import se.monstermannen.discordmonsterbot.CommandType;
 import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
@@ -64,6 +65,11 @@ public class StatsCommand implements Command {
     @Override
     public String getDescription() {
         return "Stats about the bot.";
+    }
+
+    @Override
+    public CommandType getCommandType(){
+        return CommandType.GENERAL;
     }
 
 }

@@ -1,6 +1,7 @@
 package se.monstermannen.discordmonsterbot.commands;
 
 import se.monstermannen.discordmonsterbot.Command;
+import se.monstermannen.discordmonsterbot.CommandType;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
@@ -29,5 +30,10 @@ public class SetBotAvatarCommand implements Command {
     @Override
     public String getDescription() {
         return "Change the bots avatar to specified url";
+    }
+
+    @Override
+    public CommandType getCommandType(){
+        return CommandType.ADMIN;
     }
 }
