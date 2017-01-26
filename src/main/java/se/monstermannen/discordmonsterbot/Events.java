@@ -1,5 +1,6 @@
 package se.monstermannen.discordmonsterbot;
 
+import sun.dc.pr.PRError;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.events.ReadyEvent;
@@ -50,9 +51,11 @@ public class Events {
         System.out.printf("[%s][%s]<%s>: %s\n", g, c, a, msg); // console output
         bot.increaseReadMessages();
 
-        if(!msg.startsWith(DiscordMonsterBot.PREFIX) || msg.length() < 2) return;	// return if not correct prefix or only one char
+        // return if not correct prefix or only prefix + 1 char
+        if(!msg.startsWith(DiscordMonsterBot.PREFIX) || msg.length() < DiscordMonsterBot.PREFIX.length() + 1)
+            return;
 
-        msg = msg.substring(1);	// remove prefix character
+        msg = msg.substring(DiscordMonsterBot.PREFIX.length());	// remove prefix character/s
         String[] args = new String[0];
         String command = msg;
 

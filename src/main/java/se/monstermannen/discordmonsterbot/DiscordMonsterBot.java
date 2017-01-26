@@ -8,8 +8,12 @@ import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.RateLimitException;
 import sx.blah.discord.util.audio.AudioPlayer;
 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Properties;
 
 /**
  * Created by Viktor on 2017-01-12.
@@ -18,12 +22,13 @@ import java.util.HashMap;
  */
 public class DiscordMonsterBot {
     private static final String TOKEN = token.TOKEN;    // bot token in secret file token.java
-    public static final String PREFIX = "!";	// prefix for commands
-    public static final String MUSICDIR = "E:/Musik";   // directory with songs
-    public static final boolean LOOPPLAYLIST = false;
+    public static String PREFIX = "!";	// prefix for commands
+    public static String MUSICDIR = "E:/Musik";   // directory with songs
+    public static boolean LOOPPLAYLIST = false;
     private static IDiscordClient client;
     private static ArrayList<Command> commands = new ArrayList<>();
     public static HashMap<AudioPlayer.Track, String> playlist = new HashMap<>();
+    public static MonsterTimer timer;
     private static int readMessages;
     private static int readCommands;
     public static long startTime;
@@ -32,6 +37,8 @@ public class DiscordMonsterBot {
         try {
             DiscordMonsterBot bot = new DiscordMonsterBot();
             DiscordMonsterBot.startTime = System.currentTimeMillis();
+            DiscordMonsterBot.readProperties();
+            timer = new MonsterTimer();
             client = new ClientBuilder().withToken(TOKEN).build();	// builds client
             client.getDispatcher().registerListener(new Events(bot));	// add listener
             client.login();											         // login :^)
@@ -80,6 +87,42 @@ public class DiscordMonsterBot {
                 + (seconds < 10 ? "0" : "") + seconds + "s";
 
         return ret;
+    }
+
+    private static void readProperties(){
+        try {
+            FileReader reader = new FileReader("config/config.properties");
+            Properties properties = new Properties();
+            properties.load(reader);
+
+            PREFIX = properties.getProperty("prefix", PREFIX);
+            MUSICDIR = properties.getProperty("music_directory", MUSICDIR);
+            LOOPPLAYLIST = Boolean.parseBoolean(properties.getProperty("loop", LOOPPLAYLIST + ""));
+
+            FileReader reader2 = new FileReader("config/stats.properties");
+            properties.load(reader2);
+            String rm =  properties.getProperty("scanned_messages", readMessages + "");
+            readMessages = Integer.parseInt(rm);
+
+            String rc =  properties.getProperty("scanned_commands", readCommands + "");
+            readCommands = Integer.parseInt(rc);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveProperties(){
+        Properties properties = new Properties();
+        properties.setProperty("scanned_messages", readMessages + "");
+        properties.setProperty("scanned_commands", readCommands + "");
+
+        try {
+            FileWriter writer = new FileWriter("config/stats.properties");
+            properties.store(writer, "");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static int getReadmessages(){

@@ -1,1 +1,1 @@
-python youtube-dl https://www.youtube.com/watch?v=f9QDrpa2Qps --extract-audio --audio-format mp3 --output youtube-downloads/%%(title)s.%%(ext)s
+python youtube-dl https://youtu.be/uO7kCUjUaUE --extract-audio --audio-format mp3 --output youtube-downloads/%%(title)s.%%(ext)s
