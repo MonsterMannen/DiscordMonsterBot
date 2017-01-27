@@ -66,7 +66,7 @@ public class AddSongCommand implements Command {
             List<String> results = new ArrayList<>();
             File[] files = new File(DiscordMonsterBot.MUSICDIR).listFiles();
             for (File file : files) {
-                if (file.isFile()) {
+                if (file.isFile() && (file.getName().endsWith(".mp3") || file.getName().endsWith(".wav"))){
                     results.add(file.getName());
                 }
             }

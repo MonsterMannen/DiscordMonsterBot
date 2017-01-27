@@ -77,21 +77,4 @@ public class Events {
         }
     }
 
-    @EventSubscriber
-    public void onTrackFinish(TrackFinishEvent event){
-        if(event.getNewTrack() == null){    // last song ended
-            for(AudioPlayer.Track t : DiscordMonsterBot.playlist.keySet()){ // readd every song to queue
-                event.getPlayer().queue(t);
-            }
-        }
-    }
-
-    @EventSubscriber
-    public void onTrackSkip(TrackSkipEvent event){
-        if(event.getTrack() == null){    // last song ended todo change to next song somehow
-            for(AudioPlayer.Track t : DiscordMonsterBot.playlist.keySet()){ // readd every song to queue
-                event.getPlayer().queue(t);
-            }
-        }
-    }
 }

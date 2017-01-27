@@ -21,7 +21,7 @@ import java.util.Properties;
  * main class
  */
 public class DiscordMonsterBot {
-    private static final String TOKEN = token.TOKEN;    // bot token in secret file token.java
+    private static String TOKEN = token.TOKEN;    // bot token in secret file token.java
     public static String PREFIX = "!";	// prefix for commands
     public static String MUSICDIR = "E:/Musik";   // directory with songs
     public static boolean LOOPPLAYLIST = false;
@@ -56,6 +56,7 @@ public class DiscordMonsterBot {
             commands.add(new AddSongCommand());
             commands.add(new ListSongsCommand());
             commands.add(new SongCommand());
+            commands.add(new PlaylistCommand());
             commands.add(new UserInfoCommand());
             commands.add(new VirusCommand());
             commands.add(new FlipCommand());
@@ -72,13 +73,9 @@ public class DiscordMonsterBot {
     }
 
     // todo show playlist command
-    // todo properties file with #scanmsgs
-    // todo check who wrote most in the last 24h?
     // todo make date format better (userinfo)
     // todo better YT download. google api? skip bat file?
     // todo logger
-    // todo command types. admin privs
-    // https://github.com/GrandPanda/RadioModule/blob/master/src/main/java/com/darichey/radiomodule/CommandQueue.java
 
 
     public static String getUptime(){
@@ -99,6 +96,8 @@ public class DiscordMonsterBot {
             Properties properties = new Properties();
             properties.load(reader);
 
+            TOKEN = properties.getProperty("bot_token", TOKEN);
+            ADMIN_ID = properties.getProperty("adminID", ADMIN_ID);
             PREFIX = properties.getProperty("prefix", PREFIX);
             MUSICDIR = properties.getProperty("music_directory", MUSICDIR);
             LOOPPLAYLIST = Boolean.parseBoolean(properties.getProperty("loop", LOOPPLAYLIST + ""));
