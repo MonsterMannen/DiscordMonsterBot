@@ -1,16 +1,16 @@
 package se.monstermannen.discordmonsterbot;
 
-import sun.dc.pr.PRError;
+import com.vdurmont.emoji.EmojiManager;
 import sx.blah.discord.api.events.EventSubscriber;
-import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.events.ReadyEvent;
+import sx.blah.discord.handle.impl.events.VoiceUserSpeakingEvent;
+import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
+import sx.blah.discord.handle.impl.events.guild.channel.message.reaction.ReactionAddEvent;
 import sx.blah.discord.handle.obj.*;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RateLimitException;
-import sx.blah.discord.util.audio.AudioPlayer;
-import sx.blah.discord.util.audio.events.TrackFinishEvent;
-import sx.blah.discord.util.audio.events.TrackSkipEvent;
+import sx.blah.discord.util.RequestBuffer;
 
 import java.util.List;
 
@@ -28,7 +28,8 @@ public class Events {
     @EventSubscriber
     public void onReady(ReadyEvent event) {
         System.out.println("Bot online!");
-        bot.getClient().changeStatus(Status.stream("4chan games", "https://www.twitch.tv/phantomn00b"));   // hehe
+        //bot.getClient().changeStatus(Status.stream("4chan games", "https://www.twitch.tv/phantomn00b"));   // hehe
+        bot.getClient().changePlayingText("not csgo");
 
         List<IGuild> guilds = bot.getClient().getGuilds();
         for(IGuild g : guilds){
@@ -75,6 +76,34 @@ public class Events {
                 }
             }
         }
+    }
+
+    @EventSubscriber
+    public void onReactionAdd(ReactionAddEvent event){
+
+        try {
+            RequestBuffer.request(() -> {
+                com.vdurmont.emoji.Emoji emoji = EmojiManager.getForAlias("joy");
+                event.getMessage().addReaction(emoji.getUnicode());
+            });
+
+        } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @EventSubscriber //(this spams the shit outta chats, do soemthing fun with it maybe)
+    public void onTalk(VoiceUserSpeakingEvent event){
+        return;
+        /*
+
+        try {
+            event.getUser().getConnectedVoiceChannels().get(0).getGuild().getChannels().get(0)
+                    .sendMessage(event.getUser().getName() + " is talking xD");
+        } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
+            e.printStackTrace();
+        }
+        */
     }
 
 }

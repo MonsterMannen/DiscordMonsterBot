@@ -3,7 +3,7 @@ package se.monstermannen.discordmonsterbot;
 import se.monstermannen.discordmonsterbot.commands.*;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
-import sx.blah.discord.handle.obj.*;
+import sx.blah.discord.handle.obj.IGuild;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.RateLimitException;
 import sx.blah.discord.util.audio.AudioPlayer;
@@ -21,15 +21,15 @@ import java.util.Properties;
  * main class
  */
 public class DiscordMonsterBot {
-    private static String TOKEN = token.TOKEN;    // bot token in secret file token.java
-    public static String PREFIX = "!";	// prefix for commands
-    public static String MUSICDIR = "E:/Musik";   // directory with songs
+    private static String TOKEN = token.TOKEN;      // bot token in secret file token.java
+    public static String PREFIX = "!";              // prefix for commands
+    public static String MUSICDIR = "E:/Musik";     // directory with songs
     public static boolean LOOPPLAYLIST = false;
     public static String ADMIN_ID = "101041126537973760";
     private static IDiscordClient client;
+    public static MonsterTimer timer;
     private static ArrayList<Command> commands = new ArrayList<>();
     public static HashMap<AudioPlayer.Track, String> playlist = new HashMap<>();
-    public static MonsterTimer timer;
     private static int readMessages;
     private static int readCommands;
     public static long startTime;
@@ -62,7 +62,7 @@ public class DiscordMonsterBot {
             commands.add(new FlipCommand());
             commands.add(new StatsCommand());
 
-            // admin only commands
+            // admin only commands (not listen when using help)
             commands.add(new SetBotGameCommand());
             commands.add(new SetBotAvatarCommand());
             commands.add(new SetBotPrefixCommand());
@@ -72,10 +72,14 @@ public class DiscordMonsterBot {
         }
     }
 
-    // todo show playlist command
+
     // todo make date format better (userinfo)
     // todo better YT download. google api? skip bat file?
     // todo logger
+    // private user chat
+    // todo request buffer message parser
+
+    // todo embed for listsongs
 
 
     public static String getUptime(){

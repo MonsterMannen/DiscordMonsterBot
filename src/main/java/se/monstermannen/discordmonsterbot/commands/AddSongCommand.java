@@ -13,7 +13,8 @@ import sx.blah.discord.util.RateLimitException;
 import sx.blah.discord.util.audio.AudioPlayer;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -66,7 +67,8 @@ public class AddSongCommand implements Command {
             List<String> results = new ArrayList<>();
             File[] files = new File(DiscordMonsterBot.MUSICDIR).listFiles();
             for (File file : files) {
-                if (file.isFile() && (file.getName().endsWith(".mp3") || file.getName().endsWith(".wav"))){
+                if (file.isFile() &&
+                        (file.getName().endsWith(".mp3") || file.getName().endsWith(".wav") || file.getName().endsWith(".flac"))){
                     results.add(file.getName());
                 }
             }

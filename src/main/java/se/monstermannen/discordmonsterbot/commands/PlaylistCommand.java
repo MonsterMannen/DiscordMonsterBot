@@ -28,7 +28,7 @@ public class PlaylistCommand implements Command {
         for(AudioPlayer.Track t : playlist){
             String songname = DiscordMonsterBot.playlist.get(t);
             if(songname.endsWith(".mp3")){
-                songname = songname.substring(songname.length() - ".mp3".length());
+                songname = songname.substring(0, songname.length() - ".mp3".length());
             }
             msg += songname + "\n";
         }
