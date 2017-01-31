@@ -29,7 +29,7 @@ public class Events {
     public void onReady(ReadyEvent event) {
         System.out.println("Bot online!");
         //bot.getClient().changeStatus(Status.stream("4chan games", "https://www.twitch.tv/phantomn00b"));   // hehe
-        bot.getClient().changePlayingText("not csgo");
+        bot.getClient().changePlayingText("Gossip Girl");
 
         List<IGuild> guilds = bot.getClient().getGuilds();
         for(IGuild g : guilds){

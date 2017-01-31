@@ -77,9 +77,8 @@ public class DiscordMonsterBot {
     // todo better YT download. google api? skip bat file?
     // todo logger
     // private user chat
-    // todo request buffer message parser
-
     // todo embed for listsongs
+    // todo safety checks in play/paus
 
 
     public static String getUptime(){

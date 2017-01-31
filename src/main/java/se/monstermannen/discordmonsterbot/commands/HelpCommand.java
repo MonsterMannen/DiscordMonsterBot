@@ -3,6 +3,7 @@ package se.monstermannen.discordmonsterbot.commands;
 import se.monstermannen.discordmonsterbot.Command;
 import se.monstermannen.discordmonsterbot.CommandType;
 import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
+import se.monstermannen.discordmonsterbot.MonsterMessage;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
@@ -28,19 +29,14 @@ public class HelpCommand implements Command {
     }
 
     private void help(IChannel channel){
-        try {
-            String msg = "Type `" + DiscordMonsterBot.PREFIX + "help` and a command for more info.";
-            msg += "\n\nCommands:";
-            for(Command cmd : DiscordMonsterBot.getCommands()){
-                if(cmd.getCommandType() != CommandType.GENERAL.ADMIN) {
-                    msg += "\n  `" + DiscordMonsterBot.PREFIX + cmd.getCommand() + "`";
-                }
+        String msg = "Type `" + DiscordMonsterBot.PREFIX + "help` and a command for more info.";
+        msg += "\n\nCommands:";
+        for(Command cmd : DiscordMonsterBot.getCommands()){
+            if(cmd.getCommandType() != CommandType.ADMIN) {
+                msg += "\n  `" + DiscordMonsterBot.PREFIX + cmd.getCommand() + "`";
             }
-            channel.sendMessage(msg);
-
-        } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
-            e.printStackTrace();
         }
+        MonsterMessage.sendMessage(channel, msg);
     }
 
     private void helpCommand(IChannel channel, String command){
@@ -55,11 +51,7 @@ public class HelpCommand implements Command {
 
         if(!found) return;
 
-        try {
-            channel.sendMessage(msg);
-        } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
-            e.printStackTrace();
-        }
+        MonsterMessage.sendMessage(channel, msg);
     }
 
     @Override

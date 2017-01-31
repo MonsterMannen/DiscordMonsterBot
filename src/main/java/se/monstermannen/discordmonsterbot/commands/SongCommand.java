@@ -3,6 +3,7 @@ package se.monstermannen.discordmonsterbot.commands;
 import se.monstermannen.discordmonsterbot.Command;
 import se.monstermannen.discordmonsterbot.CommandType;
 import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
+import se.monstermannen.discordmonsterbot.MonsterMessage;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
@@ -59,11 +60,7 @@ public class SongCommand implements Command {
                 .withColor(Color.CYAN)
                 .withDescription("**" + songname + "** \n\nvol: " + vol + "%");
 
-        try {
-            channel.sendMessage("", embed.build(), false);
-        } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
-            e.printStackTrace();
-        }
+        MonsterMessage.sendMessage(channel, embed.build());
     }
 
     @Override
@@ -78,7 +75,7 @@ public class SongCommand implements Command {
 
     @Override
     public CommandType getCommandType(){
-        return CommandType.GENERAL;
+        return CommandType.MUSIC;
     }
 
 }

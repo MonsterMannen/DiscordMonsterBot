@@ -36,7 +36,7 @@ public class LeaveCommand implements Command {
 
     @Override
     public CommandType getCommandType(){
-        return CommandType.GENERAL;
+        return CommandType.MUSIC;
     }
 
 }

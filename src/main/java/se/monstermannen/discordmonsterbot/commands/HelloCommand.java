@@ -2,6 +2,7 @@ package se.monstermannen.discordmonsterbot.commands;
 
 import se.monstermannen.discordmonsterbot.Command;
 import se.monstermannen.discordmonsterbot.CommandType;
+import se.monstermannen.discordmonsterbot.MonsterMessage;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
@@ -20,11 +21,8 @@ public class HelloCommand implements Command {
         for(String word : args){
             append += word + " ";
         }
-        try {
-            channel.sendMessage("hello " + append);
-        } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
-            e.printStackTrace();
-        }
+
+        MonsterMessage.sendMessage(channel, "hello " + append);
     }
 
     @Override

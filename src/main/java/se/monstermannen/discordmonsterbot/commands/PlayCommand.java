@@ -24,12 +24,12 @@ public class PlayCommand implements Command {
 
     @Override
     public String getDescription() {
-        return "Start playing music.";
+        return "Start/Unpause player.";
     }
 
     @Override
     public CommandType getCommandType(){
-        return CommandType.GENERAL;
+        return CommandType.MUSIC;
     }
 
 }

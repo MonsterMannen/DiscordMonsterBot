@@ -3,6 +3,7 @@ package se.monstermannen.discordmonsterbot.commands;
 import se.monstermannen.discordmonsterbot.Command;
 import se.monstermannen.discordmonsterbot.CommandType;
 import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
+import se.monstermannen.discordmonsterbot.MonsterMessage;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
@@ -18,11 +19,7 @@ public class VolumeCommand implements Command {
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
         if(args.length == 0){
-            try {
-                channel.sendMessage("No argument");
-            } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
-                e.printStackTrace();
-            }
+            MonsterMessage.sendMessage(channel, "Needs one argument");
         }else{
             if(!isNumber(args[0])) return;  // return if not number
             int vol = Integer.parseInt(args[0]);
@@ -46,7 +43,7 @@ public class VolumeCommand implements Command {
 
     @Override
     public CommandType getCommandType(){
-        return CommandType.GENERAL;
+        return CommandType.MUSIC;
     }
 
     // return true if arg is a number
