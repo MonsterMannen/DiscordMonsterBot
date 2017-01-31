@@ -1,4 +1,4 @@
-package se.monstermannen.discordmonsterbot;
+package se.monstermannen.discordmonsterbot.util;
 
 import sx.blah.discord.api.internal.json.objects.EmbedObject;
 import sx.blah.discord.handle.obj.IChannel;

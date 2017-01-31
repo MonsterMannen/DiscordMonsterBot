@@ -1,6 +1,12 @@
 package se.monstermannen.discordmonsterbot;
 
-import se.monstermannen.discordmonsterbot.commands.*;
+import se.monstermannen.discordmonsterbot.commands.Command;
+import se.monstermannen.discordmonsterbot.commands.admin.SetBotAvatarCommand;
+import se.monstermannen.discordmonsterbot.commands.admin.SetBotGameCommand;
+import se.monstermannen.discordmonsterbot.commands.admin.SetBotPrefixCommand;
+import se.monstermannen.discordmonsterbot.commands.general.*;
+import se.monstermannen.discordmonsterbot.commands.music.*;
+import se.monstermannen.discordmonsterbot.util.MonsterTimer;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.obj.IGuild;
@@ -71,7 +77,7 @@ public class DiscordMonsterBot {
             e.printStackTrace();
         }
     }
-
+    
 
     // todo make date format better (userinfo)
     // todo better YT download. google api? skip bat file?

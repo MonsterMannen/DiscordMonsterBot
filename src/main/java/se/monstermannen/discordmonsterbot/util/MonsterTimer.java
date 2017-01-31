@@ -1,4 +1,6 @@
-package se.monstermannen.discordmonsterbot;
+package se.monstermannen.discordmonsterbot.util;
+
+import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
 
 import java.util.Timer;
 import java.util.TimerTask;

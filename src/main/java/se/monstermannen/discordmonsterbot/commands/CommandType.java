@@ -1,4 +1,4 @@
-package se.monstermannen.discordmonsterbot;
+package se.monstermannen.discordmonsterbot.commands;
 
 /**
  * Command types
