@@ -1,4 +1,4 @@
-package se.monstermannen.discordmonsterbot;
+package se.monstermannen.discordmonsterbot.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;

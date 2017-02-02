@@ -1,12 +1,13 @@
-package se.monstermannen.discordmonsterbot.commands;
+package se.monstermannen.discordmonsterbot.commands.music;
 
-import se.monstermannen.discordmonsterbot.Command;
-import se.monstermannen.discordmonsterbot.CommandType;
+import se.monstermannen.discordmonsterbot.commands.Command;
+import se.monstermannen.discordmonsterbot.commands.CommandType;
 import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
+import se.monstermannen.discordmonsterbot.util.MonsterMessage;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
-import sx.blah.discord.util.*;
+import sx.blah.discord.util.EmbedBuilder;
 import sx.blah.discord.util.audio.AudioPlayer;
 
 import java.awt.*;
@@ -30,18 +31,14 @@ public class PlaylistCommand implements Command {
             msg += songname + "\n";
         }
 
-        try {
-            if(playlist.size() == 0){
-                channel.sendMessage("Playlist empty");
-            }else{
-                EmbedBuilder embed = new EmbedBuilder()
-                        .withColor(Color.ORANGE)
-                        .appendField("Playlist[" + playlist.size() + "]", msg, false);
+        if(playlist.size() == 0){
+            MonsterMessage.sendMessage(channel, "Playlist empty");
+        }else{
+            EmbedBuilder embed = new EmbedBuilder()
+                    .withColor(Color.ORANGE)
+                    .appendField("Playlist[" + playlist.size() + "]", msg, false);
 
-                channel.sendMessage("", embed.build(), false);
-            }
-        } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
-            e.printStackTrace();
+            MonsterMessage.sendMessage(channel, embed.build());
         }
     }
 
@@ -57,7 +54,7 @@ public class PlaylistCommand implements Command {
 
     @Override
     public CommandType getCommandType() {
-        return CommandType.GENERAL;
+        return CommandType.MUSIC;
     }
 
 }

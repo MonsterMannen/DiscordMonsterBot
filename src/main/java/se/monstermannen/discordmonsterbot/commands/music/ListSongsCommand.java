@@ -1,14 +1,12 @@
-package se.monstermannen.discordmonsterbot.commands;
+package se.monstermannen.discordmonsterbot.commands.music;
 
-import se.monstermannen.discordmonsterbot.Command;
-import se.monstermannen.discordmonsterbot.CommandType;
+import se.monstermannen.discordmonsterbot.commands.Command;
+import se.monstermannen.discordmonsterbot.commands.CommandType;
 import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
+import se.monstermannen.discordmonsterbot.util.MonsterMessage;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
-import sx.blah.discord.util.DiscordException;
-import sx.blah.discord.util.MissingPermissionsException;
-import sx.blah.discord.util.RateLimitException;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -22,12 +20,18 @@ public class ListSongsCommand implements Command {
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
         List<String> results = new ArrayList<>();
-        File[] files = new File(DiscordMonsterBot.MUSICDIR).listFiles();
 
-        for (File file : files) {
-            if (file.isFile()) {
-                results.add(file.getName());
+        try {
+            File[] files = new File(DiscordMonsterBot.MUSICDIR).listFiles();
+
+            for (File file : files) {
+                if (file.isFile()) {
+                    results.add(file.getName());
+                }
             }
+        }catch (Exception e){
+            MonsterMessage.sendMessage(channel, "ERROR: " + e.getMessage());
+            return;
         }
 
         String msg = "``` #  Songs\n" +
@@ -41,11 +45,7 @@ public class ListSongsCommand implements Command {
         }
         msg += "```";
 
-        try {
-            channel.sendMessage(msg);
-        } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
-            e.printStackTrace();
-        }
+        MonsterMessage.sendMessage(channel, msg);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class ListSongsCommand implements Command {
 
     @Override
     public CommandType getCommandType(){
-        return CommandType.GENERAL;
+        return CommandType.MUSIC;
     }
 
 }

@@ -1,15 +1,13 @@
-package se.monstermannen.discordmonsterbot.commands;
+package se.monstermannen.discordmonsterbot.commands.music;
 
-import se.monstermannen.discordmonsterbot.Command;
-import se.monstermannen.discordmonsterbot.CommandType;
+import se.monstermannen.discordmonsterbot.commands.Command;
+import se.monstermannen.discordmonsterbot.commands.CommandType;
 import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
+import se.monstermannen.discordmonsterbot.util.MonsterMessage;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
-import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.EmbedBuilder;
-import sx.blah.discord.util.MissingPermissionsException;
-import sx.blah.discord.util.RateLimitException;
 
 import java.awt.*;
 
@@ -23,12 +21,12 @@ public class SongCommand implements Command {
         if(DiscordMonsterBot.getPlayer(channel.getGuild()).getCurrentTrack() == null) return;
 
         // song title
-        String songname = DiscordMonsterBot.playlist
-                .get(DiscordMonsterBot.getPlayer(channel.getGuild()).getCurrentTrack());
+        String songname = "fix this xD";
+        //DiscordMonsterBot.playlist.get(DiscordMonsterBot.getPlayer(channel.getGuild()).getCurrentTrack());
 
         // player volume
         float volume = DiscordMonsterBot.getPlayer(channel.getGuild()).getVolume() * 100;
-        int vol = (int) volume;
+        int vol = 100; //(int) volume;
 
         /*
         This cool idea doesn't work well with mp3s. unlucky. maybe fix later.
@@ -59,11 +57,7 @@ public class SongCommand implements Command {
                 .withColor(Color.CYAN)
                 .withDescription("**" + songname + "** \n\nvol: " + vol + "%");
 
-        try {
-            channel.sendMessage("", embed.build(), false);
-        } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
-            e.printStackTrace();
-        }
+        MonsterMessage.sendMessage(channel, embed.build());
     }
 
     @Override
@@ -78,7 +72,7 @@ public class SongCommand implements Command {
 
     @Override
     public CommandType getCommandType(){
-        return CommandType.GENERAL;
+        return CommandType.MUSIC;
     }
 
 }

@@ -1,6 +1,9 @@
 package se.monstermannen.discordmonsterbot;
 
 import com.vdurmont.emoji.EmojiManager;
+import se.monstermannen.discordmonsterbot.commands.Command;
+import se.monstermannen.discordmonsterbot.commands.CommandType;
+import se.monstermannen.discordmonsterbot.util.MonsterMessage;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.ReadyEvent;
 import sx.blah.discord.handle.impl.events.VoiceUserSpeakingEvent;
@@ -29,7 +32,7 @@ public class Events {
     public void onReady(ReadyEvent event) {
         System.out.println("Bot online!");
         //bot.getClient().changeStatus(Status.stream("4chan games", "https://www.twitch.tv/phantomn00b"));   // hehe
-        bot.getClient().changePlayingText("not csgo");
+        bot.getClient().changePlayingText("Getting reworked");
 
         List<IGuild> guilds = bot.getClient().getGuilds();
         for(IGuild g : guilds){
@@ -69,7 +72,7 @@ public class Events {
         for(Command cmd : DiscordMonsterBot.getCommands()){
             if(cmd.getCommand().equalsIgnoreCase(command)){
                 if(cmd.getCommandType() == CommandType.ADMIN && !user.getID().equals(DiscordMonsterBot.ADMIN_ID)){
-                    channel.sendMessage("Admin only command \uD83D\uDE0E"); // sunglasses smiley
+                    MonsterMessage.sendMessage(channel, "Admin only command \uD83D\uDE0E"); // sunglasses smiley
                 }else {
                     cmd.runCommand(user, channel, message, args);
                     bot.increaseReadCommands();

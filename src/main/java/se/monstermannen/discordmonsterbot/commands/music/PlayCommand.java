@@ -1,35 +1,35 @@
-package se.monstermannen.discordmonsterbot.commands;
+package se.monstermannen.discordmonsterbot.commands.music;
 
-import se.monstermannen.discordmonsterbot.Command;
-import se.monstermannen.discordmonsterbot.CommandType;
+import se.monstermannen.discordmonsterbot.commands.Command;
+import se.monstermannen.discordmonsterbot.commands.CommandType;
 import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
 
 /**
- * Skip current song command
+ * Play song command
  */
-public class SkipCommand implements Command {
+public class PlayCommand implements Command {
 
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
-        DiscordMonsterBot.getPlayer(channel.getGuild()).skip();
+        DiscordMonsterBot.getPlayer(channel.getGuild()).setPaused(false);
     }
 
     @Override
     public String getCommand() {
-        return "skip";
+        return "play";
     }
 
     @Override
     public String getDescription() {
-        return "Skip to next song.";
+        return "Start/Unpause player.";
     }
 
     @Override
     public CommandType getCommandType(){
-        return CommandType.GENERAL;
+        return CommandType.MUSIC;
     }
 
 }

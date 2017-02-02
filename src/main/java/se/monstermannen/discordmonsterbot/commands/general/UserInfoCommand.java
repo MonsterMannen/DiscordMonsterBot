@@ -1,14 +1,13 @@
-package se.monstermannen.discordmonsterbot.commands;
+package se.monstermannen.discordmonsterbot.commands.general;
 
-import se.monstermannen.discordmonsterbot.Command;
-import se.monstermannen.discordmonsterbot.CommandType;
+import se.monstermannen.discordmonsterbot.commands.Command;
+import se.monstermannen.discordmonsterbot.commands.CommandType;
+import se.monstermannen.discordmonsterbot.util.MonsterMessage;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.EmbedBuilder;
-import sx.blah.discord.util.MissingPermissionsException;
-import sx.blah.discord.util.RateLimitException;
 
 import java.awt.*;
 import java.util.List;
@@ -22,11 +21,7 @@ public class UserInfoCommand implements Command {
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
         List<IUser> mentions = message.getMentions();
         if(mentions.isEmpty()){
-            try {
-                channel.sendMessage("No user mentioned.");
-            } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
-                e.printStackTrace();
-            }
+            MonsterMessage.sendMessage(channel, "No user mentioned");
             return;
         }
 
@@ -48,11 +43,7 @@ public class UserInfoCommand implements Command {
                 .withThumbnail(u.getAvatarURL())
                 .appendField(u.getDisplayName(channel.getGuild()), msg, false);
 
-        try {
-            channel.sendMessage("", embed.build(), false);
-        } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
-            e.printStackTrace();
-        }
+        MonsterMessage.sendMessage(channel, embed.build());
 
     }
 

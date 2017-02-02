@@ -1,6 +1,13 @@
 package se.monstermannen.discordmonsterbot;
 
-import se.monstermannen.discordmonsterbot.commands.*;
+import se.monstermannen.discordmonsterbot.commands.Command;
+import se.monstermannen.discordmonsterbot.commands.TestCommand;
+import se.monstermannen.discordmonsterbot.commands.admin.SetBotAvatarCommand;
+import se.monstermannen.discordmonsterbot.commands.admin.SetBotGameCommand;
+import se.monstermannen.discordmonsterbot.commands.admin.SetBotPrefixCommand;
+import se.monstermannen.discordmonsterbot.commands.general.*;
+import se.monstermannen.discordmonsterbot.commands.music.*;
+import se.monstermannen.discordmonsterbot.util.MonsterTimer;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.obj.IGuild;
@@ -67,6 +74,8 @@ public class DiscordMonsterBot {
             commands.add(new SetBotAvatarCommand());
             commands.add(new SetBotPrefixCommand());
 
+            commands.add(new TestCommand());
+
         } catch (DiscordException | RateLimitException e) {
             e.printStackTrace();
         }
@@ -77,9 +86,10 @@ public class DiscordMonsterBot {
     // todo better YT download. google api? skip bat file?
     // todo logger
     // private user chat
-    // todo request buffer message parser
-
     // todo embed for listsongs
+    // todo safety checks in play/paus
+    // todo IMDB command (api)
+    // divide help commands in groups
 
     // todo channel.getmessages. who spams? xD
     // todo loop command

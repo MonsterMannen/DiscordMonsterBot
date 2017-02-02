@@ -15,10 +15,24 @@
     </properties>
 
     <repositories>
+
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
+
+        <repository>
+            <id>central</id>
+            <name>bintray</name>
+            <url>http://jcenter.bintray.com</url>
+        </repository>
+
+        <repository>
+            <id>repo.arsenarsen.com</id>
+            <url>https://repo.arsenarsen.com/content/repositories/snapshots/</url>
+        </repository>
+
+
     </repositories>
 
     <dependencies>
@@ -29,11 +43,22 @@
             <version>bda7615</version>
         </dependency>
 
-
         <dependency>
             <groupId>com.vdurmont</groupId>
             <artifactId>emoji-java</artifactId>
             <version>3.1.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sedmelluq</groupId>
+            <artifactId>lavaplayer</artifactId>
+            <version>1.1.45</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.arsenarsen.lavaplayer-bridge</groupId>
+            <artifactId>discord4j-impl</artifactId>
+            <version>1.10-SNAPSHOT</version>
         </dependency>
 
     </dependencies>

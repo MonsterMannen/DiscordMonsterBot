@@ -1,4 +1,4 @@
-package se.monstermannen.discordmonsterbot;
+package se.monstermannen.discordmonsterbot.commands;
 
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;

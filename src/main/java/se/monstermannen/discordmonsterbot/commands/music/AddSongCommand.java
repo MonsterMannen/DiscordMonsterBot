@@ -1,15 +1,13 @@
-package se.monstermannen.discordmonsterbot.commands;
+package se.monstermannen.discordmonsterbot.commands.music;
 
-import se.monstermannen.discordmonsterbot.Command;
-import se.monstermannen.discordmonsterbot.CommandType;
-import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
-import se.monstermannen.discordmonsterbot.YTDownloader;
+import se.monstermannen.discordmonsterbot.*;
+import se.monstermannen.discordmonsterbot.commands.Command;
+import se.monstermannen.discordmonsterbot.commands.CommandType;
+import se.monstermannen.discordmonsterbot.util.MonsterMessage;
+import se.monstermannen.discordmonsterbot.util.YTDownloader;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
-import sx.blah.discord.util.DiscordException;
-import sx.blah.discord.util.MissingPermissionsException;
-import sx.blah.discord.util.RateLimitException;
 import sx.blah.discord.util.audio.AudioPlayer;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -29,11 +27,7 @@ public class AddSongCommand implements Command {
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
         // no args
         if(args.length == 0){
-            try {
-                channel.sendMessage("No song specified");
-            } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
-                e.printStackTrace();
-            }
+            MonsterMessage.sendMessage(channel, "No song specified");
             return;
         }
 
@@ -42,12 +36,8 @@ public class AddSongCommand implements Command {
             channel.setTypingStatus(true);
             String path = YTDownloader.download(args[0]);
             System.out.println("got: " + path);
-            if(path.startsWith("ERROR")){
-                try {
-                    channel.sendMessage(path);
-                } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
-                    e.printStackTrace();
-                }
+            if(path.startsWith("ERROR")){       // not sure if this works. needs to be rewritten
+                MonsterMessage.sendMessage(channel, path);
                 channel.setTypingStatus(false);
                 return;
             }
@@ -87,11 +77,7 @@ public class AddSongCommand implements Command {
 
             // add song
             songFromFile(channel, path);
-            try {
-                channel.sendMessage(results.get(index) + " added to play queue");
-            } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
-                e.printStackTrace();
-            }
+            MonsterMessage.sendMessage(channel, "**" + results.get(index) + "** added to play queue");
             return;
         }
 
@@ -128,11 +114,7 @@ public class AddSongCommand implements Command {
     private void songFromFile(IChannel channel, String file) {
         File f = new File(file);
         if (!f.exists()) {
-            try {
-                channel.sendMessage("File doesn't exist");
-            } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
-                e.printStackTrace();
-            }
+            MonsterMessage.sendMessage(channel, "File doesn't exist");
             return;
         }
 
@@ -151,23 +133,11 @@ public class AddSongCommand implements Command {
             AudioPlayer.Track t = DiscordMonsterBot.getPlayer(channel.getGuild()).queue(u);
             DiscordMonsterBot.playlist.put(t, "url song");
         } catch (MalformedURLException e) {
-            try {
-                channel.sendMessage("invalid URL");
-            } catch (MissingPermissionsException | RateLimitException | DiscordException e1) {
-                e1.printStackTrace();
-            }
+            MonsterMessage.sendMessage(channel, "Invalid URL");
         } catch (UnsupportedAudioFileException e) {
-            try {
-                channel.sendMessage("invalid file type");
-            } catch (MissingPermissionsException | RateLimitException | DiscordException e1) {
-                e1.printStackTrace();
-            }
+            MonsterMessage.sendMessage(channel, "Invalid file type");
         } catch (IOException e) {
-            try {
-                channel.sendMessage("IO exception: " + e.getMessage());
-            } catch (MissingPermissionsException | RateLimitException | DiscordException e1) {
-                e1.printStackTrace();
-            }
+            MonsterMessage.sendMessage(channel, "IO exception: " + e.getMessage());
         }
     }
 
