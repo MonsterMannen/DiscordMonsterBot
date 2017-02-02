@@ -1,6 +1,7 @@
 package se.monstermannen.discordmonsterbot;
 
 import se.monstermannen.discordmonsterbot.commands.Command;
+import se.monstermannen.discordmonsterbot.commands.TestCommand;
 import se.monstermannen.discordmonsterbot.commands.admin.SetBotAvatarCommand;
 import se.monstermannen.discordmonsterbot.commands.admin.SetBotGameCommand;
 import se.monstermannen.discordmonsterbot.commands.admin.SetBotPrefixCommand;
@@ -73,11 +74,13 @@ public class DiscordMonsterBot {
             commands.add(new SetBotAvatarCommand());
             commands.add(new SetBotPrefixCommand());
 
+            commands.add(new TestCommand());
+
         } catch (DiscordException | RateLimitException e) {
             e.printStackTrace();
         }
     }
-    
+
 
     // todo make date format better (userinfo)
     // todo better YT download. google api? skip bat file?
@@ -85,6 +88,8 @@ public class DiscordMonsterBot {
     // private user chat
     // todo embed for listsongs
     // todo safety checks in play/paus
+    // todo IMDB command (api)
+    // divide help commands in groups
 
 
     public static String getUptime(){

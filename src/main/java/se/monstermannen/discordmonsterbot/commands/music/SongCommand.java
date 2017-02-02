@@ -21,12 +21,12 @@ public class SongCommand implements Command {
         if(DiscordMonsterBot.getPlayer(channel.getGuild()).getCurrentTrack() == null) return;
 
         // song title
-        String songname = DiscordMonsterBot.playlist
-                .get(DiscordMonsterBot.getPlayer(channel.getGuild()).getCurrentTrack());
+        String songname = "fix this xD";
+        //DiscordMonsterBot.playlist.get(DiscordMonsterBot.getPlayer(channel.getGuild()).getCurrentTrack());
 
         // player volume
         float volume = DiscordMonsterBot.getPlayer(channel.getGuild()).getVolume() * 100;
-        int vol = (int) volume;
+        int vol = 100; //(int) volume;
 
         /*
         This cool idea doesn't work well with mp3s. unlucky. maybe fix later.
