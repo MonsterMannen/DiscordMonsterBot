@@ -81,6 +81,10 @@ public class DiscordMonsterBot {
 
     // todo embed for listsongs
 
+    // todo channel.getmessages. who spams? xD
+    // todo loop command
+
+    // todo empty title list when last track ended
 
     public static String getUptime(){
         long totalsec = (System.currentTimeMillis() - startTime) / 1000;
