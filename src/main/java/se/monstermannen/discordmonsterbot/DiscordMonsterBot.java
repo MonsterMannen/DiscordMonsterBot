@@ -8,7 +8,6 @@ import com.sedmelluq.discord.lavaplayer.source.http.HttpAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.source.local.LocalAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager;
 import se.monstermannen.discordmonsterbot.commands.Command;
-import se.monstermannen.discordmonsterbot.commands.TestCommand;
 import se.monstermannen.discordmonsterbot.commands.admin.SetBotAvatarCommand;
 import se.monstermannen.discordmonsterbot.commands.admin.SetBotGameCommand;
 import se.monstermannen.discordmonsterbot.commands.admin.SetBotPrefixCommand;
