@@ -8,11 +8,13 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 
 /**
  * Testing lavaplayer
+ * not in use
  */
 public class TrackScheduler extends AudioEventAdapter {
     @Override
     public void onPlayerPause(AudioPlayer player) {
         // Player was paused
+        System.out.println("lava pause track test");
     }
 
     @Override
@@ -22,7 +24,7 @@ public class TrackScheduler extends AudioEventAdapter {
 
     @Override
     public void onTrackStart(AudioPlayer player, AudioTrack track) {
-        // A track started playing
+        System.out.println("lava start track test");
     }
 
     @Override

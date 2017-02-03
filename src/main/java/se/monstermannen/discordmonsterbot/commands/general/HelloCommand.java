@@ -29,7 +29,7 @@ public class HelloCommand implements Command {
 
     @Override
     public String getDescription() {
-        return "Return your message.";
+        return "Echoes your message.";
     }
 
     @Override

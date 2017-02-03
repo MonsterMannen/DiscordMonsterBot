@@ -6,7 +6,6 @@ import com.arsenarsen.lavaplayerbridge.libraries.UnknownBindingException;
 import com.arsenarsen.lavaplayerbridge.player.Player;
 import com.sedmelluq.discord.lavaplayer.source.http.HttpAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.source.local.LocalAudioSourceManager;
-import com.sedmelluq.discord.lavaplayer.source.twitch.TwitchStreamAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager;
 import se.monstermannen.discordmonsterbot.commands.Command;
 import se.monstermannen.discordmonsterbot.commands.TestCommand;
@@ -36,6 +35,7 @@ import java.util.Properties;
  * main class
  */
 public class DiscordMonsterBot {
+    // default values
     private static String TOKEN = token.TOKEN;      // bot token in secret file token.java
     public static String PREFIX = "!";              // prefix for commands
     public static String MUSICDIR = "E:/Musik";     // directory with songs
@@ -86,12 +86,10 @@ public class DiscordMonsterBot {
             commands.add(new FlipCommand());
             commands.add(new StatsCommand());
 
-            // admin only commands (not listen when using help)
+            // admin only commands (not listed when using help)
             commands.add(new SetBotGameCommand());
             commands.add(new SetBotAvatarCommand());
             commands.add(new SetBotPrefixCommand());
-
-            commands.add(new TestCommand());
 
         } catch (DiscordException | RateLimitException | UnknownBindingException e) {
             e.printStackTrace();
@@ -100,18 +98,15 @@ public class DiscordMonsterBot {
 
 
     // todo make date format better (userinfo)
-    // todo better YT download. google api? skip bat file?
     // todo logger
     // private user chat
-    // todo embed for listsongs
-    // todo safety checks in play/paus
     // todo IMDB command (api)
     // divide help commands in groups
-
     // todo channel.getmessages. who spams? xD
-    // todo loop command
-
     // todo empty title list when last track ended
+    // todo get song name and fix song command
+    // todo fix addsong with number
+    // todo swag command edit msg
 
     public static String getUptime(){
         long totalsec = (System.currentTimeMillis() - startTime) / 1000;
