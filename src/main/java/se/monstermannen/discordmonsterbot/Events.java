@@ -43,7 +43,7 @@ public class Events {
 
     // event when bot reads a message
     @EventSubscriber
-    public void onMessageReceived(MessageReceivedEvent event) throws RateLimitException, DiscordException, MissingPermissionsException {
+    public void onMessageReceived(MessageReceivedEvent event) {
         IMessage message = event.getMessage();
         IChannel channel = message.getChannel();
         IUser user = message.getAuthor();
@@ -80,7 +80,7 @@ public class Events {
             }
         }
     }
-
+    
     @EventSubscriber
     public void onReactionAdd(ReactionAddEvent event){
 
