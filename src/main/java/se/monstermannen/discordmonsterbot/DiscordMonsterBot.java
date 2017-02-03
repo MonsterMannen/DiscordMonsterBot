@@ -35,11 +35,11 @@ import java.util.Properties;
  */
 public class DiscordMonsterBot {
     // default values
-    private static String TOKEN = token.TOKEN;      // bot token in secret file token.java
-    public static String PREFIX = "!";              // prefix for commands
-    public static String MUSICDIR = "E:/Musik";     // directory with songs
-    public static boolean LOOPPLAYLIST = false;
-    public static String ADMIN_ID = "101041126537973760";
+    private static String TOKEN = token.TOKEN;              // bot token in secret file token.java
+    public static String PREFIX = "!";                      // prefix for commands
+    public static String MUSICDIR = "E:/Musik";             // directory with songs
+    public static boolean LOOPPLAYLIST = false;             // loop musicplayers playlist or not
+    public static String ADMIN_ID = "101041126537973760";   // discord user ID that can run admin commands
 
     private static IDiscordClient client;
     public static MonsterTimer timer;
@@ -67,23 +67,27 @@ public class DiscordMonsterBot {
             client.getDispatcher().registerListener(new Events(bot));	// add listener
             client.login();                                             // login :^)
 
-            // add all commands
+            // general commands
             commands.add(new HelpCommand());
+            commands.add(new StatsCommand());
             commands.add(new HelloCommand());
+            commands.add(new VirusCommand());
+            commands.add(new FlipCommand());
+            commands.add(new UserInfoCommand());
+
+            // music commands
             commands.add(new JoinCommand());
             commands.add(new LeaveCommand());
-            commands.add(new PausCommand());
+            commands.add(new AddSongCommand());
             commands.add(new PlayCommand());
+            commands.add(new PausCommand());
             commands.add(new SkipCommand());
             commands.add(new VolumeCommand());
-            commands.add(new AddSongCommand());
             commands.add(new ListSongsCommand());
             commands.add(new SongCommand());
             commands.add(new PlaylistCommand());
-            commands.add(new UserInfoCommand());
-            commands.add(new VirusCommand());
-            commands.add(new FlipCommand());
-            commands.add(new StatsCommand());
+            commands.add(new ShuffleCommand());
+            commands.add(new LoopCommand());
 
             // admin only commands (not listed when using help)
             commands.add(new SetBotGameCommand());
@@ -107,16 +111,10 @@ public class DiscordMonsterBot {
     // todo fix addsong with number
     // todo swag command edit msg
 
-    public static String getUptime(){
-        long totalsec = (System.currentTimeMillis() - startTime) / 1000;
-        long hours = totalsec / 3600;
-        long minutes = (totalsec / 60) % 60;
-        long seconds = totalsec % 60;
-        String ret = (hours < 10 ? "0" : "") + hours + "h "
-                + (minutes < 10 ? "0"  : "") + minutes + "m "
-                + (seconds < 10 ? "0" : "") + seconds + "s";
 
-        return ret;
+    // return time in seconds since program start
+    public static long getUptime(){
+        return (System.currentTimeMillis() - startTime) / 1000;
     }
 
     private static void readProperties(){
@@ -182,12 +180,12 @@ public class DiscordMonsterBot {
         return commands;
     }
 
-    // return the player
+    // return D4J original player
     public static AudioPlayer getOldPlayer(IGuild guild) {
         return AudioPlayer.getAudioPlayerForGuild(guild);
     }
 
-    // arsens
+    // return lavaplayer
     public static Player getPlayer(IGuild guild){
         return manager.getPlayer(guild.getID());
     }
