@@ -1,5 +1,13 @@
 package se.monstermannen.discordmonsterbot;
 
+import com.arsenarsen.lavaplayerbridge.PlayerManager;
+import com.arsenarsen.lavaplayerbridge.libraries.LibraryFactory;
+import com.arsenarsen.lavaplayerbridge.libraries.UnknownBindingException;
+import com.arsenarsen.lavaplayerbridge.player.Player;
+import com.sedmelluq.discord.lavaplayer.source.http.HttpAudioSourceManager;
+import com.sedmelluq.discord.lavaplayer.source.local.LocalAudioSourceManager;
+import com.sedmelluq.discord.lavaplayer.source.twitch.TwitchStreamAudioSourceManager;
+import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager;
 import se.monstermannen.discordmonsterbot.commands.Command;
 import se.monstermannen.discordmonsterbot.commands.TestCommand;
 import se.monstermannen.discordmonsterbot.commands.admin.SetBotAvatarCommand;
@@ -33,8 +41,11 @@ public class DiscordMonsterBot {
     public static String MUSICDIR = "E:/Musik";     // directory with songs
     public static boolean LOOPPLAYLIST = false;
     public static String ADMIN_ID = "101041126537973760";
+
     private static IDiscordClient client;
     public static MonsterTimer timer;
+    public static PlayerManager manager;
+
     private static ArrayList<Command> commands = new ArrayList<>();
     public static HashMap<AudioPlayer.Track, String> playlist = new HashMap<>();
     private static int readMessages;
@@ -48,8 +59,14 @@ public class DiscordMonsterBot {
             DiscordMonsterBot.readProperties();
             timer = new MonsterTimer();
             client = new ClientBuilder().withToken(TOKEN).build();	// builds client
+
+            manager = PlayerManager.getPlayerManager(LibraryFactory.getLibrary(client));
+            manager.getManager().registerSourceManager(new YoutubeAudioSourceManager());    // youtube
+            manager.getManager().registerSourceManager(new LocalAudioSourceManager());      // local
+            manager.getManager().registerSourceManager(new HttpAudioSourceManager());       // url
+
             client.getDispatcher().registerListener(new Events(bot));	// add listener
-            client.login();											         // login :^)
+            client.login();                                             // login :^)
 
             // add all commands
             commands.add(new HelpCommand());
@@ -76,7 +93,7 @@ public class DiscordMonsterBot {
 
             commands.add(new TestCommand());
 
-        } catch (DiscordException | RateLimitException e) {
+        } catch (DiscordException | RateLimitException | UnknownBindingException e) {
             e.printStackTrace();
         }
     }
@@ -172,7 +189,12 @@ public class DiscordMonsterBot {
     }
 
     // return the player
-    public static AudioPlayer getPlayer(IGuild guild) {
+    public static AudioPlayer getOldPlayer(IGuild guild) {
         return AudioPlayer.getAudioPlayerForGuild(guild);
+    }
+
+    // arsens
+    public static Player getPlayer(IGuild guild){
+        return manager.getPlayer(guild.getID());
     }
 }

@@ -18,39 +18,17 @@ public class SongCommand implements Command {
 
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
-        if(DiscordMonsterBot.getPlayer(channel.getGuild()).getCurrentTrack() == null) return;
+        if(DiscordMonsterBot.getPlayer(channel.getGuild()).getPlayingTrack() == null){
+            MonsterMessage.sendMessage(channel, "No song playing \uD83C\uDFB5");    // musical note emoji
+            return;
+        }
 
-        // song title
-        String songname = "fix this xD";
-        //DiscordMonsterBot.playlist.get(DiscordMonsterBot.getPlayer(channel.getGuild()).getCurrentTrack());
+        //String songname = DiscordMonsterBot.playlist.get(DiscordMonsterBot.getPlayer(channel.getGuild()).getPlayingTrack());
+        String songname = DiscordMonsterBot.getPlayer(channel.getGuild()).getPlayingTrack().toString();
 
         // player volume
-        float volume = DiscordMonsterBot.getPlayer(channel.getGuild()).getVolume() * 100;
-        int vol = 100; //(int) volume;
+        int vol = DiscordMonsterBot.getPlayer(channel.getGuild()).getVolume();
 
-        /*
-        This cool idea doesn't work well with mp3s. unlucky. maybe fix later.
-         */
-
-        /*
-        // song duration bar
-        long tt = DiscordMonsterBot.getPlayer(channel.getGuild()).getCurrentTrack().getTotalTrackTime();
-        long ct = DiscordMonsterBot.getPlayer(channel.getGuild()).getCurrentTrack().getCurrentTrackTime();
-        int percentage = (int) ((ct / tt) * 100);
-
-        String playbar = "`";
-        percentage /= 2;    // halv percentage since we use a bar of length 50 instead of 100
-        System.out.println(tt + " " + ct);
-
-        for(int i = 0; i < 50; i++){
-            if(i == percentage){
-                playbar += "o";
-            }else {
-                playbar += "-";
-            }
-        }
-        playbar += "`";
-        */
 
         // embed message
         EmbedBuilder embed = new EmbedBuilder()

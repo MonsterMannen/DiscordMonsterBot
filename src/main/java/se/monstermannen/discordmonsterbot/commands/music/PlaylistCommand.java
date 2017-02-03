@@ -20,7 +20,7 @@ public class PlaylistCommand implements Command {
 
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
-        List<AudioPlayer.Track> playlist = DiscordMonsterBot.getPlayer(channel.getGuild()).getPlaylist();
+        List<AudioPlayer.Track> playlist = DiscordMonsterBot.getOldPlayer(channel.getGuild()).getPlaylist();
 
         String msg = "";
         for(AudioPlayer.Track t : playlist){

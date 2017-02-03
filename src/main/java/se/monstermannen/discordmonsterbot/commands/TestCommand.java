@@ -9,6 +9,7 @@ import com.sedmelluq.discord.lavaplayer.source.local.LocalAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.track.AudioItem;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
@@ -24,26 +25,24 @@ public class TestCommand implements Command {
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
 
         String yt_id = "aNzCDt2eidg";
+        String yt2 = "https://youtu.be/DOoRWZJ5PxA";
         String local_song = "/home/viktor/Music/Kasger & Limitless - Miles Away.mp3";
 
         try {
-            PlayerManager manager = PlayerManager.getPlayerManager(LibraryFactory.getLibrary(channel.getClient()));
 
-            manager.getManager().registerSourceManager(new YoutubeAudioSourceManager());
-            manager.getManager().registerSourceManager(new LocalAudioSourceManager());
 
-            Player player = manager.getPlayer(channel.getGuild().getID());
+            Player player = DiscordMonsterBot.getPlayer(channel.getGuild());
 
-            AudioItem item = player.resolve(local_song);
+            AudioItem item = player.resolve(yt2);
 
             Track track = new Track((AudioTrack) item);
 
             player.queue(track);
 
-            player.play();
+            //player.play();
 
 
-        } catch (UnknownBindingException | InterruptedException | ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
 

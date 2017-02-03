@@ -36,8 +36,8 @@ public class Events {
 
         List<IGuild> guilds = bot.getClient().getGuilds();
         for(IGuild g : guilds){
-            DiscordMonsterBot.getPlayer(g).setLoop(DiscordMonsterBot.LOOPPLAYLIST);   // set loop for all guilds
-            DiscordMonsterBot.getPlayer(g).setVolume((float) 50 / 100);               // set volume to 50
+            DiscordMonsterBot.getPlayer(g).setLooping(DiscordMonsterBot.LOOPPLAYLIST);  // set loop for all guilds
+            //DiscordMonsterBot.getPlayer(g).setVolume(50);                             // set volume to 50
         }
     }
 

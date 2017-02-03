@@ -10,6 +10,7 @@ import sx.blah.discord.handle.obj.IUser;
 
 /**
  * Set volume for the music player command
+ * May cause lag, disable?
  */
 public class VolumeCommand implements Command {
 
@@ -20,10 +21,7 @@ public class VolumeCommand implements Command {
         }else{
             if(!isNumber(args[0])) return;  // return if not number
             int vol = Integer.parseInt(args[0]);
-            if(vol > 100) vol = 100;
-            if(vol < 0) vol = 0;
-            Float f = (float) vol / 100;
-            DiscordMonsterBot.getPlayer(channel.getGuild()).setVolume(f);
+            DiscordMonsterBot.getPlayer(channel.getGuild()).setVolume(vol);
         }
 
     }
