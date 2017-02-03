@@ -27,18 +27,7 @@ public class HelpCommand implements Command {
     }
 
     private void help(IChannel channel){
-        /*
-        String msg = "Type `" + DiscordMonsterBot.PREFIX + "help` and a command for more info.";
-        msg += "\n\nCommands:";
-        for(Command cmd : DiscordMonsterBot.getCommands()){
-            if(cmd.getCommandType() != CommandType.ADMIN) {
-                msg += "\n  `" + DiscordMonsterBot.PREFIX + cmd.getCommand() + "`";
-            }
-        }
-        MonsterMessage.sendMessage(channel, msg);
-        */
 
-        // using embed
         String general_commands = "";
         for(Command cmd : DiscordMonsterBot.getCommands()){
             if(cmd.getCommandType() == CommandType.GENERAL){
@@ -62,7 +51,6 @@ public class HelpCommand implements Command {
 
         EmbedBuilder embed = new EmbedBuilder();
         embed.appendField("Help:", "Type `" + DiscordMonsterBot.PREFIX + "help [command]` for more info about specified command.", false);
-        embed.appendField("\u200B", "\u200B", false);   // blank
         embed.appendField("General commands:", general_commands, false);
         embed.appendField("Music commands:", music_commands, false);
         embed.appendField("Admin commands:", admin_commands, false);

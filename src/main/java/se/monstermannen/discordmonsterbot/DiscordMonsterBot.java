@@ -104,7 +104,6 @@ public class DiscordMonsterBot {
     // todo logger
     // private user chat
     // todo IMDB command (api)
-    // divide help commands in groups
     // todo channel.getmessages. who spams? xD
     // todo empty title list when last track ended
     // todo get song name and fix song command
