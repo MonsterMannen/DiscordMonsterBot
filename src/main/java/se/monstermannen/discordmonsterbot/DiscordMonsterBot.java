@@ -102,11 +102,11 @@ public class DiscordMonsterBot {
 
     // todo make date format better (userinfo)
     // todo logger
-    // private user chat
+    // todo private user chat testing
     // todo IMDB command (api)
     // todo channel.getmessages. who spams? xD
     // todo empty title list when last track ended
-    // todo get song name and fix song command
+    // todo get song name and fix song command (youtube api?)
     // todo fix addsong with number
     // todo swag command edit msg
 
