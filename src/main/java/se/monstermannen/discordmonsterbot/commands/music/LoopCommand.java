@@ -36,7 +36,7 @@ public class LoopCommand implements Command {
 
     @Override
     public String getDescription() {
-        return "Turn on or off playlist looping. `loop ON|OFf`";
+        return "Turn on or off playlist looping. `loop ON|OFF`";
     }
 
     @Override

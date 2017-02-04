@@ -22,19 +22,22 @@ public class StatsCommand implements Command {
 
     public StatsCommand(){
         runtime = Runtime.getRuntime();
-        mem = (int) (runtime.totalMemory() - runtime.freeMemory());
-        mem /= 1024*1024;
     }
 
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
+        // get memory usage
+        mem = (int) (runtime.totalMemory() - runtime.freeMemory());
+        mem /= 1024*1024;
+
+        // embed
         EmbedBuilder embed = new EmbedBuilder()
                 .withAuthorName(channel.getClient().getOurUser().getDisplayName(channel.getGuild()))
                 .withAuthorIcon(channel.getClient().getOurUser().getAvatarURL())
                 .withColor(Color.GRAY)
                 .withDesc("bot stats")
                 .appendField("Servers:", channel.getClient().getGuilds().size() + "", true)
-                .appendField("Uptime:", DiscordMonsterBot.getUptime(), true)
+                .appendField("Uptime:", getUptime(), true)
                 .appendField("\u200B", "\u200B", true)
                 .appendField("Text Channels:", channel.getClient().getChannels(false).size() + "", true) // ignore private channels
                 .appendField("Voice Connections:", channel.getClient().getConnectedVoiceChannels().size()+"", true)
@@ -50,6 +53,18 @@ public class StatsCommand implements Command {
                 .appendField("Source: ", "[`GitHub`](https://github.com/MonsterMannen/DiscordMonsterBot)", true);
 
         MonsterMessage.sendMessage(channel, embed.build());
+    }
+
+    private String getUptime(){
+        long totalsec = DiscordMonsterBot.getUptime();
+        long hours = totalsec / 3600;
+        long minutes = (totalsec / 60) % 60;
+        long seconds = totalsec % 60;
+        String ret = (hours < 10 ? "0" : "") + hours + "h "
+                + (minutes < 10 ? "0"  : "") + minutes + "m "
+                + (seconds < 10 ? "0" : "") + seconds + "s";
+
+        return ret;
     }
 
     @Override
