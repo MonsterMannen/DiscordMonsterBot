@@ -24,6 +24,7 @@ public class AddSongCommand implements Command {
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
         if(args.length == 0){
             MonsterMessage.sendMessage(channel, "Specify song. Youtube link or local name.");
+            return;
         }
 
         String identifier = args[0];
