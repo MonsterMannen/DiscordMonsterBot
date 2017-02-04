@@ -24,7 +24,9 @@ public class SongCommand implements Command {
         }
 
         //String songname = DiscordMonsterBot.playlist.get(DiscordMonsterBot.getPlayer(channel.getGuild()).getPlayingTrack());
-        String songname = DiscordMonsterBot.getPlayer(channel.getGuild()).getPlayingTrack().toString();
+        String songname = DiscordMonsterBot.getPlayer(channel.getGuild()).getPlayingTrack().toString(); // doesnt work, use list
+
+        songname = "fix this";
 
         // player volume
         int vol = DiscordMonsterBot.getPlayer(channel.getGuild()).getVolume();

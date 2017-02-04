@@ -22,11 +22,25 @@ public class AddSongCommand implements Command {
 
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
+        if(args.length == 0){
+            MonsterMessage.sendMessage(channel, "Specify song. Youtube link or local name.");
+        }
+
+        String identifier = args[0];
+
+        if(!args[0].contains("youtu")){
+            identifier = "";
+            for(String s : args){
+                identifier += s + " ";
+            }
+            identifier = DiscordMonsterBot.MUSICDIR + "/" + identifier;
+        }
+
         Player player = DiscordMonsterBot.getPlayer(channel.getGuild());
         AudioItem item = null;
 
         try {
-            item = player.resolve(args[0]);
+            item = player.resolve(identifier);
         } catch (ExecutionException | InterruptedException e) {
             MonsterMessage.sendMessage(channel, "Error: " + e.getMessage());
             e.printStackTrace();

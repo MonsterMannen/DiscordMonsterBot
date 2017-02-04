@@ -1,5 +1,6 @@
 package se.monstermannen.discordmonsterbot.commands.music;
 
+import com.arsenarsen.lavaplayerbridge.player.Track;
 import se.monstermannen.discordmonsterbot.commands.Command;
 import se.monstermannen.discordmonsterbot.commands.CommandType;
 import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
@@ -11,6 +12,7 @@ import sx.blah.discord.util.EmbedBuilder;
 import sx.blah.discord.util.audio.AudioPlayer;
 
 import java.awt.*;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -20,10 +22,10 @@ public class PlaylistCommand implements Command {
 
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
-        List<AudioPlayer.Track> playlist = DiscordMonsterBot.getOldPlayer(channel.getGuild()).getPlaylist();
+        Queue<Track> playlist = DiscordMonsterBot.getPlayer(channel.getGuild()).getPlaylist();
 
         String msg = "";
-        for(AudioPlayer.Track t : playlist){
+        for(Track t : playlist){
             String songname = DiscordMonsterBot.playlist.get(t);
             if(songname.endsWith(".mp3")){
                 songname = songname.substring(0, songname.length() - ".mp3".length());
