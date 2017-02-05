@@ -4,6 +4,7 @@ import com.arsenarsen.lavaplayerbridge.PlayerManager;
 import com.arsenarsen.lavaplayerbridge.libraries.LibraryFactory;
 import com.arsenarsen.lavaplayerbridge.libraries.UnknownBindingException;
 import com.arsenarsen.lavaplayerbridge.player.Player;
+import com.arsenarsen.lavaplayerbridge.player.Track;
 import com.sedmelluq.discord.lavaplayer.source.http.HttpAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.source.local.LocalAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager;
@@ -46,7 +47,7 @@ public class DiscordMonsterBot {
     public static PlayerManager manager;
 
     private static ArrayList<Command> commands = new ArrayList<>();
-    public static HashMap<AudioPlayer.Track, String> playlist = new HashMap<>();
+    public static HashMap<Track, String> playlist = new HashMap<>();
     private static int readMessages;
     private static int readCommands;
     public static long startTime;

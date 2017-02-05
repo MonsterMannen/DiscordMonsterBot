@@ -24,21 +24,34 @@ public class AddSongCommand implements Command {
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
         if(args.length == 0){
-            MonsterMessage.sendMessage(channel, "Specify song. Youtube link or local name.");
+            MonsterMessage.sendMessage(channel, "Specify song. Youtube link(s) or local name.");
             return;
         }
 
-        //YouTube youtube = new YouTube();
+        //YouTube youtube = new YouTube();  // get youtube title?
 
-        String identifier = args[0];
-
-        if(!args[0].contains("youtu")){
-            identifier = "";
-            for(String s : args){
-                identifier += s + " ";
+        // queue every youtube link listed
+        if(args[0].contains("youtu")){
+            for(String yt_link : args){
+                if(yt_link.contains("youtu")){
+                    queueTrack(channel, yt_link);
+                }
             }
-            identifier = DiscordMonsterBot.MUSICDIR + "/" + identifier;
         }
+        // queue a local song
+        else{
+            String songname = "";
+            for(String word : args){
+                songname += word + " ";
+            }
+            songname = DiscordMonsterBot.MUSICDIR + "/" + songname;
+            queueTrack(channel, songname);
+        }
+    }
+
+    // queue a song
+    private void queueTrack(IChannel channel, String identifier){
+        assert identifier != null && identifier != "";
 
         Player player = DiscordMonsterBot.getPlayer(channel.getGuild());
         AudioItem item = null;
@@ -52,6 +65,8 @@ public class AddSongCommand implements Command {
 
         Track track = new Track((AudioTrack) item);
         player.queue(track);
+
+        DiscordMonsterBot.playlist.put(track, "song" + player.getPlaylist().size());    // change this to real song name
     }
 
     @Override
@@ -61,7 +76,8 @@ public class AddSongCommand implements Command {
 
     @Override
     public String getDescription() {
-        return "Add a song from youtube or a local one";
+        return "Add a song from youtube or a local one.\n" +
+                "If multiple youtube songs are linked, all will be added.";
     }
 
     @Override
