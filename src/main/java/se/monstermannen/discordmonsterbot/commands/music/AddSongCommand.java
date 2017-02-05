@@ -2,7 +2,6 @@ package se.monstermannen.discordmonsterbot.commands.music;
 
 import com.arsenarsen.lavaplayerbridge.player.Player;
 import com.arsenarsen.lavaplayerbridge.player.Track;
-import com.google.api.services.youtube.YouTube;
 import com.sedmelluq.discord.lavaplayer.track.AudioItem;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import se.monstermannen.discordmonsterbot.DiscordMonsterBot;

@@ -110,8 +110,9 @@ public class DiscordMonsterBot {
     // todo swag command edit msg
     // todo move reactionadd to monstermessage
     // todo safer track adding
-    // todo pause player when ppl leave vchannel
+    // todo pause player when ppl leave vchannel or bot not in channel (add bot obj to tevents)
     // todo fwd song
+    // todo songcommand output duration
 
 
     // return time in seconds since program start
