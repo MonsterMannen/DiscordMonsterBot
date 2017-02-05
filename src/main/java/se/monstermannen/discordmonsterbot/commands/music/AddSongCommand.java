@@ -34,7 +34,7 @@ public class AddSongCommand implements Command {
         if(args[0].contains("youtu")){
             for(String yt_link : args){
                 if(yt_link.contains("youtu")){
-                    queueTrack(channel, yt_link);
+                    queueTrack(channel, "", yt_link);
                 }
             }
         }
@@ -44,20 +44,20 @@ public class AddSongCommand implements Command {
             for(String word : args){
                 songname += word + " ";
             }
-            songname = DiscordMonsterBot.MUSICDIR + "/" + songname;
-            queueTrack(channel, songname);
+            queueTrack(channel, DiscordMonsterBot.MUSICDIR + "/", songname);
         }
     }
 
     // queue a song
-    private void queueTrack(IChannel channel, String identifier){
+    private void queueTrack(IChannel channel, String prefix, String identifier){
         assert identifier != null && identifier != "";
+        if(prefix == null) prefix = "";
 
         Player player = DiscordMonsterBot.getPlayer(channel.getGuild());
         AudioItem item = null;
 
         try {
-            item = player.resolve(identifier);
+            item = player.resolve(prefix + identifier);
         } catch (ExecutionException | InterruptedException e) {
             MonsterMessage.sendMessage(channel, "Error: " + e.getMessage());
             e.printStackTrace();
@@ -66,7 +66,8 @@ public class AddSongCommand implements Command {
         Track track = new Track((AudioTrack) item);
         player.queue(track);
 
-        DiscordMonsterBot.playlist.put(track, "song" + player.getPlaylist().size());    // change this to real song name
+        DiscordMonsterBot.playlist.put(track,
+                prefix.equals("") ? "song" + player.getPlaylist().size() : identifier);    // change this to real song name
     }
 
     @Override
