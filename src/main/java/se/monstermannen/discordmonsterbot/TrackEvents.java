@@ -7,29 +7,27 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 
 /**
- * Testing lavaplayer
- * not in use
+ * Events for the player
  */
-public class TrackScheduler extends AudioEventAdapter {
+public class TrackEvents extends AudioEventAdapter {
     @Override
     public void onPlayerPause(AudioPlayer player) {
-        // Player was paused
-        System.out.println("lava pause track test");
+
     }
 
     @Override
     public void onPlayerResume(AudioPlayer player) {
-        // Player was resumed
+
     }
 
     @Override
     public void onTrackStart(AudioPlayer player, AudioTrack track) {
-        System.out.println("lava start track test");
+        System.out.println(track.getInfo().title + " started playing");
     }
 
     @Override
     public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
-        if (endReason.mayStartNext) {
+        if(endReason.mayStartNext) {
             // Start next track
         }
 
@@ -51,7 +49,4 @@ public class TrackScheduler extends AudioEventAdapter {
         // Audio track has been unable to provide us any audio, might want to just start a new track
     }
 
-    public void queue(AudioTrack track) {
-
-    }
 }

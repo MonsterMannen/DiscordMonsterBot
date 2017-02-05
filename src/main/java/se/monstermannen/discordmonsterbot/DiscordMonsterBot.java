@@ -41,13 +41,12 @@ public class DiscordMonsterBot {
     public static String MUSICDIR = "E:/Musik";             // directory with songs
     public static boolean LOOPPLAYLIST = false;             // loop musicplayers playlist or not
     public static String ADMIN_ID = "101041126537973760";   // discord user ID that can run admin commands
-
+    // objects
     private static IDiscordClient client;
     public static MonsterTimer timer;
     public static PlayerManager manager;
-
+    // variables
     private static ArrayList<Command> commands = new ArrayList<>();
-    public static HashMap<Track, String> playlist = new HashMap<>();
     private static int readMessages;
     private static int readCommands;
     public static long startTime;
@@ -107,9 +106,12 @@ public class DiscordMonsterBot {
     // todo IMDB command (api)
     // todo channel.getmessages. who spams? xD
     // todo empty title list when last track ended
-    // todo get song name and fix song command (youtube api?)
     // todo fix addsong with number
     // todo swag command edit msg
+    // todo move reactionadd to monstermessage
+    // todo safer track adding
+    // todo pause player when ppl leave vchannel
+    // todo fwd song
 
 
     // return time in seconds since program start

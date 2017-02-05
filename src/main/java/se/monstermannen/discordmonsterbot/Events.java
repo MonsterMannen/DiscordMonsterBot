@@ -18,7 +18,7 @@ import sx.blah.discord.util.RequestBuffer;
 import java.util.List;
 
 /**
- * Handle all events
+ * Handle bot events
  */
 public class Events {
     private static DiscordMonsterBot bot;
@@ -38,6 +38,7 @@ public class Events {
         for(IGuild g : guilds){
             DiscordMonsterBot.getPlayer(g).setLooping(DiscordMonsterBot.LOOPPLAYLIST);  // set loop for all guilds
             //DiscordMonsterBot.getPlayer(g).setVolume(50);                             // set volume to 50
+            DiscordMonsterBot.getPlayer(g).addEventListener(new TrackEvents());
         }
     }
 
@@ -83,7 +84,6 @@ public class Events {
     
     @EventSubscriber
     public void onReactionAdd(ReactionAddEvent event){
-
         try {
             RequestBuffer.request(() -> {
                 com.vdurmont.emoji.Emoji emoji = EmojiManager.getForAlias("joy");

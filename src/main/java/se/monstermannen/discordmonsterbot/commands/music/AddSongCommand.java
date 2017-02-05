@@ -28,8 +28,6 @@ public class AddSongCommand implements Command {
             return;
         }
 
-        //YouTube youtube = new YouTube();  // get youtube title?
-
         // queue every youtube link listed
         if(args[0].contains("youtu")){
             for(String yt_link : args){
@@ -65,9 +63,6 @@ public class AddSongCommand implements Command {
 
         Track track = new Track((AudioTrack) item);
         player.queue(track);
-
-        DiscordMonsterBot.playlist.put(track,
-                prefix.equals("") ? "song" + player.getPlaylist().size() : identifier);    // change this to real song name
     }
 
     @Override
@@ -88,7 +83,7 @@ public class AddSongCommand implements Command {
 
     private boolean isInteger(String s) {
         try {
-            Integer.parseInt(s);
+            int x = Integer.parseInt(s);
         } catch(Exception e){
             return false;
         }
