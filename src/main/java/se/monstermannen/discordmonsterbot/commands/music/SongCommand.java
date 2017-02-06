@@ -1,5 +1,6 @@
 package se.monstermannen.discordmonsterbot.commands.music;
 
+import com.arsenarsen.lavaplayerbridge.player.Track;
 import se.monstermannen.discordmonsterbot.commands.Command;
 import se.monstermannen.discordmonsterbot.commands.CommandType;
 import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
@@ -23,10 +24,7 @@ public class SongCommand implements Command {
             return;
         }
 
-        //String songname = DiscordMonsterBot.playlist.get(DiscordMonsterBot.getPlayer(channel.getGuild()).getPlayingTrack());
-        String songname = DiscordMonsterBot.getPlayer(channel.getGuild()).getPlayingTrack().toString(); // doesnt work, use list
-
-        songname = "fix this";
+        String songname = DiscordMonsterBot.getPlayer(channel.getGuild()).getPlayingTrack().getTrack().getInfo().title;
 
         // player volume
         int vol = DiscordMonsterBot.getPlayer(channel.getGuild()).getVolume();

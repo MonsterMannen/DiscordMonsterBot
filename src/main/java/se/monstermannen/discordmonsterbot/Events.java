@@ -10,6 +10,7 @@ import sx.blah.discord.handle.impl.events.ReadyEvent;
 import sx.blah.discord.handle.impl.events.VoiceUserSpeakingEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.reaction.ReactionAddEvent;
+import sx.blah.discord.handle.impl.events.guild.voice.user.UserVoiceChannelLeaveEvent;
 import sx.blah.discord.handle.obj.*;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.MissingPermissionsException;
@@ -19,7 +20,7 @@ import sx.blah.discord.util.RequestBuffer;
 import java.util.List;
 
 /**
- * Handle all events
+ * Handle bot events
  */
 public class Events {
     private static DiscordMonsterBot bot;
@@ -39,6 +40,7 @@ public class Events {
         for(IGuild g : guilds){
             DiscordMonsterBot.getPlayer(g).setLooping(DiscordMonsterBot.LOOPPLAYLIST);  // set loop for all guilds
             //DiscordMonsterBot.getPlayer(g).setVolume(50);                             // set volume to 50
+            DiscordMonsterBot.getPlayer(g).addEventListener(new TrackEvents());
         }
     }
 
@@ -84,7 +86,6 @@ public class Events {
     
     @EventSubscriber
     public void onReactionAdd(ReactionAddEvent event){
-
         try {
             RequestBuffer.request(() -> {
                 com.vdurmont.emoji.Emoji emoji = EmojiManager.getForAlias("joy");
@@ -96,18 +97,23 @@ public class Events {
         }
     }
 
-    @EventSubscriber //(this spams the shit outta chats, do soemthing fun with it maybe)
-    public void onTalk(VoiceUserSpeakingEvent event){
-        return;
-        /*
+    //@EventSubscriber //(this spams the shit outta chats, do something fun with it maybe)
+    //public void onTalk(VoiceUserSpeakingEvent event){
+    //}
 
-        try {
-            event.getUser().getConnectedVoiceChannels().get(0).getGuild().getChannels().get(0)
-                    .sendMessage(event.getUser().getName() + " is talking xD");
-        } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
-            e.printStackTrace();
+    @EventSubscriber
+    public void onLeaveVoice(UserVoiceChannelLeaveEvent event){
+        // pause player if bot leaves or gets kicked from a voice channel
+        if(event.getUser().equals(bot.getClient().getOurUser())){
+            DiscordMonsterBot.getPlayer(event.getGuild()).setPaused(true);
         }
-        */
+        // pause and leave if bot is left alone in a voice channel
+        if(event.getVoiceChannel().getConnectedUsers().contains(bot.getClient().getOurUser())){
+            if(event.getVoiceChannel().getConnectedUsers().size() < 2){
+                DiscordMonsterBot.getPlayer(event.getGuild()).setPaused(true);
+                event.getVoiceChannel().leave();
+            }
+        }
     }
 
     @EventSubscriber

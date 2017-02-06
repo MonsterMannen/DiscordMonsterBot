@@ -1,5 +1,6 @@
 package se.monstermannen.discordmonsterbot.commands.music;
 
+import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
 import se.monstermannen.discordmonsterbot.commands.Command;
 import se.monstermannen.discordmonsterbot.commands.CommandType;
 import sx.blah.discord.handle.obj.IChannel;
@@ -20,6 +21,7 @@ public class LeaveCommand implements Command {
 
             if(channel.getGuild().equals(voiceChannel.getGuild())){ // check that voicechannel is in correct guild
                 voiceChannel.leave();
+                DiscordMonsterBot.getPlayer(channel.getGuild()).setPaused(true);
             }
         }
     }

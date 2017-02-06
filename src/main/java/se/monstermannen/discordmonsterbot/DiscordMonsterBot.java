@@ -4,6 +4,7 @@ import com.arsenarsen.lavaplayerbridge.PlayerManager;
 import com.arsenarsen.lavaplayerbridge.libraries.LibraryFactory;
 import com.arsenarsen.lavaplayerbridge.libraries.UnknownBindingException;
 import com.arsenarsen.lavaplayerbridge.player.Player;
+import com.arsenarsen.lavaplayerbridge.player.Track;
 import com.sedmelluq.discord.lavaplayer.source.http.HttpAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.source.local.LocalAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager;
@@ -40,13 +41,12 @@ public class DiscordMonsterBot {
     public static String MUSICDIR = "E:/Musik";             // directory with songs
     public static boolean LOOPPLAYLIST = false;             // loop musicplayers playlist or not
     public static String ADMIN_ID = "101041126537973760";   // discord user ID that can run admin commands
-
+    // objects
     private static IDiscordClient client;
     public static MonsterTimer timer;
     public static PlayerManager manager;
-
+    // variables
     private static ArrayList<Command> commands = new ArrayList<>();
-    public static HashMap<AudioPlayer.Track, String> playlist = new HashMap<>();
     private static int readMessages;
     private static int readCommands;
     public static long startTime;
@@ -100,16 +100,18 @@ public class DiscordMonsterBot {
     }
 
 
-    // todo make date format better (userinfo)
+    // todo make date format better (userinfo) datetimeformatter
     // todo logger
     // todo private user chat testing
     // todo IMDB command (api)
     // todo channel.getmessages. who spams? xD
-    // todo empty title list when last track ended
-    // todo get song name and fix song command (youtube api?)
     // todo fix addsong with number
     // todo swag command edit msg
-    // todo EVENT bot alone = pause music
+    // todo move reactionadd to monstermessage
+    // todo safer track adding
+    // todo fwd song
+    // todo songcommand output duration
+    // todo uservoiceleave untested
 
 
     // return time in seconds since program start
