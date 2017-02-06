@@ -105,14 +105,13 @@ public class DiscordMonsterBot {
     // todo private user chat testing
     // todo IMDB command (api)
     // todo channel.getmessages. who spams? xD
-    // todo empty title list when last track ended
     // todo fix addsong with number
     // todo swag command edit msg
     // todo move reactionadd to monstermessage
     // todo safer track adding
-    // todo pause player when ppl leave vchannel or bot not in channel (add bot obj to tevents)
     // todo fwd song
     // todo songcommand output duration
+    // uservoiceleave untested
 
 
     // return time in seconds since program start
