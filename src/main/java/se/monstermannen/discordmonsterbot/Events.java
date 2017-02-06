@@ -1,5 +1,6 @@
 package se.monstermannen.discordmonsterbot;
 
+import com.sedmelluq.discord.lavaplayer.player.event.TrackEndEvent;
 import com.vdurmont.emoji.EmojiManager;
 import se.monstermannen.discordmonsterbot.commands.Command;
 import se.monstermannen.discordmonsterbot.commands.CommandType;
@@ -107,6 +108,11 @@ public class Events {
             e.printStackTrace();
         }
         */
+    }
+
+    @EventSubscriber
+    public void onTrackEnd(TrackEndEvent event){
+        System.out.println("track end test");   // test. didnt work
     }
 
 }

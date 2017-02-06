@@ -109,6 +109,7 @@ public class DiscordMonsterBot {
     // todo get song name and fix song command (youtube api?)
     // todo fix addsong with number
     // todo swag command edit msg
+    // todo EVENT bot alone = pause music
 
 
     // return time in seconds since program start
