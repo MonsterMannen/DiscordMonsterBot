@@ -100,7 +100,7 @@ public class DiscordMonsterBot {
     }
 
 
-    // todo make date format better (userinfo)
+    // todo make date format better (userinfo) datetimeformatter
     // todo logger
     // todo private user chat testing
     // todo IMDB command (api)

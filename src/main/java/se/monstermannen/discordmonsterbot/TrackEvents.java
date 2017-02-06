@@ -22,7 +22,7 @@ public class TrackEvents extends AudioEventAdapter {
 
     @Override
     public void onTrackStart(AudioPlayer player, AudioTrack track) {
-        System.out.println(track.getInfo().title + " started playing");
+        System.out.println("[player]: " + track.getInfo().title + " started playing");
     }
 
     @Override
@@ -47,6 +47,7 @@ public class TrackEvents extends AudioEventAdapter {
     @Override
     public void onTrackStuck(AudioPlayer player, AudioTrack track, long thresholdMs) {
         // Audio track has been unable to provide us any audio, might want to just start a new track
+        System.out.println("[player]: " + track.getInfo().title + " can't provide audio");
     }
 
 }
