@@ -1,6 +1,5 @@
 package se.monstermannen.discordmonsterbot.commands.music;
 
-import com.arsenarsen.lavaplayerbridge.player.Player;
 import com.arsenarsen.lavaplayerbridge.player.Track;
 import se.monstermannen.discordmonsterbot.commands.Command;
 import se.monstermannen.discordmonsterbot.commands.CommandType;
@@ -23,7 +22,6 @@ public class PlaylistCommand implements Command {
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
         Queue<Track> playlist = DiscordMonsterBot.getPlayer(channel.getGuild()).getPlaylist();
-        Player player = DiscordMonsterBot.getPlayer(channel.getGuild());
 
         if(playlist.size() == 0){
             MonsterMessage.sendMessage(channel, "Playlist empty");
@@ -39,9 +37,11 @@ public class PlaylistCommand implements Command {
             msg += songname + "\n";
         }
 
+        String loop = DiscordMonsterBot.LOOPPLAYLIST ? "ON" : "OFF";
+
         EmbedBuilder embed = new EmbedBuilder()
                 .withColor(Color.ORANGE)
-                .appendField("Playlist[" + playlist.size() + "]", msg, false);
+                .withDescription("**Playlist[" + playlist.size() + "]** - Looping: **" + loop + "** \n\n" + msg);
 
         MonsterMessage.sendMessage(channel, embed.build());
     }

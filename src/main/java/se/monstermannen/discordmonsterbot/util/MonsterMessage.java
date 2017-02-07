@@ -1,10 +1,14 @@
 package se.monstermannen.discordmonsterbot.util;
 
+import com.vdurmont.emoji.EmojiManager;
 import sx.blah.discord.api.internal.json.objects.EmbedObject;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.util.*;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * Send messages from this class. Request buffer everything
@@ -62,6 +66,36 @@ public class MonsterMessage {
             e.printStackTrace();
         }
         return m[0];
+    }
+
+    public static IMessage sendFile(IChannel channel, String msg, String file){
+        final IMessage[] m = new IMessage[1];
+        RequestBuffer.request(() -> {
+            try {
+                File f = new File(file);
+                m[0] = channel.sendFile(msg, f);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+        return m[0];
+    }
+
+    public static void addReaction(IMessage message, String emoji_string){
+        try{
+            RequestBuffer.request(() -> {
+                String e = getEmojiCode(emoji_string);
+                message.addReaction(e);
+            });
+
+        }catch (MissingPermissionsException | RateLimitException | DiscordException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String getEmojiCode(String emoji_string){
+        com.vdurmont.emoji.Emoji emoji = EmojiManager.getForAlias(emoji_string);
+        return emoji.getUnicode();
     }
 
 }

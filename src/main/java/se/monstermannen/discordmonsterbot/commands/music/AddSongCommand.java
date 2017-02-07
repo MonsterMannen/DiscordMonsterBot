@@ -60,8 +60,12 @@ public class AddSongCommand implements Command {
             return;
         }
 
-        Track track = new Track((AudioTrack) item);
-        player.queue(track);
+        if(item == null){
+            MonsterMessage.sendMessage(channel, "Error loading song " + MonsterMessage.getEmojiCode("musical_note"));
+        }else{
+            Track track = new Track((AudioTrack) item);
+            player.queue(track);
+        }
     }
 
     @Override

@@ -11,6 +11,7 @@ import sx.blah.discord.handle.impl.events.VoiceUserSpeakingEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.reaction.ReactionAddEvent;
 import sx.blah.discord.handle.impl.events.guild.voice.user.UserVoiceChannelLeaveEvent;
+import sx.blah.discord.handle.impl.events.guild.voice.user.UserVoiceChannelMoveEvent;
 import sx.blah.discord.handle.obj.*;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.MissingPermissionsException;
@@ -86,20 +87,8 @@ public class Events {
     
     @EventSubscriber
     public void onReactionAdd(ReactionAddEvent event){
-        try {
-            RequestBuffer.request(() -> {
-                com.vdurmont.emoji.Emoji emoji = EmojiManager.getForAlias("joy");
-                event.getMessage().addReaction(emoji.getUnicode());
-            });
-
-        } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
-            e.printStackTrace();
-        }
+        MonsterMessage.addReaction(event.getMessage(), "joy");
     }
-
-    //@EventSubscriber //(this spams the shit outta chats, do something fun with it maybe)
-    //public void onTalk(VoiceUserSpeakingEvent event){
-    //}
 
     @EventSubscriber
     public void onLeaveVoice(UserVoiceChannelLeaveEvent event){
@@ -112,6 +101,17 @@ public class Events {
             if(event.getVoiceChannel().getConnectedUsers().size() < 2){
                 DiscordMonsterBot.getPlayer(event.getGuild()).setPaused(true);
                 event.getVoiceChannel().leave();
+            }
+        }
+    }
+
+    @EventSubscriber
+    public void onMoveVoice(UserVoiceChannelMoveEvent event){
+        // pause and leave if bot is left alone in a voice channel
+        if(event.getOldChannel().getConnectedUsers().contains(event.getClient().getOurUser())){
+            if(event.getOldChannel().getConnectedUsers().size() < 2){
+                DiscordMonsterBot.getPlayer(event.getGuild()).setPaused(true);
+                event.getOldChannel().leave();
             }
         }
     }

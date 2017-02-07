@@ -102,16 +102,13 @@ public class DiscordMonsterBot {
 
     // todo make date format better (userinfo) datetimeformatter
     // todo logger
-    // todo private user chat testing
     // todo IMDB command (api)
     // todo channel.getmessages. who spams? xD
     // todo fix addsong with number
     // todo swag command edit msg
-    // todo move reactionadd to monstermessage
-    // todo safer track adding
+    // todo safer track adding - semifixed
     // todo fwd song
     // todo songcommand output duration
-    // todo uservoiceleave untested
 
 
     // return time in seconds since program start
