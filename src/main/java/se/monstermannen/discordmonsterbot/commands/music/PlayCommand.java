@@ -15,7 +15,10 @@ public class PlayCommand implements Command {
 
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
-        DiscordMonsterBot.getPlayer(channel.getGuild()).setPaused(false);
+        // can only play if bot is connected to a voice channel
+        if(channel.getGuild().getConnectedVoiceChannel() != null) {
+            DiscordMonsterBot.getPlayer(channel.getGuild()).setPaused(false);
+        }
 
         if(args.length > 0){
             String x = "`" + DiscordMonsterBot.PREFIX + "addsong [song]`";

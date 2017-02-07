@@ -109,7 +109,11 @@ public class DiscordMonsterBot {
     // todo safer track adding - semifixed
     // todo fwd song
     // todo songcommand output duration
-
+    // Commands from DM? :O
+    // todo stringbuilder in every string concat loop
+    // todo only !play when bot in voice channel (needs testing but should work)
+    // todo unpause on join?
+    // flarebot !join flawed?
 
     // return time in seconds since program start
     public static long getUptime(){

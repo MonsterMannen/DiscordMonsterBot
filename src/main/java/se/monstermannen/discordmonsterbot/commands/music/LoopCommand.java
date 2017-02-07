@@ -15,7 +15,10 @@ public class LoopCommand implements Command {
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
         if(args.length == 0){
-            MonsterMessage.sendMessage(channel, "Specify if looping should be `ON` or `OFF`.");
+            String loop = DiscordMonsterBot.LOOPPLAYLIST ? "ON" : "OFF";
+            String msg = "Specify if looping should be `ON` or `OFF`.\n" +
+                        "Looping currently **" + loop + "**";
+            MonsterMessage.sendMessage(channel, msg);
             return;
         }
 
