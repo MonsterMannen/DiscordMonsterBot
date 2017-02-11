@@ -81,7 +81,7 @@ public class AddSongCommand implements Command {
 
     @Override
     public CommandType getCommandType(){
-        return CommandType.GENERAL;
+        return CommandType.MUSIC;
     }
 
     private boolean isInteger(String s) {
