@@ -10,6 +10,7 @@ import sx.blah.discord.handle.impl.events.ReadyEvent;
 import sx.blah.discord.handle.impl.events.VoiceUserSpeakingEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.reaction.ReactionAddEvent;
+import sx.blah.discord.handle.impl.events.guild.voice.user.UserVoiceChannelJoinEvent;
 import sx.blah.discord.handle.impl.events.guild.voice.user.UserVoiceChannelLeaveEvent;
 import sx.blah.discord.handle.impl.events.guild.voice.user.UserVoiceChannelMoveEvent;
 import sx.blah.discord.handle.obj.*;
@@ -88,6 +89,14 @@ public class Events {
     @EventSubscriber
     public void onReactionAdd(ReactionAddEvent event){
         MonsterMessage.addReaction(event.getMessage(), "joy");
+    }
+
+    @EventSubscriber
+    public void onJoinVoice(UserVoiceChannelJoinEvent event){
+        // if bot joins a voice channel it unpauses its player
+        if(event.getUser().equals(bot.getClient().getOurUser())){
+            DiscordMonsterBot.getPlayer(event.getGuild()).setPaused(false);
+        }
     }
 
     @EventSubscriber
