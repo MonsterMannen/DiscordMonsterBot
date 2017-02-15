@@ -28,20 +28,21 @@ public class PlaylistCommand implements Command {
             return;
         }
 
-        String msg = "";
+        StringBuilder sb = new StringBuilder();
         for(Track t : playlist){
             String songname = t.getTrack().getInfo().title;
+            // part below maybe not needed. todo test
             if(songname.endsWith(".mp3")){
                 songname = songname.substring(0, songname.length() - ".mp3".length());
             }
-            msg += songname + "\n";
+            sb.append(songname).append("\n");
         }
 
         String loop = DiscordMonsterBot.LOOPPLAYLIST ? "ON" : "OFF";
 
         EmbedBuilder embed = new EmbedBuilder()
                 .withColor(Color.ORANGE)
-                .withDescription("**Playlist[" + playlist.size() + "]** - Looping: **" + loop + "** \n\n" + msg);
+                .withDescription("**Playlist[" + playlist.size() + "]** - Looping: **" + loop + "** \n\n" + sb);
 
         MonsterMessage.sendMessage(channel, embed.build());
     }

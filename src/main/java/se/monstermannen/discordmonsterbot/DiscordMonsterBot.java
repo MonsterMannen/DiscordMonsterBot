@@ -9,6 +9,7 @@ import com.sedmelluq.discord.lavaplayer.source.http.HttpAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.source.local.LocalAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager;
 import se.monstermannen.discordmonsterbot.commands.Command;
+import se.monstermannen.discordmonsterbot.commands.CommandType;
 import se.monstermannen.discordmonsterbot.commands.admin.SetBotAvatarCommand;
 import se.monstermannen.discordmonsterbot.commands.admin.SetBotGameCommand;
 import se.monstermannen.discordmonsterbot.commands.admin.SetBotPrefixCommand;
@@ -111,6 +112,7 @@ public class DiscordMonsterBot {
     // Commands from DM? :O test this
     // todo stringbuilder in every string concat loop
     // flarebot !join flawed?
+    // test playlist command without -mp3 part
 
     // return time in seconds since program start
     public static long getUptime(){
@@ -178,6 +180,17 @@ public class DiscordMonsterBot {
     // return commandlist
     public static ArrayList<Command> getCommands(){
         return commands;
+    }
+
+    // return only commands of commandtype type
+    public static ArrayList<Command> getCommandsByType(CommandType type){
+        ArrayList<Command> ret = new ArrayList<>();
+        for(Command cmd : commands){
+            if(cmd.getCommandType() == type){
+                ret.add(cmd);
+            }
+        }
+        return ret;
     }
 
     // return D4J original player

@@ -7,7 +7,6 @@ import se.monstermannen.discordmonsterbot.util.MonsterMessage;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
-import sx.blah.discord.util.EmbedBuilder;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -35,16 +34,20 @@ public class ListSongsCommand implements Command {
             return;
         }
 
-        String msg = "``` #  Songs\n" +
-                        "---------------------------------------------------------------------------------------";
-
+        StringBuilder sb = new StringBuilder();
+        sb.append("``` #  Songs\n" +
+                        "---------------------------------------------------------------------------------------");
         for(int i = 0; i < results.size(); i++){
-            if(msg.length() > 1900) break;  // todo do something smart here (discord msg max length 2000)
-            msg += "\n";
-            if(i < 10) msg += " ";
-            msg += i + ". " + results.get(i);
+            sb.append("\n");
+            if(i < 10) sb.append(" ");
+            sb.append(i).append(". ").append(results.get(i));
         }
-        msg += "```";
+        sb.append("```");
+
+        String msg = sb.toString();
+        if(msg.length() > 1999){
+            msg.substring(0, 1999); // ghetto solution on too long messages
+        }
 
         MonsterMessage.sendMessage(channel, msg);
     }

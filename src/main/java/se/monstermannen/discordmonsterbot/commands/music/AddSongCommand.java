@@ -37,11 +37,11 @@ public class AddSongCommand implements Command {
         }
         // queue a local song
         else{
-            String songname = "";
+            StringBuilder sb = new StringBuilder();
             for(String word : args){
-                songname += word + " ";
+                sb.append(word);
             }
-            queueTrack(channel, DiscordMonsterBot.MUSICDIR + "/" + songname);
+            queueTrack(channel, DiscordMonsterBot.MUSICDIR + "/" + sb);
         }
     }
 

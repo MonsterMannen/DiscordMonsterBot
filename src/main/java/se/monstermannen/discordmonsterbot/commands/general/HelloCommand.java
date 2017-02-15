@@ -14,12 +14,7 @@ public class HelloCommand implements Command {
 
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
-        String append = "";
-        for(String word : args){
-            append += word + " ";
-        }
-
-        MonsterMessage.sendMessage(channel, "hello " + append);
+        MonsterMessage.sendMessage(channel, message.getContent());
     }
 
     @Override
