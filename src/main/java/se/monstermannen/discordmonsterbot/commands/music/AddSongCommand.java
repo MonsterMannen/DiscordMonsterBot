@@ -54,7 +54,7 @@ public class AddSongCommand implements Command {
 
         try {
             item = player.resolve(identifier);
-        } catch (ExecutionException | InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {     // no exceptions are ever thrown?
             MonsterMessage.sendMessage(channel, "Error: " + e.getMessage());
             e.printStackTrace();
             return;

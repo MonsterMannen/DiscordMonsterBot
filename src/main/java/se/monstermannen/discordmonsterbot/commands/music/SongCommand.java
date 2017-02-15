@@ -1,5 +1,6 @@
 package se.monstermannen.discordmonsterbot.commands.music;
 
+import com.arsenarsen.lavaplayerbridge.player.Player;
 import com.arsenarsen.lavaplayerbridge.player.Track;
 import se.monstermannen.discordmonsterbot.commands.Command;
 import se.monstermannen.discordmonsterbot.commands.CommandType;
@@ -19,21 +20,24 @@ public class SongCommand implements Command {
 
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
-        if(DiscordMonsterBot.getPlayer(channel.getGuild()).getPlayingTrack() == null){
-            MonsterMessage.sendMessage(channel, "No song playing \uD83C\uDFB5");    // musical note emoji
+        Player player = DiscordMonsterBot.getPlayer(channel.getGuild());
+
+        if(player.getPlayingTrack() == null){
+            MonsterMessage.sendMessage(channel, "No song playing " + MonsterMessage.getEmojiCode("musical_note"));    // musical note emoji
             return;
         }
 
-        String songname = DiscordMonsterBot.getPlayer(channel.getGuild()).getPlayingTrack().getTrack().getInfo().title;
+        String songname = player.getPlayingTrack().getTrack().getInfo().title;
+        int vol = player.getVolume();
 
-        // player volume
-        int vol = DiscordMonsterBot.getPlayer(channel.getGuild()).getVolume();
-
+        long playedAmount = player.getPlayingTrack().getTrack().getPosition();
+        long totalAmount = player.getPlayer().getPlayingTrack().getDuration();
+        float f = playedAmount / totalAmount;
 
         // embed message
         EmbedBuilder embed = new EmbedBuilder()
                 .withColor(Color.CYAN)
-                .withDescription("**" + songname + "** \n\nvol: " + vol + "%");
+                .withDescription("**" + songname + "** \n\nplayed: " + f*100 + "%" + "** \nvol: " + vol + "%"); // todo change to cool bar
 
         MonsterMessage.sendMessage(channel, embed.build());
     }

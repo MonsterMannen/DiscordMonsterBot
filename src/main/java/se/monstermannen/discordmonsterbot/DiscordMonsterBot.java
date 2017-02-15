@@ -107,10 +107,9 @@ public class DiscordMonsterBot {
     // todo swag command edit msg
     // todo safer track adding - semifixed
     // todo fwd song
-    // todo songcommand output duration
-    // Commands from DM? :O
+    // test songcommand duration + fix bar
+    // Commands from DM? :O test this
     // todo stringbuilder in every string concat loop
-    // todo only !play when bot in voice channel (needs testing but should work)
     // flarebot !join flawed?
 
     // return time in seconds since program start
