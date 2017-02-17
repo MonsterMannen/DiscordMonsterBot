@@ -37,7 +37,7 @@ public class PlaylistCommand implements Command {
             msg += songname + "\n";
         }
 
-        String loop = DiscordMonsterBot.LOOPPLAYLIST ? "ON" : "OFF";
+        String loop = DiscordMonsterBot.getPlayer(channel.getGuild()).getLooping() ? "ON" : "OFF";
 
         EmbedBuilder embed = new EmbedBuilder()
                 .withColor(Color.ORANGE)
