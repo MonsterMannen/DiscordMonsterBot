@@ -28,32 +28,26 @@ public class HelpCommand implements Command {
 
     private void help(IChannel channel){
 
-        String general_commands = "";
-        for(Command cmd : DiscordMonsterBot.getCommands()){
-            if(cmd.getCommandType() == CommandType.GENERAL){
-                general_commands += cmd.getCommand() + "\n";
-            }
+        StringBuilder sb_general = new StringBuilder();
+        for(Command cmd : DiscordMonsterBot.getCommandsByType(CommandType.GENERAL)){
+            sb_general.append(cmd.getCommand());
         }
 
-        String music_commands = "";
-        for(Command cmd : DiscordMonsterBot.getCommands()){
-            if(cmd.getCommandType() == CommandType.MUSIC){
-                music_commands += cmd.getCommand() + "\n";
-            }
+        StringBuilder sb_music = new StringBuilder();
+        for(Command cmd : DiscordMonsterBot.getCommandsByType(CommandType.MUSIC)){
+            sb_music.append(cmd.getCommand());
         }
 
-        String admin_commands = "";
-        for(Command cmd : DiscordMonsterBot.getCommands()){
-            if(cmd.getCommandType() == CommandType.ADMIN){
-                admin_commands += cmd.getCommand() + "\n";
-            }
+        StringBuilder sb_admin = new StringBuilder();
+        for(Command cmd : DiscordMonsterBot.getCommandsByType(CommandType.ADMIN)){
+            sb_admin.append(cmd.getCommand());
         }
 
         EmbedBuilder embed = new EmbedBuilder();
         embed.appendField("Help:", "Type `" + DiscordMonsterBot.PREFIX + "help [command]` for more info about specified command.", false);
-        embed.appendField("General commands:", general_commands, false);
-        embed.appendField("Music commands:", music_commands, false);
-        embed.appendField("Admin commands:", admin_commands, false);
+        embed.appendField("General commands:", sb_general.toString(), false);
+        embed.appendField("Music commands:", sb_music.toString(), false);
+        embed.appendField("Admin commands:", sb_admin.toString(), false);
 
         MonsterMessage.sendMessage(channel, embed.build());
     }
@@ -68,9 +62,7 @@ public class HelpCommand implements Command {
             }
         }
 
-        if(!found) return;
-
-        MonsterMessage.sendMessage(channel, msg);
+        if(found) MonsterMessage.sendMessage(channel, msg);
     }
 
     @Override

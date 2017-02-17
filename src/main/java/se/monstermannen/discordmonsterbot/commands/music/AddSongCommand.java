@@ -37,11 +37,11 @@ public class AddSongCommand implements Command {
         }
         // queue a local song
         else{
-            String songname = "";
+            StringBuilder sb = new StringBuilder();
             for(String word : args){
-                songname += word + " ";
+                sb.append(word);
             }
-            queueTrack(channel, DiscordMonsterBot.MUSICDIR + "/" + songname);
+            queueTrack(channel, DiscordMonsterBot.MUSICDIR + "/" + sb);
         }
     }
 
@@ -54,7 +54,7 @@ public class AddSongCommand implements Command {
 
         try {
             item = player.resolve(identifier);
-        } catch (ExecutionException | InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {     // no exceptions are ever thrown?
             MonsterMessage.sendMessage(channel, "Error: " + e.getMessage());
             e.printStackTrace();
             return;

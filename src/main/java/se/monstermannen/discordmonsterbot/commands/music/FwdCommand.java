@@ -1,38 +1,38 @@
-package se.monstermannen.discordmonsterbot.commands.admin;
+package se.monstermannen.discordmonsterbot.commands.music;
 
+import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
 import se.monstermannen.discordmonsterbot.commands.Command;
 import se.monstermannen.discordmonsterbot.commands.CommandType;
-import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
 import se.monstermannen.discordmonsterbot.util.MonsterMessage;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
 
-
 /**
- * Set prefix for bot commands. Owner only.
+ * Forward song by specified amount
  */
-public class SetBotPrefixCommand implements Command {
+public class FwdCommand implements Command {
 
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
-        DiscordMonsterBot.PREFIX = args[0];
-        MonsterMessage.sendMessage(channel, "Prefix set to: " + DiscordMonsterBot.PREFIX);
+        // todo
+        //DiscordMonsterBot.getPlayer(channel.getGuild()).getPlayingTrack().getTrack();
+        MonsterMessage.sendMessage(channel, "not implemented");
     }
 
     @Override
     public String getCommand() {
-        return "setBotPrefix";
+        return "fdw";
     }
 
     @Override
     public String getDescription() {
-        return "Set the prefix for commands.";
+        return "Forward current song by specified amount of seconds";
     }
 
     @Override
-    public CommandType getCommandType(){
-        return CommandType.ADMIN;
+    public CommandType getCommandType() {
+        return CommandType.MUSIC;
     }
 
 }
