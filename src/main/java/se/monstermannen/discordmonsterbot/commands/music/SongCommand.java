@@ -1,7 +1,6 @@
 package se.monstermannen.discordmonsterbot.commands.music;
 
 import com.arsenarsen.lavaplayerbridge.player.Player;
-import com.arsenarsen.lavaplayerbridge.player.Track;
 import se.monstermannen.discordmonsterbot.commands.Command;
 import se.monstermannen.discordmonsterbot.commands.CommandType;
 import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
@@ -32,12 +31,29 @@ public class SongCommand implements Command {
 
         long playedAmount = player.getPlayingTrack().getTrack().getPosition();
         long totalAmount = player.getPlayer().getPlayingTrack().getDuration();
-        float f = playedAmount / totalAmount;
+        double d = (double) playedAmount / totalAmount;
+
+        // bar
+        int length = 30;
+        int pre = (int) (length * d);
+        int post = length - pre;
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for(int i = 0; i < pre; i++){
+            sb.append("-");
+        }
+        sb.append((int)(d*100) + "%");
+        for(int i = 0; i < post; i++){
+            sb.append("-");
+        }
+        sb.append("]");
+
 
         // embed message
         EmbedBuilder embed = new EmbedBuilder()
                 .withColor(Color.CYAN)
-                .withDescription("**" + songname + "** \n\nplayed: " + f*100 + "%" + "** \nvol: " + vol + "%"); // todo change to cool bar
+                .withDescription("**" + songname + "** \n\n" + sb + "\n\nvol: " + vol + "%");
 
         MonsterMessage.sendMessage(channel, embed.build());
     }

@@ -49,6 +49,10 @@ public class Events {
     // event when bot reads a message
     @EventSubscriber
     public void onMessageReceived(MessageReceivedEvent event) {
+
+        // ignore private messages
+        if(event.getMessage().getGuild() == null) return;
+
         IMessage message = event.getMessage();
         IChannel channel = message.getChannel();
         IUser user = message.getAuthor();

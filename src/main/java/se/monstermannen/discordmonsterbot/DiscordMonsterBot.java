@@ -104,15 +104,11 @@ public class DiscordMonsterBot {
     // todo logger
     // todo IMDB command (api)
     // todo channel.getmessages. who spams? xD
-    // todo fix addsong with number
     // todo swag command edit msg
-    // todo safer track adding - semifixed
     // todo fwd song
     // test songcommand duration + fix bar
-    // Commands from DM? :O test this
-    // todo stringbuilder in every string concat loop
-    // flarebot !join flawed?
-    // test playlist command without -mp3 part
+    // flarebot !join flawed
+    // todo add youtube playlist?
 
     // return time in seconds since program start
     public static long getUptime(){
