@@ -98,4 +98,14 @@ public class MonsterMessage {
         return emoji.getUnicode();
     }
 
+    // check if a string is a number
+    public static boolean isInteger(String s) {
+        try {
+            int x = Integer.parseInt(s);
+        } catch(Exception e){
+            return false;
+        }
+        return true;
+    }
+
 }

@@ -17,7 +17,7 @@ public class FwdCommand implements Command {
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
         // todo
         //DiscordMonsterBot.getPlayer(channel.getGuild()).getPlayingTrack().getTrack();
-        MonsterMessage.sendMessage(channel, "not implemented");
+        MonsterMessage.sendMessage(channel, "not implemented yet");
         // how to convert seconds to correct measurement?
     }
 

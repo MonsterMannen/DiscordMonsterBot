@@ -30,17 +30,17 @@ public class HelpCommand implements Command {
 
         StringBuilder sb_general = new StringBuilder();
         for(Command cmd : DiscordMonsterBot.getCommandsByType(CommandType.GENERAL)){
-            sb_general.append(cmd.getCommand());
+            sb_general.append(cmd.getCommand()).append("\n");
         }
 
         StringBuilder sb_music = new StringBuilder();
         for(Command cmd : DiscordMonsterBot.getCommandsByType(CommandType.MUSIC)){
-            sb_music.append(cmd.getCommand());
+            sb_music.append(cmd.getCommand()).append("\n");
         }
 
         StringBuilder sb_admin = new StringBuilder();
         for(Command cmd : DiscordMonsterBot.getCommandsByType(CommandType.ADMIN)){
-            sb_admin.append(cmd.getCommand());
+            sb_admin.append(cmd.getCommand()).append("\n");
         }
 
         EmbedBuilder embed = new EmbedBuilder();

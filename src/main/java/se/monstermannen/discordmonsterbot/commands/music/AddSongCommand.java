@@ -84,12 +84,4 @@ public class AddSongCommand implements Command {
         return CommandType.MUSIC;
     }
 
-    private boolean isInteger(String s) {
-        try {
-            int x = Integer.parseInt(s);
-        } catch(Exception e){
-            return false;
-        }
-        return true;
-    }
 }

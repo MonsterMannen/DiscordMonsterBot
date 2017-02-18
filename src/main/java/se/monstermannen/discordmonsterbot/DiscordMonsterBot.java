@@ -74,6 +74,7 @@ public class DiscordMonsterBot {
             commands.add(new VirusCommand());
             commands.add(new FlipCommand());
             commands.add(new UserInfoCommand());
+            commands.add(new WhoSpamsCommand());
 
             // music commands
             commands.add(new JoinCommand());
@@ -88,6 +89,7 @@ public class DiscordMonsterBot {
             commands.add(new PlaylistCommand());
             commands.add(new ShuffleCommand());
             commands.add(new LoopCommand());
+            commands.add(new FwdCommand());
 
             // admin only commands (not listed when using help)
             commands.add(new SetBotGameCommand());
