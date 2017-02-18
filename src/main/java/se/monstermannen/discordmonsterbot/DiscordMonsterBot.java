@@ -100,13 +100,11 @@ public class DiscordMonsterBot {
     }
 
 
-    // todo make date format better (userinfo) datetimeformatter
     // todo logger
     // todo IMDB command (api)
     // todo channel.getmessages. who spams? xD
     // todo swag command edit msg
     // todo fwd song
-    // test songcommand duration + fix bar
     // flarebot !join flawed
     // todo add youtube playlist?
 

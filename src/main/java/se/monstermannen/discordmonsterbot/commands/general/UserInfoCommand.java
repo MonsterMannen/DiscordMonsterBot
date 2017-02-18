@@ -10,6 +10,7 @@ import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.EmbedBuilder;
 
 import java.awt.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -28,10 +29,12 @@ public class UserInfoCommand implements Command {
         IUser u = mentions.get(0);
         String msg = "";
         try {
-            msg = "\nUser: \t\t\t" + u.getName() + "#" + u.getDiscriminator()
-                        + "\nCreated: \t" + u.getCreationDate().toString()
-                        + "\nJoined: \t" + channel.getGuild().getJoinTimeForUser(u).toString()
-                        + "\nID: \t\t" + u.getID()
+            msg = "\nUser: \t" + u.getName() + "#" + u.getDiscriminator()
+                        + "\nID: \t" + u.getID()
+                        + "\n"
+                        + "\nCreated: \t" + formatTime(u.getCreationDate())
+                        + "\nJoined: \t" + formatTime(channel.getGuild().getJoinTimeForUser(u))
+                        + "\n"
                         + "\nAvatar: \t" + u.getAvatarURL();
 
         } catch (DiscordException e) {
@@ -60,6 +63,12 @@ public class UserInfoCommand implements Command {
     @Override
     public CommandType getCommandType(){
         return CommandType.GENERAL;
+    }
+
+    // return in format YYYY-MM-DD HH:SS
+    private String formatTime(LocalDateTime time){
+        return time.getYear() + "-" + time.getMonthValue() + "-" + time.getDayOfMonth()
+                + " " + time.getMinute() + ":" + time.getSecond();
     }
 
 }

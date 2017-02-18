@@ -31,7 +31,6 @@ public class PlaylistCommand implements Command {
         StringBuilder sb = new StringBuilder();
         for(Track t : playlist){
             String songname = t.getTrack().getInfo().title;
-            // part below maybe not needed. todo test
             if(songname.endsWith(".mp3")){
                 songname = songname.substring(0, songname.length() - ".mp3".length());
             }

@@ -18,11 +18,12 @@ public class FwdCommand implements Command {
         // todo
         //DiscordMonsterBot.getPlayer(channel.getGuild()).getPlayingTrack().getTrack();
         MonsterMessage.sendMessage(channel, "not implemented");
+        // how to convert seconds to correct measurement?
     }
 
     @Override
     public String getCommand() {
-        return "fdw";
+        return "fwd";
     }
 
     @Override
