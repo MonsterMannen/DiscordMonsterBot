@@ -105,9 +105,8 @@ public class DiscordMonsterBot {
     // todo IMDB command (api)
     // todo swag command edit msg
     // todo fwd song
-    // flarebot !join flawed
     // todo add youtube playlist?
-    // todo sort whospams
+    // save playlist .txt file with yt links
 
     // return time in seconds since program start
     public static long getUptime(){
