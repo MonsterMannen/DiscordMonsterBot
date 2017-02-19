@@ -24,6 +24,10 @@ public class WhoSpamsCommand implements Command {
         if(args.length > 0){
             if(MonsterMessage.isInteger(args[0])){
                 checkTime = Integer.parseInt(args[0]);
+                if(checkTime > 240){
+                    MonsterMessage.sendMessage(channel, "Max 240 hours scan (will be longer soon:tm:)");
+                    return;
+                }
             }
         }
 
@@ -34,13 +38,24 @@ public class WhoSpamsCommand implements Command {
         for(IUser u : channel.getGuild().getUsers()){
             counter = 0;
             for(IChannel c : channel.getGuild().getChannels()){
-                for(int i = 0; i < c.getMessages().size(); i++){
-                    msg = c.getMessages().get(i);
-                    long hoursDiff = ChronoUnit.HOURS.between(msg.getTimestamp(), message.getTimestamp());
-                    if(hoursDiff < checkTime){
-                        if(msg.getAuthor().equals(u)){
-                            counter++;
+
+                c.getMessages().setCacheCapacity(-1);
+
+                int i = 0;
+                while(true){
+                    try {
+                        msg = c.getMessages().get(i++);
+                        long hoursDiff = ChronoUnit.HOURS.between(msg.getTimestamp(), message.getTimestamp());
+                        if(hoursDiff < checkTime){
+                            if(msg.getAuthor().equals(u)){
+                                counter++;
+                                //System.out.println(u.getDisplayName(channel.getGuild()) + " " + counter);   // debug
+                            }
+                        } else {
+                            break;  // stop scanning older messages
                         }
+                    } catch (ArrayIndexOutOfBoundsException e){
+                        break;
                     }
                 }
             }

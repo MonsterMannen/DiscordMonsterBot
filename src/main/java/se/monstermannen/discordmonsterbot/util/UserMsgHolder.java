@@ -16,7 +16,7 @@ public class UserMsgHolder implements Comparable<UserMsgHolder> {
 
     @Override
     public int compareTo(UserMsgHolder umh) {
-        // decending order
+        // descending order
         return umh.messages - this.messages;
     }
 }
