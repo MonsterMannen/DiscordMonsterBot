@@ -18,6 +18,8 @@ public class WhoSpamsCommand implements Command {
 
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
+        channel.setTypingStatus(true);
+
         int checkTime = 24; // default 24h
 
         if(args.length == 1){
@@ -46,6 +48,26 @@ public class WhoSpamsCommand implements Command {
             userspam.put(u, counter);
         }
 
+        // add to list
+        //List< ny > sortlist = new ArrayList<>();
+        for (Map.Entry pair : userspam.entrySet()) {
+            pair.getKey();  // iuser
+            pair.getValue(); // integer
+            // make a class holding both
+            //sortlist.add(x);
+
+        }
+
+        // sort list
+        /*
+        Collections.sort(sortlist, new Comparator<MyObject>() {
+            @Override
+            public int compare(MyObject o1, MyObject o2) {
+                return o1.getStartDate().compareTo(o2.getStartDate());
+            }
+        });
+        */
+
         StringBuilder sb = new StringBuilder();
 
         for (Object o : userspam.entrySet()) {
@@ -61,6 +83,7 @@ public class WhoSpamsCommand implements Command {
         embed.withTitle("Messages sent in the last **" + checkTime + "** hours");
         embed.withDescription(sb.toString());
 
+        channel.setTypingStatus(false);
         MonsterMessage.sendMessage(channel, embed.build());
     }
 

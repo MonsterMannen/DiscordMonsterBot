@@ -62,7 +62,6 @@ public class DiscordMonsterBot {
             manager = PlayerManager.getPlayerManager(LibraryFactory.getLibrary(client));
             manager.getManager().registerSourceManager(new YoutubeAudioSourceManager());    // youtube
             manager.getManager().registerSourceManager(new LocalAudioSourceManager());      // local
-            manager.getManager().registerSourceManager(new HttpAudioSourceManager());       // url
 
             client.getDispatcher().registerListener(new Events(bot));	// add listener
             client.login();                                             // login :^)
@@ -104,11 +103,11 @@ public class DiscordMonsterBot {
 
     // todo logger
     // todo IMDB command (api)
-    // todo channel.getmessages. who spams? xD
     // todo swag command edit msg
     // todo fwd song
     // flarebot !join flawed
     // todo add youtube playlist?
+    // todo sort whospams
 
     // return time in seconds since program start
     public static long getUptime(){
