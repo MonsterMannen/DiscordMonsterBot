@@ -40,8 +40,7 @@ public class DiscordMonsterBot {
     private static String TOKEN = token.TOKEN;              // bot token in secret file token.java
     public static String PREFIX = "!";                      // prefix for commands
     public static String MUSICDIR = "E:/Musik";             // directory with songs
-    public static boolean LOOPPLAYLIST = false;             // loop musicplayers playlist or not
-    public static String ADMIN_ID = "101041126537973760";   // discord user ID that can run admin commands
+    public static boolean LOOPPLAYLIST = false;             // loop musicplayers playlist or no
     // objects
     private static IDiscordClient client;
     public static MonsterTimer timer;
@@ -122,7 +121,6 @@ public class DiscordMonsterBot {
             properties.load(reader);
 
             TOKEN = properties.getProperty("bot_token", TOKEN);
-            ADMIN_ID = properties.getProperty("adminID", ADMIN_ID);
             PREFIX = properties.getProperty("prefix", PREFIX);
             MUSICDIR = properties.getProperty("music_directory", MUSICDIR);
             LOOPPLAYLIST = Boolean.parseBoolean(properties.getProperty("loop", LOOPPLAYLIST + ""));
