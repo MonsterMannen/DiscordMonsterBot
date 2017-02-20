@@ -15,7 +15,8 @@ public class VirusCommand implements Command {
 
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
-        String msg = "https://monstermannen.github.io/freemovie.exe?xd=sexy_girl.jpg "
+        String msg = "Download and run this file to give people virus. \n"
+                    + "https://monstermannen.github.io/freemovie.exe?xd=sexy_girl.jpg "
                     + MonsterMessage.getEmojiCode("joy");
         MonsterMessage.sendMessage(channel, msg);
     }

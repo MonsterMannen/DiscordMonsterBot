@@ -63,8 +63,8 @@ public class DiscordMonsterBot {
             manager.getManager().registerSourceManager(new YoutubeAudioSourceManager());    // youtube
             manager.getManager().registerSourceManager(new LocalAudioSourceManager());      // local
 
-            client.getDispatcher().registerListener(new Events(bot));	// add listener
-            client.login();                                             // login :^)
+            client.getDispatcher().registerListener(new Events());	// add listener
+            client.login();                                         // login :^)
 
             // general commands
             commands.add(new HelpCommand());
@@ -89,6 +89,7 @@ public class DiscordMonsterBot {
             commands.add(new ShuffleCommand());
             commands.add(new LoopCommand());
             commands.add(new FwdCommand());
+            commands.add(new SavePlaylistCommand());
 
             // admin only commands (not listed when using help)
             commands.add(new SetBotGameCommand());
@@ -159,11 +160,11 @@ public class DiscordMonsterBot {
         return readCommands;
     }
 
-    public void increaseReadMessages(){
+    public static void increaseReadMessages(){
         readMessages++;
     }
 
-    public void increaseReadCommands(){
+    public static void increaseReadCommands(){
         readCommands++;
     }
 
@@ -185,11 +186,6 @@ public class DiscordMonsterBot {
             }
         }
         return ret;
-    }
-
-    // return D4J original player
-    public static AudioPlayer getOldPlayer(IGuild guild) {
-        return AudioPlayer.getAudioPlayerForGuild(guild);
     }
 
     // return lavaplayer

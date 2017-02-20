@@ -21,13 +21,27 @@ public class WhoSpamsCommand implements Command {
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
         int checkTime = 24; // default 24h
 
-        if(args.length > 0){
-            if(MonsterMessage.isInteger(args[0])){
+        if(args.length > 0) {
+            if (MonsterMessage.isInteger(args[0])) {
                 checkTime = Integer.parseInt(args[0]);
-                if(checkTime > 240){
-                    MonsterMessage.sendMessage(channel, "Max 240 hours scan (will be longer soon:tm:)");
-                    return;
+            }
+
+            boolean override = false;
+
+            if(args.length == 2) {
+                if (args[1].equals("--override-limit")) {
+                    if (user.equals(channel.getClient().getApplicationOwner())) {
+                        override = true;
+                    } else {
+                        MonsterMessage.sendMessage(channel, "Admin command. This incident will be reported.");
+                        return;
+                    }
                 }
+            }
+
+            if(checkTime > 240 && !override){
+                MonsterMessage.sendMessage(channel, "Max 240 hours scan (will be longer soon:tm:)");
+                return;
             }
         }
 
