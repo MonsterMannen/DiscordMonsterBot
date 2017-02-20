@@ -80,7 +80,8 @@ public class Events {
         // run command
         for(Command cmd : DiscordMonsterBot.getCommands()){
             if(cmd.getCommand().equalsIgnoreCase(command)){
-                if(cmd.getCommandType() == CommandType.ADMIN && !user.getID().equals(DiscordMonsterBot.ADMIN_ID)){
+                if(cmd.getCommandType() == CommandType.ADMIN
+                        && !user.getID().equals(channel.getClient().getApplicationOwner().getID())){
                     MonsterMessage.sendMessage(channel, "Admin only command \uD83D\uDE0E"); // sunglasses smiley
                 }else {
                     cmd.runCommand(user, channel, message, args);

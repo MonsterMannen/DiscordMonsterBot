@@ -12,6 +12,7 @@ import se.monstermannen.discordmonsterbot.commands.Command;
 import se.monstermannen.discordmonsterbot.commands.CommandType;
 import se.monstermannen.discordmonsterbot.commands.admin.SetBotAvatarCommand;
 import se.monstermannen.discordmonsterbot.commands.admin.SetBotGameCommand;
+import se.monstermannen.discordmonsterbot.commands.admin.SetBotNameCommand;
 import se.monstermannen.discordmonsterbot.commands.admin.SetBotPrefixCommand;
 import se.monstermannen.discordmonsterbot.commands.general.*;
 import se.monstermannen.discordmonsterbot.commands.music.*;
@@ -92,6 +93,7 @@ public class DiscordMonsterBot {
 
             // admin only commands (not listed when using help)
             commands.add(new SetBotGameCommand());
+            commands.add(new SetBotNameCommand());
             commands.add(new SetBotAvatarCommand());
             commands.add(new SetBotPrefixCommand());
 
