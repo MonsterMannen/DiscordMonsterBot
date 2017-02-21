@@ -3,10 +3,7 @@ package se.monstermannen.discordmonsterbot;
 import com.arsenarsen.lavaplayerbridge.PlayerManager;
 import com.arsenarsen.lavaplayerbridge.libraries.LibraryFactory;
 import com.arsenarsen.lavaplayerbridge.libraries.UnknownBindingException;
-import com.arsenarsen.lavaplayerbridge.player.Player;
-import com.arsenarsen.lavaplayerbridge.player.Track;
-import com.sedmelluq.discord.lavaplayer.source.http.HttpAudioSourceManager;
-import com.sedmelluq.discord.lavaplayer.source.local.LocalAudioSourceManager;
+import com.arsenarsen.lavaplayerbridge.player.Player
 import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager;
 import se.monstermannen.discordmonsterbot.commands.Command;
 import se.monstermannen.discordmonsterbot.commands.CommandType;
@@ -22,7 +19,6 @@ import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.obj.IGuild;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.RateLimitException;
-import sx.blah.discord.util.audio.AudioPlayer;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -37,10 +33,10 @@ import java.util.Properties;
  */
 public class DiscordMonsterBot {
     // default values
-    private static String TOKEN = token.TOKEN;              // bot token in secret file token.java
-    public static String PREFIX = "!";                      // prefix for commands
-    public static String MUSICDIR = "E:/Musik";             // directory with songs
-    public static boolean LOOPPLAYLIST = false;             // loop musicplayers playlist or no
+    private static String TOKEN = "";           // discord bot token
+    private static String YT_APIKEY = "";       // youtube api key
+    public static String PREFIX = "!";          // prefix for commands
+    public static boolean LOOPPLAYLIST = false; // loop music players playlist
     // objects
     private static IDiscordClient client;
     public static MonsterTimer timer;
@@ -61,7 +57,6 @@ public class DiscordMonsterBot {
 
             manager = PlayerManager.getPlayerManager(LibraryFactory.getLibrary(client));
             manager.getManager().registerSourceManager(new YoutubeAudioSourceManager());    // youtube
-            manager.getManager().registerSourceManager(new LocalAudioSourceManager());      // local
 
             client.getDispatcher().registerListener(new Events());	// add listener
             client.login();                                         // login :^)
@@ -74,6 +69,7 @@ public class DiscordMonsterBot {
             commands.add(new FlipCommand());
             commands.add(new UserInfoCommand());
             commands.add(new WhoSpamsCommand());
+            commands.add(new YTCommand());
 
             // music commands
             commands.add(new JoinCommand());
@@ -83,7 +79,6 @@ public class DiscordMonsterBot {
             commands.add(new PausCommand());
             commands.add(new SkipCommand());
             commands.add(new VolumeCommand());
-            commands.add(new ListSongsCommand());
             commands.add(new SongCommand());
             commands.add(new PlaylistCommand());
             commands.add(new ShuffleCommand());
@@ -122,8 +117,8 @@ public class DiscordMonsterBot {
             properties.load(reader);
 
             TOKEN = properties.getProperty("bot_token", TOKEN);
+            YT_APIKEY = properties.getProperty("yt_apikey", YT_APIKEY);
             PREFIX = properties.getProperty("prefix", PREFIX);
-            MUSICDIR = properties.getProperty("music_directory", MUSICDIR);
             LOOPPLAYLIST = Boolean.parseBoolean(properties.getProperty("loop", LOOPPLAYLIST + ""));
 
             FileReader reader2 = new FileReader("config/stats.properties");
