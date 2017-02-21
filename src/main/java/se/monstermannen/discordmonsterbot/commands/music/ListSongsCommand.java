@@ -19,6 +19,7 @@ public class ListSongsCommand implements Command {
 
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
+        /*
         List<String> results = new ArrayList<>();
 
         try {
@@ -50,6 +51,7 @@ public class ListSongsCommand implements Command {
         }
 
         MonsterMessage.sendMessage(channel, msg);
+        */
     }
 
     @Override

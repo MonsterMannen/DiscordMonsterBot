@@ -9,6 +9,7 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.ResourceId;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
+import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,11 +18,13 @@ import java.util.List;
  * Youtube
  */
 public class YouTubeGetter {
-    public static String getID(String searchQuery){
+
+    public static SearchResult getID(String searchQuery){
         YouTube youtube;
+        long NR_VIDEOS_TO_GET = 1;
 
         try {
-            // This object is used to make YouTube Data API requests.
+            // This object is used to make YouTube Data API requests
             youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer() {
                 public void initialize(HttpRequest request) throws IOException {
                 }
@@ -30,35 +33,34 @@ public class YouTubeGetter {
             // Define the API request for retrieving search results.
             YouTube.Search.List search = youtube.search().list("id,snippet");
 
-            // Set your developer key from the {{ Google Cloud Console }} for
-            // non-authenticated requests. See:
-            // {{ https://cloud.google.com/console }}
-            String apiKey = "AIzaSyApyl3gJI1ooOx4WO7E5YNGsokBb7a_EEA";
-            search.setKey(apiKey);
-            search.setQ(queryTerm);
+            // Set your developer key
+            search.setKey(DiscordMonsterBot.YT_APIKEY);
 
-            // Restrict the search results to only include videos. See:
-            // https://developers.google.com/youtube/v3/docs/search/list#type
+            // search words
+            search.setQ(searchQuery);
+
+            // Restrict the search results to only include videos
             search.setType("video");
 
             // To increase efficiency, only retrieve the fields that the
-            // application uses.
+            // application uses
             search.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)");
-            search.setMaxResults(Long.valueOf(1));
 
-            // Call the API and print results.
+            // number of videos to retrieve
+            search.setMaxResults(NR_VIDEOS_TO_GET);
+
+            // Call the API and print results
             SearchListResponse searchResponse = search.execute();
             List<SearchResult> searchResultList = searchResponse.getItems();
 
-            if (searchResultList != null) {
+            if(searchResultList != null){
                 SearchResult singleVideo = searchResultList.get(0);
                 ResourceId rId = singleVideo.getId();
 
                 // Confirm that the result represents a video. Otherwise, the
-                // item will not contain a video ID.
+                // item will not contain a video ID
                 if (rId.getKind().equals("youtube#video")) {
-                    System.out.println(" Video Id: " + rId.getVideoId());
-                    System.out.println(" Title: " + singleVideo.getSnippet().getTitle());
+                    return singleVideo;
                 }
             }
         } catch (GoogleJsonResponseException e) {
@@ -70,6 +72,6 @@ public class YouTubeGetter {
             t.printStackTrace();
         }
 
-        return "";
+        return null;
     }
 }

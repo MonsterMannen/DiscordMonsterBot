@@ -2,3 +2,4 @@
 DiscordMonsterBot.iml
 modules/
 target/
+config/config.properties

@@ -21,8 +21,7 @@ public class PlayCommand implements Command {
         }
 
         if(args.length > 0){
-            String x = "`" + DiscordMonsterBot.PREFIX + "addsong [song]`";
-            MonsterMessage.sendMessage(channel, "Use " + x + " to add a song.");
+            new AddSongCommand().runCommand(user, channel, message, args);
         }
     }
 

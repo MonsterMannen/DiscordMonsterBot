@@ -1,0 +1,10 @@
+# config file
+
+# discord bot token
+bot_token = BOT_TOKEN_HERE
+
+# youtube api key
+yt_apikey = YOUTUBE_API_KEY_HERE
+
+# prefix for bot commands
+prefix = !
