@@ -25,7 +25,8 @@ public class Events {
     public void onReady(ReadyEvent event) {
         System.out.println("Bot online!");
         //bot.getClient().changeStatus(Status.stream("4chan games", "https://www.twitch.tv/phantomn00b"));   // hehe
-        event.getClient().changePlayingText("java > c++");
+        String status = "\uD83C\uDFB6 music \uD83C\uDFB6";  // 🎶
+        event.getClient().changePlayingText(status);
 
         List<IGuild> guilds = event.getClient().getGuilds();
         for(IGuild g : guilds){

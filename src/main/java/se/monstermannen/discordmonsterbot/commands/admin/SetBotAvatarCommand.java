@@ -18,7 +18,7 @@ public class SetBotAvatarCommand implements Command {
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
         if(args.length == 0){
-            MonsterMessage.sendMessage(channel, "No image url specified");
+            MonsterMessage.sendErrorMessage(channel, "No image url specified");
             return;
         }
 

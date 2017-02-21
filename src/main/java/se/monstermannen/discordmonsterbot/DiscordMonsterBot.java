@@ -41,6 +41,7 @@ public class DiscordMonsterBot {
     private static IDiscordClient client;
     public static MonsterTimer timer;
     public static PlayerManager manager;
+    public static AddSongCommand addSong;
     // variables
     private static ArrayList<Command> commands = new ArrayList<>();
     private static int readMessages;
@@ -91,18 +92,19 @@ public class DiscordMonsterBot {
             commands.add(new SetBotAvatarCommand());
             commands.add(new SetBotPrefixCommand());
 
+            addSong = new AddSongCommand(); // used by !play command
+
         } catch (DiscordException | RateLimitException | UnknownBindingException e) {
             e.printStackTrace();
         }
     }
-
 
     // todo logger
     // todo IMDB command (api)
     // todo swag command edit msg
     // todo fwd song
     // todo add youtube playlist?
-    // save playlist .txt file with yt links
+    // todo load playlists
 
     // return time in seconds since program start
     public static long getUptime(){

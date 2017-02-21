@@ -21,7 +21,7 @@ public class PlayCommand implements Command {
         }
 
         if(args.length > 0){
-            new AddSongCommand().runCommand(user, channel, message, args);
+            DiscordMonsterBot.addSong.runCommand(user, channel, message, args);
         }
     }
 
@@ -32,7 +32,7 @@ public class PlayCommand implements Command {
 
     @Override
     public String getDescription() {
-        return "Start/Unpause player.";
+        return "Start/Unpause player or add a song if any is specified.";
     }
 
     @Override

@@ -27,7 +27,7 @@ public class LoopCommand implements Command {
         }else if(args[0].equalsIgnoreCase("OFF")){
             DiscordMonsterBot.getPlayer(channel.getGuild()).setLooping(false);
         }else{
-            MonsterMessage.sendMessage(channel, "Argument ON|OFF");
+            MonsterMessage.sendErrorMessage(channel, "Argument ON|OFF");
         }
 
     }

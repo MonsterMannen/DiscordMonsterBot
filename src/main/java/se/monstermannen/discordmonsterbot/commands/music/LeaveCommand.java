@@ -19,7 +19,7 @@ public class LeaveCommand implements Command {
         if(channel.getClient().getConnectedVoiceChannels().size() > 0) {
             IVoiceChannel voiceChannel = user.getConnectedVoiceChannels().get(0);
 
-            if(channel.getGuild().equals(voiceChannel.getGuild())){ // check that voicechannel is in correct guild
+            if(channel.getGuild().equals(voiceChannel.getGuild())){ // check that voice channel is in correct guild
                 voiceChannel.leave();
                 DiscordMonsterBot.getPlayer(channel.getGuild()).setPaused(true);
             }

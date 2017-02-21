@@ -25,7 +25,7 @@ public class AddSongCommand implements Command {
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
         if(args.length == 0){
-            MonsterMessage.sendMessage(channel, "Specify song. One or more youtube links.");
+            MonsterMessage.sendErrorMessage(channel, "Specify song. One or more youtube links or search words");
             return;
         }
 
@@ -46,7 +46,7 @@ public class AddSongCommand implements Command {
             SearchResult ytVid = YouTubeGetter.getID(sb.toString());
 
             if(ytVid == null){
-                MonsterMessage.sendMessage(channel, "Couldn't find any video for that search term");
+                MonsterMessage.sendErrorMessage(channel, "Couldn't find any video for that search term");
                 return;
             }
 
@@ -75,7 +75,7 @@ public class AddSongCommand implements Command {
         }
 
         if(item == null){
-            MonsterMessage.sendMessage(channel, "Could not load track " + MonsterMessage.getEmojiCode("musical_note"));
+            MonsterMessage.sendErrorMessage(channel, "Could not load track " + MonsterMessage.getEmojiCode("musical_note"));
         }else{
             Track track = new Track((AudioTrack) item);
             player.queue(track);
@@ -89,8 +89,7 @@ public class AddSongCommand implements Command {
 
     @Override
     public String getDescription() {
-        return "Add a song from youtube or a local one.\n" +
-                "If multiple youtube songs are linked, all will be added.";
+        return "Add a song from a youtube link or search words.";
     }
 
     @Override

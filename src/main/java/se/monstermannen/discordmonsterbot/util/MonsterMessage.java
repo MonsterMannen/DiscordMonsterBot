@@ -81,6 +81,12 @@ public class MonsterMessage {
         return m[0];
     }
 
+    // add a warning emoji before the message
+    public static IMessage sendErrorMessage(IChannel channel, String msg){
+        String prefix = getEmojiCode("warning");
+        return sendMessage(channel, prefix + " " + msg);
+    }
+
     public static void addReaction(IMessage message, String emoji_string){
         try{
             RequestBuffer.request(() -> {

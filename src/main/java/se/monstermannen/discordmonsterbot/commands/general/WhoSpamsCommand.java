@@ -33,17 +33,19 @@ public class WhoSpamsCommand implements Command {
                     if (user.equals(channel.getClient().getApplicationOwner())) {
                         override = true;
                     } else {
-                        MonsterMessage.sendMessage(channel, "Admin command. This incident will be reported.");
+                        MonsterMessage.sendErrorMessage(channel, "Admin command. This incident will be reported.");
                         return;
                     }
                 }
             }
 
             if(checkTime > 240 && !override){
-                MonsterMessage.sendMessage(channel, "Max 240 hours scan (will be longer soon:tm:)");
+                MonsterMessage.sendErrorMessage(channel, "Max 240 hours scan (will be longer soon:tm:)");
                 return;
             }
         }
+
+        if(checkTime > 240) channel.setTypingStatus(true);
 
         List<UserMsgHolder> umhList = new ArrayList<>();
         IMessage msg;
@@ -93,6 +95,7 @@ public class WhoSpamsCommand implements Command {
         embed.withTitle("Messages sent in the last **" + checkTime + "** hours");
         embed.withDescription(sb.toString());
 
+        channel.setTypingStatus(false);
         MonsterMessage.sendMessage(channel, embed.build());
     }
 

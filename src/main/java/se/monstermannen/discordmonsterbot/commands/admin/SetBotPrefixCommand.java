@@ -16,6 +16,10 @@ public class SetBotPrefixCommand implements Command {
 
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
+        if(args.length == 0){
+            MonsterMessage.sendErrorMessage(channel, "no prefix specified");
+            return;
+        }
         DiscordMonsterBot.PREFIX = args[0];
         MonsterMessage.sendMessage(channel, "Prefix set to: " + DiscordMonsterBot.PREFIX);
     }

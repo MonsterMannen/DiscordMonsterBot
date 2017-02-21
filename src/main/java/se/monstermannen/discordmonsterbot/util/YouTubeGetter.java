@@ -54,13 +54,15 @@ public class YouTubeGetter {
             List<SearchResult> searchResultList = searchResponse.getItems();
 
             if(searchResultList != null){
-                SearchResult singleVideo = searchResultList.get(0);
-                ResourceId rId = singleVideo.getId();
+                if(searchResultList.size() > 0) {
+                    SearchResult singleVideo = searchResultList.get(0);
+                    ResourceId rId = singleVideo.getId();
 
-                // Confirm that the result represents a video. Otherwise, the
-                // item will not contain a video ID
-                if (rId.getKind().equals("youtube#video")) {
-                    return singleVideo;
+                    // Confirm that the result represents a video. Otherwise, the
+                    // item will not contain a video ID
+                    if (rId.getKind().equals("youtube#video")) {
+                        return singleVideo;
+                    }
                 }
             }
         } catch (GoogleJsonResponseException e) {

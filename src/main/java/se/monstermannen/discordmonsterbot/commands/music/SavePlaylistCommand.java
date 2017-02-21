@@ -21,15 +21,14 @@ public class SavePlaylistCommand implements Command {
 
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
-
         if(args.length > 1){
-            MonsterMessage.sendMessage(channel, "playlist name can't contain spaces");
+            MonsterMessage.sendErrorMessage(channel, " playlist name can't contain spaces");
             return;
         } else if(args[0].contains("/") || args[0].contains("\\")){
-            MonsterMessage.sendMessage(channel, "Illegal characters");
+            MonsterMessage.sendErrorMessage(channel, " Illegal characters");
             return;
         } else if(DiscordMonsterBot.getPlayer(channel.getGuild()).getPlayingTrack() == null){
-            MonsterMessage.sendMessage(channel, "No songs in playqueue");
+            MonsterMessage.sendErrorMessage(channel, " No songs in play queue");
             return;
         }
 
@@ -39,6 +38,9 @@ public class SavePlaylistCommand implements Command {
         try {
             String path = "playlists/" + args[0] + ".txt";
             PrintWriter writer = new PrintWriter(path, "UTF-8");
+
+            writer.println(DiscordMonsterBot.getPlayer(channel.getGuild())
+                        .getPlayingTrack().getTrack().getInfo().identifier);    // add currently playing song first
             for(Track track : playlist){
                 String id = track.getTrack().getInfo().identifier;
                 writer.println(id);
@@ -57,7 +59,7 @@ public class SavePlaylistCommand implements Command {
 
     @Override
     public String getDescription() {
-        return "Saves songs in the playqueue to a loadable playlist.";
+        return "Saves songs in the play queue to a loadable playlist.";
     }
 
     @Override

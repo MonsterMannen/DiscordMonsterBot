@@ -22,7 +22,7 @@ public class SongCommand implements Command {
         Player player = DiscordMonsterBot.getPlayer(channel.getGuild());
 
         if(player.getPlayingTrack() == null){
-            MonsterMessage.sendMessage(channel, "No song playing " + MonsterMessage.getEmojiCode("musical_note"));    // musical note emoji
+            MonsterMessage.sendErrorMessage(channel, "No song playing " + MonsterMessage.getEmojiCode("musical_note"));    // musical note emoji
             return;
         }
 

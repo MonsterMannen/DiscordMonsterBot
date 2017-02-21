@@ -17,7 +17,7 @@ public class VolumeCommand implements Command {
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
         if(args.length == 0){
-            MonsterMessage.sendMessage(channel, "Needs one argument");
+            MonsterMessage.sendErrorMessage(channel, "Needs one argument");
         }else{
             if(!isNumber(args[0])) return;  // return if not number
             int vol = Integer.parseInt(args[0]);
