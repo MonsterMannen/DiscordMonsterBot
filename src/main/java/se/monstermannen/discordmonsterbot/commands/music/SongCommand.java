@@ -34,7 +34,7 @@ public class SongCommand implements Command {
         double d = (double) playedAmount / totalAmount;
 
         // bar
-        int length = 30;
+        int length = Math.max(player.getPlayingTrack().getTrack().getInfo().title.length(), 40);    // 40 minimal
         int pre = (int) (length * d);
         int post = length - pre;
 
