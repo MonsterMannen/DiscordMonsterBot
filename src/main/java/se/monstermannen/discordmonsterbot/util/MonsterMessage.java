@@ -83,8 +83,27 @@ public class MonsterMessage {
 
     // add a warning emoji before the message
     public static IMessage sendErrorMessage(IChannel channel, String msg){
-        String prefix = getEmojiCode("warning");
-        return sendMessage(channel, prefix + " " + msg);
+        final IMessage[] m = new IMessage[1];
+        try{
+            RequestBuffer.request(() -> {
+                String prefix = getEmojiCode("warning");
+                m[0] = sendMessage(channel, prefix + " " + msg);
+            });
+
+        }catch (MissingPermissionsException | RateLimitException | DiscordException e) {
+            e.printStackTrace();
+        }
+        return m[0];
+    }
+
+    public static void editMessage(IMessage msg, String newContent) {
+        try {
+            RequestBuffer.request(() -> {
+                msg.edit(newContent);
+            });
+        } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void addReaction(IMessage message, String emoji_string){
