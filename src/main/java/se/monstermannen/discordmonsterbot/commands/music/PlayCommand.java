@@ -15,14 +15,13 @@ public class PlayCommand implements Command {
 
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
-        // can only play if bot is connected to a voice channel
-        if(channel.getGuild().getConnectedVoiceChannel() != null) {
-            DiscordMonsterBot.getPlayer(channel.getGuild()).setPaused(false);
-        }
-
         if(args.length > 0){
-            String x = "`" + DiscordMonsterBot.PREFIX + "addsong [song]`";
-            MonsterMessage.sendMessage(channel, "Use " + x + " to add a song.");
+            DiscordMonsterBot.addSong.runCommand(user, channel, message, args); // addsong
+        }else{
+            // can only play if bot is connected to a voice channel
+            if(channel.getGuild().getConnectedVoiceChannel() != null) {
+                DiscordMonsterBot.getPlayer(channel.getGuild()).setPaused(false);   // unpause
+            }
         }
     }
 
@@ -33,7 +32,7 @@ public class PlayCommand implements Command {
 
     @Override
     public String getDescription() {
-        return "Start/Unpause player.";
+        return "Start/Unpause player or add a song if any is specified.";
     }
 
     @Override

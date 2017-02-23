@@ -52,6 +52,7 @@ public class HelpCommand implements Command {
         MonsterMessage.sendMessage(channel, embed.build());
     }
 
+    // give info about a command
     private void helpCommand(IChannel channel, String command){
         String msg = "";
         boolean found = false;
@@ -62,7 +63,11 @@ public class HelpCommand implements Command {
             }
         }
 
-        if(found) MonsterMessage.sendMessage(channel, msg);
+        if(found){
+            MonsterMessage.sendMessage(channel, msg);
+        }else{
+            MonsterMessage.sendErrorMessage(channel, "That command doesn't exist.");
+        }
     }
 
     @Override

@@ -2,5 +2,4 @@
 DiscordMonsterBot.iml
 modules/
 target/
-token.java
-*.mp3
+config/config.properties

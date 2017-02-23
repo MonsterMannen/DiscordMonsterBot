@@ -22,7 +22,7 @@ public class UserInfoCommand implements Command {
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
         List<IUser> mentions = message.getMentions();
         if(mentions.isEmpty()){
-            MonsterMessage.sendMessage(channel, "No user mentioned");
+            MonsterMessage.sendErrorMessage(channel, "No user mentioned");
             return;
         }
 

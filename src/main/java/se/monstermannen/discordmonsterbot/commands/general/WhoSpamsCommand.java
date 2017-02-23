@@ -21,15 +21,31 @@ public class WhoSpamsCommand implements Command {
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
         int checkTime = 24; // default 24h
 
-        if(args.length > 0){
-            if(MonsterMessage.isInteger(args[0])){
+        if(args.length > 0) {
+            if (MonsterMessage.isInteger(args[0])) {
                 checkTime = Integer.parseInt(args[0]);
-                if(checkTime > 240){
-                    MonsterMessage.sendMessage(channel, "Max 240 hours scan (will be longer soon:tm:)");
-                    return;
+            }
+
+            boolean override = false;
+
+            if(args.length == 2) {
+                if (args[1].equals("--override-limit")) {
+                    if (user.equals(channel.getClient().getApplicationOwner())) {
+                        override = true;
+                    } else {
+                        MonsterMessage.sendErrorMessage(channel, "Admin command. This incident will be reported.");
+                        return;
+                    }
                 }
             }
+
+            if(checkTime > 240 && !override){
+                MonsterMessage.sendErrorMessage(channel, "Max 240 hours scan (will be longer soon:tm:)");
+                return;
+            }
         }
+
+        if(checkTime > 240) channel.setTypingStatus(true);
 
         List<UserMsgHolder> umhList = new ArrayList<>();
         IMessage msg;
@@ -79,6 +95,7 @@ public class WhoSpamsCommand implements Command {
         embed.withTitle("Messages sent in the last **" + checkTime + "** hours");
         embed.withDescription(sb.toString());
 
+        channel.setTypingStatus(false);
         MonsterMessage.sendMessage(channel, embed.build());
     }
 
