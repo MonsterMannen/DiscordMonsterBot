@@ -9,17 +9,22 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.ResourceId;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
+import org.json.JSONObject;
 import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 /**
- * Youtube
+ * Get youtube vids or json objects
  */
-public class YouTubeGetter {
+public class Getters {
 
-    public static SearchResult getID(String searchQuery){
+    public static SearchResult getYouTube(String searchQuery){
         YouTube youtube;
         long NR_VIDEOS_TO_GET = 1;
 
@@ -75,5 +80,34 @@ public class YouTubeGetter {
         }
 
         return null;
+    }
+
+    public static JSONObject getJSON(String url){
+        try {
+            JSONObject json = new JSONObject(getTextFromUrl(url));
+            return json;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static String getTextFromUrl(String urlString) throws IOException {
+        BufferedReader reader = null;
+        try {
+            URL url = new URL(urlString);
+            reader = new BufferedReader(new InputStreamReader(url.openStream()));
+            StringBuffer buffer = new StringBuffer();
+            int read;
+            char[] chars = new char[1024];
+            while((read = reader.read(chars)) != -1){
+                buffer.append(chars, 0, read);
+            }
+            return buffer.toString();
+        } finally {
+            if(reader != null){
+                reader.close();
+            }
+        }
     }
 }

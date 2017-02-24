@@ -70,6 +70,7 @@ public class DiscordMonsterBot {
             commands.add(new FlipCommand());
             commands.add(new UserInfoCommand());
             commands.add(new WhoSpamsCommand());
+            commands.add(new ImdbCommand());
 
             // music commands
             commands.add(new JoinCommand());
