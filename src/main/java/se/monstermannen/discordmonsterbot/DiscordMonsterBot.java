@@ -102,11 +102,8 @@ public class DiscordMonsterBot {
     }
 
     // todo logger
-    // todo swag command edit msg (thread)
     // todo fwd song
-    // todo add youtube playlist?
     // todo load playlists
-    // todo cant add same song twice? can now wtf?
 
     // return time in seconds since program start
     public static long getUptime(){
