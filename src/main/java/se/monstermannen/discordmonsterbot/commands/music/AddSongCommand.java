@@ -9,7 +9,7 @@ import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
 import se.monstermannen.discordmonsterbot.commands.Command;
 import se.monstermannen.discordmonsterbot.commands.CommandType;
 import se.monstermannen.discordmonsterbot.util.MonsterMessage;
-import se.monstermannen.discordmonsterbot.util.YouTubeGetter;
+import se.monstermannen.discordmonsterbot.util.Getters;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
@@ -43,7 +43,7 @@ public class AddSongCommand implements Command {
             for(String word : args){
                 sb.append(word).append(" ");
             }
-            SearchResult ytVid = YouTubeGetter.getID(sb.toString());
+            SearchResult ytVid = Getters.getYouTube(sb.toString());
 
             if(ytVid == null){
                 MonsterMessage.sendErrorMessage(channel, "Couldn't find any video for that search term");
