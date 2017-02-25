@@ -46,7 +46,7 @@ public class PlaylistCommand implements Command {
 
         EmbedBuilder embed = new EmbedBuilder()
                 .withColor(Color.CYAN)
-                .withDescription("**Playlist[" + playlist.size()+1 + "]** - Looping: **" + loop + "** "
+                .withDescription("**Playlist[" + (playlist.size()+1) + "]** - Looping: **" + loop + "** "
                         + "- Status: **" + status + "** \n\n" + sb);
 
         MonsterMessage.sendMessage(channel, embed.build());
