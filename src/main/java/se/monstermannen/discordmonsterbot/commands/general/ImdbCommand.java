@@ -4,6 +4,7 @@ import org.json.JSONObject;
 import se.monstermannen.discordmonsterbot.commands.Command;
 import se.monstermannen.discordmonsterbot.commands.CommandType;
 import se.monstermannen.discordmonsterbot.util.Getters;
+import se.monstermannen.discordmonsterbot.util.MonsterMessage;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
@@ -15,11 +16,36 @@ public class ImdbCommand implements Command {
 
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
-        // test
-        String baseUrl = "http://www.omdbapi.com/?t=troy&y=&plot=short&r=json";
-        JSONObject json = Getters.getJSON(baseUrl);
-        String title = (String) json.get("Title");
-        System.out.println(title);
+        // arg check
+        if(args.length == 0){
+            MonsterMessage.sendErrorMessage(channel, "Specify movie or series to search for.");
+            return;
+        }
+
+        // gets args
+        StringBuilder sb = new StringBuilder();
+        for(String word : args){
+            sb.append(word).append("+");
+        }
+        String search = sb.substring(0, sb.length()-1);
+
+        // get json
+        String url = "http://www.omdbapi.com/?t=" + search + "&y=&plot=short&r=json";
+        JSONObject json = Getters.getJSON(url);
+        String response = (String) json.get("Response");
+
+        // print info
+        if(response.equals("False")){
+            MonsterMessage.sendErrorMessage(channel, "Could not find **" + search + "**");
+        }else{
+            String title = (String) json.get("Title");
+            String year = (String) json.get("Year");
+            String rating = (String) json.get("imdbRating");
+            String msg = "Title: " + title
+                    + "\nYear: " + year
+                    + "\nRating: " + rating;
+            MonsterMessage.sendMessage(channel, msg);
+        }
     }
 
     @Override

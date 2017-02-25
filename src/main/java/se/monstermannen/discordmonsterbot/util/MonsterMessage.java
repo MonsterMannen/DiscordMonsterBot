@@ -37,6 +37,7 @@ public class MonsterMessage {
             e.printStackTrace();
         }
 
+        // return statement reached and null is returned before message is sent?
         return m[0];
     }
     

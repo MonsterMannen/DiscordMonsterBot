@@ -71,6 +71,7 @@ public class DiscordMonsterBot {
             commands.add(new UserInfoCommand());
             commands.add(new WhoSpamsCommand());
             commands.add(new ImdbCommand());
+            commands.add(new SwagCommand());
 
             // music commands
             commands.add(new JoinCommand());
@@ -101,12 +102,8 @@ public class DiscordMonsterBot {
     }
 
     // todo logger
-    // todo IMDB command (api)
-    // todo swag command edit msg (thread)
     // todo fwd song
-    // todo add youtube playlist?
     // todo load playlists
-    // todo cant add same song twice
 
     // return time in seconds since program start
     public static long getUptime(){
