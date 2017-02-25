@@ -16,85 +16,73 @@ import java.io.FileNotFoundException;
 public class MonsterMessage {
 
     public static IMessage sendMessage(IChannel channel, String msg){
-        final IMessage[] m = new IMessage[1];
-        boolean tooLong = false;
-        if(msg.length() > 1999){
-            tooLong = true;
-            msg = msg.substring(0, 1999);
-        }
+        // max 2000 chars
+        String finalMsg = msg.substring(0, Math.min(1999, msg.length()));
 
-        try {
-            final boolean finalTooLong = tooLong;   // needs to be final
-            final String finalMsg = msg;            // needs to be final
-            RequestBuffer.request(() -> {           // prevents rate limit exceptions
-                m[0] = channel.sendMessage(finalMsg);
-                if(finalTooLong){
-                    channel.sendMessage("Previous message too long. Max length is 2000 characters");
-                }
-            });
-
-        } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
-            e.printStackTrace();
-        }
-
-        // return statement reached and null is returned before message is sent?
-        return m[0];
+        RequestBuffer.RequestFuture<IMessage> m = RequestBuffer.request(() -> {
+            try {
+                return channel.sendMessage(finalMsg);
+            } catch (MissingPermissionsException | DiscordException e) {
+                System.err.println(e.getCause() + " " + e.getMessage());
+                return null;
+            }
+        });
+        return m.get();
     }
     
     public static IMessage sendMessage(IChannel channel, EmbedObject embed){
-        final IMessage[] m = new IMessage[1];
-
         // check for overflow here too?
 
-        try{
-            RequestBuffer.request(() -> {
-                m[0] = channel.sendMessage("", embed, false);
-            });
-        } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
-            e.printStackTrace();
-        }
-
-        return m[0];
+        RequestBuffer.RequestFuture<IMessage> m = RequestBuffer.request(() -> {
+            try{
+                return channel.sendMessage("", embed, false);
+            } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
+                e.printStackTrace();
+                return null;
+            }
+        });
+        return m.get();
     }
 
     public static IMessage sendPM(IUser user, String msg){
-        final IMessage[] m = new IMessage[1];
-        try{
-            RequestBuffer.request(() -> {
-                m[0] = user.getOrCreatePMChannel().sendMessage(msg);
-            });
-        } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
-            e.printStackTrace();
-        }
-        return m[0];
+        String finalMsg = msg.substring(0, Math.min(1999, msg.length()));
+
+        RequestBuffer.RequestFuture<IMessage> m = RequestBuffer.request(() -> {
+            try{
+                return user.getOrCreatePMChannel().sendMessage(finalMsg);
+            } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
+                e.printStackTrace();
+                return null;
+            }
+        });
+        return m.get();
     }
 
     public static IMessage sendFile(IChannel channel, String msg, String file){
-        final IMessage[] m = new IMessage[1];
-        RequestBuffer.request(() -> {
-            try {
+        RequestBuffer.RequestFuture<IMessage> m = RequestBuffer.request(() -> {
+            try{
                 File f = new File(file);
-                m[0] = channel.sendFile(msg, f);
-            } catch (FileNotFoundException e) {
+                return channel.sendFile(msg, f);
+            } catch (MissingPermissionsException | RateLimitException | DiscordException | FileNotFoundException e) {
                 e.printStackTrace();
+                return null;
             }
         });
-        return m[0];
+        return m.get();
     }
 
     // add a warning emoji before the message
     public static IMessage sendErrorMessage(IChannel channel, String msg){
-        final IMessage[] m = new IMessage[1];
-        try{
-            RequestBuffer.request(() -> {
+        RequestBuffer.RequestFuture<IMessage> m = RequestBuffer.request(() -> {
+            try{
                 String prefix = getEmojiCode("warning");
-                m[0] = sendMessage(channel, prefix + " " + msg);
-            });
-
-        }catch (MissingPermissionsException | RateLimitException | DiscordException e) {
-            e.printStackTrace();
-        }
-        return m[0];
+                return sendMessage(channel, prefix + " " + msg);
+            } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
+                e.printStackTrace();
+                return null;
+            }
+        });
+        return m.get();
     }
 
     public static void editMessage(IMessage msg, String newContent) {

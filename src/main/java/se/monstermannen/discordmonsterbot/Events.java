@@ -43,6 +43,15 @@ public class Events {
         // ignore private messages
         if(event.getMessage().getGuild() == null) return;
 
+        // @Bot prefix = return prefix (if everyone forgets it)
+        if(!event.getMessage().getMentions().isEmpty()){
+            if(event.getMessage().getMentions().get(0).equals(event.getChannel().getClient().getOurUser())){
+                if(event.getMessage().getContent().contains("prefix")){
+                    MonsterMessage.sendMessage(event.getChannel(), DiscordMonsterBot.PREFIX);
+                }
+            }
+        }
+
         IMessage message = event.getMessage();
         IChannel channel = message.getChannel();
         IUser user = message.getAuthor();

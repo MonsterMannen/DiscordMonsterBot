@@ -23,13 +23,12 @@ public class SwagCommand implements Command {
         @Override
         public void run() {
             try {
-                // this doesn't return the correct message wtf?
-                //IMessage message = MonsterMessage.sendMessage(channel, "message1");
-
-                IMessage message = channel.sendMessage("(•_•) ");
+                IMessage message = MonsterMessage.sendMessage(channel, "(•_•) ");
                 Thread.sleep(1000);
+
                 MonsterMessage.editMessage(message,"( •_•)>⌐■-■ ");
                 Thread.sleep(1000);
+
                 MonsterMessage.editMessage(message, "(⌐■_■) ");
             } catch (InterruptedException e) {
                 e.printStackTrace();

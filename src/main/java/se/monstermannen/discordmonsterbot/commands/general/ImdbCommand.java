@@ -8,6 +8,7 @@ import se.monstermannen.discordmonsterbot.util.MonsterMessage;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
+import sx.blah.discord.util.EmbedBuilder;
 
 /**
  * Get info from imdb about movies or series
@@ -41,10 +42,14 @@ public class ImdbCommand implements Command {
             String title = (String) json.get("Title");
             String year = (String) json.get("Year");
             String rating = (String) json.get("imdbRating");
-            String msg = "Title: " + title
-                    + "\nYear: " + year
+            String msg = "\nYear: " + year
                     + "\nRating: " + rating;
-            MonsterMessage.sendMessage(channel, msg);
+
+            EmbedBuilder embed = new EmbedBuilder();
+            embed.withTitle(title)
+                    .appendDesc(msg);
+
+            MonsterMessage.sendMessage(channel, embed.build());
         }
     }
 
