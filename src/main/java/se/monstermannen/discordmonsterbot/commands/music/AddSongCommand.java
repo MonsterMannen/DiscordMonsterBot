@@ -54,8 +54,11 @@ public class AddSongCommand implements Command {
             String vidTitle = ytVid.getSnippet().getTitle();
 
             queueTrack(channel, videoId);
-            MonsterMessage.sendMessage(channel,"**" + vidTitle + "** added "
-                            + MonsterMessage.getEmojiCode("musical_note"));
+
+            if(message != null) {   // message is null if sent from LoadPlaylistCommand
+                MonsterMessage.sendMessage(channel, "**" + vidTitle + "** added "
+                        + MonsterMessage.getEmojiCode("musical_note"));
+            }
         }
     }
 

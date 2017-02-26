@@ -80,6 +80,7 @@ public class DiscordMonsterBot {
             commands.add(new PlayCommand());
             commands.add(new PausCommand());
             commands.add(new SkipCommand());
+            commands.add(new ClearCommand());
             commands.add(new VolumeCommand());
             commands.add(new SongCommand());
             commands.add(new PlaylistCommand());
@@ -87,6 +88,7 @@ public class DiscordMonsterBot {
             commands.add(new LoopCommand());
             commands.add(new FwdCommand());
             commands.add(new SavePlaylistCommand());
+            commands.add(new LoadPlaylistCommand());
 
             // admin only commands (not listed when using help)
             commands.add(new SetBotGameCommand());
@@ -103,7 +105,6 @@ public class DiscordMonsterBot {
 
     // todo logger
     // todo fwd song
-    // todo load playlists
 
     // return time in seconds since program start
     public static long getUptime(){

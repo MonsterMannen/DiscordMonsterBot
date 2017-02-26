@@ -30,7 +30,7 @@ public class SongCommand implements Command {
         int vol = player.getVolume();
 
         long playedAmount = player.getPlayingTrack().getTrack().getPosition();
-        long totalAmount = player.getPlayer().getPlayingTrack().getDuration();
+        long totalAmount = player.getPlayingTrack().getTrack().getDuration();
         double d = (double) playedAmount / totalAmount;
 
         // bar
