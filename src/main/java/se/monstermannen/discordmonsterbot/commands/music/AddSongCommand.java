@@ -25,12 +25,13 @@ public class AddSongCommand implements Command {
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
         if(args.length == 0){
-            MonsterMessage.sendErrorMessage(channel, "Specify song. One or more youtube links or search words");
+            MonsterMessage.sendErrorMessage(channel, "Specify song(s). "
+                        + "Youtube link or search term.");
             return;
         }
 
         // queue every youtube link listed
-        if(args[0].contains("youtu")){
+        if(args[0].contains("https://") || args[0].contains("http://")){
             for(String yt_link : args){
                 if(yt_link.contains("youtu")){
                     queueTrack(channel, yt_link);
@@ -38,26 +39,29 @@ public class AddSongCommand implements Command {
             }
         }
         // search for youtube video
-        else{
+        else {
             StringBuilder sb = new StringBuilder();
-            for(String word : args){
+            for (String word : args) {
                 sb.append(word).append(" ");
             }
-            SearchResult ytVid = Getters.getYouTube(sb.toString());
 
-            if(ytVid == null){
-                MonsterMessage.sendErrorMessage(channel, "Couldn't find any video for that search term");
-                return;
-            }
+            for (String searchTerm : sb.toString().split(",")) {
+                SearchResult ytVid = Getters.getYouTube(searchTerm);
 
-            String videoId = ytVid.getId().getVideoId();
-            String vidTitle = ytVid.getSnippet().getTitle();
+                if (ytVid == null) {
+                    MonsterMessage.sendErrorMessage(channel, "Couldn't find any video for that search term");
+                    return;
+                }
 
-            queueTrack(channel, videoId);
+                String videoId = ytVid.getId().getVideoId();
+                String vidTitle = ytVid.getSnippet().getTitle();
 
-            if(message != null) {   // message is null if sent from LoadPlaylistCommand
-                MonsterMessage.sendMessage(channel, "**" + vidTitle + "** added "
-                        + MonsterMessage.getEmojiCode("musical_note"));
+                queueTrack(channel, videoId);
+
+                if (message != null) {   // message is null if sent from LoadPlaylistCommand
+                    MonsterMessage.sendMessage(channel, "**" + vidTitle + "** added "
+                            + MonsterMessage.getEmojiCode("musical_note"));
+                }
             }
         }
     }
@@ -92,7 +96,7 @@ public class AddSongCommand implements Command {
 
     @Override
     public String getDescription() {
-        return "Add a song from a youtube link or search words.";
+        return "Add a song to play-queue. Youtube link or search string.";
     }
 
     @Override
