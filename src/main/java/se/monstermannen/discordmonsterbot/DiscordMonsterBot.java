@@ -105,6 +105,12 @@ public class DiscordMonsterBot {
 
     // todo logger
     // todo fwd song
+    // todo loop -> repeat
+    // todo playlistcommand -> queue
+    // todo random song list? + random song add
+    // todo rip (text on img)
+    // todo warn user
+    // todo aws amazon host? heroku?
 
     // return time in seconds since program start
     public static long getUptime(){
