@@ -4,6 +4,9 @@ import com.arsenarsen.lavaplayerbridge.PlayerManager;
 import com.arsenarsen.lavaplayerbridge.libraries.LibraryFactory;
 import com.arsenarsen.lavaplayerbridge.libraries.UnknownBindingException;
 import com.arsenarsen.lavaplayerbridge.player.Player;
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager;
 import se.monstermannen.discordmonsterbot.commands.Command;
 import se.monstermannen.discordmonsterbot.commands.CommandType;
@@ -13,6 +16,7 @@ import se.monstermannen.discordmonsterbot.commands.admin.SetBotNameCommand;
 import se.monstermannen.discordmonsterbot.commands.admin.SetBotPrefixCommand;
 import se.monstermannen.discordmonsterbot.commands.general.*;
 import se.monstermannen.discordmonsterbot.commands.music.*;
+import se.monstermannen.discordmonsterbot.ownaudio.GuildMusicManager;
 import se.monstermannen.discordmonsterbot.util.MonsterTimer;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
@@ -24,6 +28,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -39,14 +45,18 @@ public class DiscordMonsterBot {
     public static boolean LOOPPLAYLIST = false; // loop music players playlist
     // objects
     private static IDiscordClient client;
-    public static MonsterTimer timer;
-    public static PlayerManager manager;
+    private static MonsterTimer timer;
+    private static PlayerManager manager;
     public static AddSongCommand addSong;
     // variables
     private static ArrayList<Command> commands = new ArrayList<>();
     private static int readMessages;
     private static int readCommands;
-    public static long startTime;
+    private static long startTime;
+
+    // test new
+    private static Map<Long, GuildMusicManager> musicManagers;
+    private static AudioPlayerManager playerManager;
 
     public static void main(String[] args){
         try {
@@ -58,6 +68,11 @@ public class DiscordMonsterBot {
 
             manager = PlayerManager.getPlayerManager(LibraryFactory.getLibrary(client));
             manager.getManager().registerSourceManager(new YoutubeAudioSourceManager());    // youtube
+
+            // test new audio manager
+            musicManagers = new HashMap<>();
+            playerManager = new DefaultAudioPlayerManager();
+            AudioSourceManagers.registerRemoteSources(playerManager);
 
             client.getDispatcher().registerListener(new Events());	// add listener
             client.login();                                         // login :^)
@@ -95,6 +110,7 @@ public class DiscordMonsterBot {
             commands.add(new SetBotNameCommand());
             commands.add(new SetBotAvatarCommand());
             commands.add(new SetBotPrefixCommand());
+            commands.add(new AddSong2Command());    // test
 
             addSong = new AddSongCommand(); // used by !play command
 
@@ -170,9 +186,11 @@ public class DiscordMonsterBot {
         readCommands++;
     }
 
+    /*
     public IDiscordClient getClient(){
         return client;
     }
+    */
 
     // return commandlist
     public static ArrayList<Command> getCommands(){
@@ -194,4 +212,27 @@ public class DiscordMonsterBot {
     public static Player getPlayer(IGuild guild){
         return manager.getPlayer(guild.getID());
     }
+
+
+    // ****************** test new audio method ***************
+    // copypaste code
+    // https://github.com/sedmelluq/lavaplayer/tree/master/demo-d4j/src/main/java/com/sedmelluq/discord/lavaplayer/demo/d4j
+
+    public static synchronized GuildMusicManager getGuildAudioPlayer(IGuild guild) {
+        long guildId = Long.parseLong(guild.getID());
+        GuildMusicManager musicManager = musicManagers.get(guildId);
+        if (musicManager == null) {
+            musicManager = new GuildMusicManager(playerManager);
+            musicManagers.put(guildId, musicManager);
+        }
+        guild.getAudioManager().setAudioProvider(musicManager.getAudioProvider());
+        return musicManager;
+    }
+
+    public static AudioPlayerManager getPlayerManager(){
+        return playerManager;
+    }
+
+
+
 }
