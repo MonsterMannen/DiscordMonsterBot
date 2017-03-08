@@ -27,7 +27,7 @@ public class TrackEvents extends AudioEventAdapter {
 
     @Override
     public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
-        if(endReason.mayStartNext) {
+        if(endReason.mayStartNext){
             // Start next track
         }
 
@@ -42,6 +42,7 @@ public class TrackEvents extends AudioEventAdapter {
     @Override
     public void onTrackException(AudioPlayer player, AudioTrack track, FriendlyException exception) {
         // An already playing track threw an exception (track end event will still be received separately)
+        System.out.println("[player]: " + track.getInfo().title + " exception: " + exception.getMessage());
     }
 
     @Override

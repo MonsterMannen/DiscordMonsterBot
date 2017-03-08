@@ -128,10 +128,4 @@ public class Events {
             }
         }
     }
-
-    @EventSubscriber
-    public void onTrackEnd(TrackEndEvent event){
-        System.out.println("track end test");   // test. didnt work
-    }
-
 }

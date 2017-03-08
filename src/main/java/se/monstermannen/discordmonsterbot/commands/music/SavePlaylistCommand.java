@@ -33,14 +33,13 @@ public class SavePlaylistCommand implements Command {
         }
 
         Queue<Track> playlist = DiscordMonsterBot.getPlayer(channel.getGuild()).getPlaylist();  // play queue
-        playlist.add(DiscordMonsterBot.getPlayer(channel.getGuild()).getPlayingTrack());    // add current track
 
         try {
             String path = "playlists/" + args[0] + ".txt";
             PrintWriter writer = new PrintWriter(path, "UTF-8");
 
             writer.println(DiscordMonsterBot.getPlayer(channel.getGuild())
-                        .getPlayingTrack().getTrack().getInfo().identifier);    // add currently playing song first
+                        .getPlayingTrack().getTrack().getInfo().identifier);    // add currently playing track first
             for(Track track : playlist){
                 String id = track.getTrack().getInfo().identifier;
                 writer.println(id);
