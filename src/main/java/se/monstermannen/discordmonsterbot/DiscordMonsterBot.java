@@ -128,6 +128,8 @@ public class DiscordMonsterBot {
     // todo warn user
     // todo aws amazon host? heroku?
 
+    // todo change back to arsen bridge player method
+
     // return time in seconds since program start
     public static long getUptime(){
         return (System.currentTimeMillis() - startTime) / 1000;
