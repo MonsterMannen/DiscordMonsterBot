@@ -15,7 +15,7 @@ public class MonsterTimer {
         t.schedule(new TimerTask() {
             @Override
             public void run() {
-                DiscordMonsterBot.saveProperties();
+                PropertyHandler.saveProperties();
             }
         }, 0, 5*60*1000);   // 5 min
     }

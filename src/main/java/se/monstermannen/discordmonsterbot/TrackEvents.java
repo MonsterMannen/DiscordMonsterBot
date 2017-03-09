@@ -38,9 +38,6 @@ public class TrackEvents extends AudioEventAdapter {
         // endReason == CLEANUP: Player hasn't been queried for a while, if you want you can put a
         //                       clone of this back to your queue
 
-        // test
-        System.out.println("[player]: " + track.getInfo().title + " stopped playing");
-
     }
 
     @Override
