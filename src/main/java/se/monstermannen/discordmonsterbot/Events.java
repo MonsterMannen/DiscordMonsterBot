@@ -3,6 +3,7 @@ package se.monstermannen.discordmonsterbot;
 import com.sedmelluq.discord.lavaplayer.player.event.TrackEndEvent;
 import se.monstermannen.discordmonsterbot.commands.Command;
 import se.monstermannen.discordmonsterbot.commands.CommandType;
+import se.monstermannen.discordmonsterbot.util.HelpMethods;
 import se.monstermannen.discordmonsterbot.util.MonsterMessage;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.ReadyEvent;
@@ -13,6 +14,7 @@ import sx.blah.discord.handle.impl.events.guild.voice.user.UserVoiceChannelLeave
 import sx.blah.discord.handle.impl.events.guild.voice.user.UserVoiceChannelMoveEvent;
 import sx.blah.discord.handle.obj.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -78,11 +80,11 @@ public class Events {
 
         // run command
         for(Command cmd : DiscordMonsterBot.getCommands()){
-            if(cmd.getCommand().equalsIgnoreCase(command)){
+            if(cmd.getCommand().equalsIgnoreCase(command) || HelpMethods.containsIgnoreCase(cmd.getAliases(), command)){
                 if(cmd.getCommandType() == CommandType.ADMIN
                         && !user.getID().equals(channel.getClient().getApplicationOwner().getID())){
                     MonsterMessage.sendMessage(channel, "Admin only command \uD83D\uDE0E"); // sunglasses smiley
-                }else {
+                } else {
                     cmd.runCommand(user, channel, message, args);
                     DiscordMonsterBot.increaseReadCommands();
                 }

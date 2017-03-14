@@ -56,6 +56,11 @@ public class LoadPlaylistCommand implements Command {
     }
 
     @Override
+    public String[] getAliases() {
+        return new String[0];
+    }
+
+    @Override
     public String getDescription() {
         return "Load the songs from specified playlist into the play queue.";
     }

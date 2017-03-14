@@ -45,6 +45,11 @@ public class JoinCommand implements Command {
     }
 
     @Override
+    public String[] getAliases() {
+        return new String[0];
+    }
+
+    @Override
     public CommandType getCommandType(){
         return CommandType.MUSIC;
     }

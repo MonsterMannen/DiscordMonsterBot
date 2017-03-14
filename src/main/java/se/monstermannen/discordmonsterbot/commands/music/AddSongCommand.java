@@ -8,6 +8,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
 import se.monstermannen.discordmonsterbot.commands.Command;
 import se.monstermannen.discordmonsterbot.commands.CommandType;
+import se.monstermannen.discordmonsterbot.util.HelpMethods;
 import se.monstermannen.discordmonsterbot.util.MonsterMessage;
 import se.monstermannen.discordmonsterbot.util.Getters;
 import sx.blah.discord.handle.obj.IChannel;
@@ -60,7 +61,7 @@ public class AddSongCommand implements Command {
 
                 if (message != null) {   // message is null if sent from LoadPlaylistCommand
                     MonsterMessage.sendMessage(channel, "**" + vidTitle + "** added "
-                            + MonsterMessage.getEmojiCode("musical_note"));
+                            + HelpMethods.getEmojiCode("musical_note"));
                 }
             }
         }
@@ -82,7 +83,7 @@ public class AddSongCommand implements Command {
         }
 
         if(item == null){
-            MonsterMessage.sendErrorMessage(channel, "Could not load track " + MonsterMessage.getEmojiCode("musical_note"));
+            MonsterMessage.sendErrorMessage(channel, "Could not load track " + HelpMethods.getEmojiCode("musical_note"));
         }else{
             Track track = new Track((AudioTrack) item);
             player.queue(track);
@@ -92,6 +93,11 @@ public class AddSongCommand implements Command {
     @Override
     public String getCommand() {
         return "addSong";
+    }
+
+    @Override
+    public String[] getAliases() {
+        return new String[0];
     }
 
     @Override

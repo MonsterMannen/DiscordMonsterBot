@@ -58,6 +58,11 @@ public class PlaylistCommand implements Command {
     }
 
     @Override
+    public String[] getAliases() {
+        return new String[]{"queue"};
+    }
+
+    @Override
     public String getDescription() {
         return "Print the songs in the current play queue.";
     }

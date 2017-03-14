@@ -1,6 +1,5 @@
 package se.monstermannen.discordmonsterbot.util;
 
-import com.vdurmont.emoji.EmojiManager;
 import sx.blah.discord.api.internal.json.objects.EmbedObject;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
@@ -75,7 +74,7 @@ public class MonsterMessage {
     public static IMessage sendErrorMessage(IChannel channel, String msg){
         RequestBuffer.RequestFuture<IMessage> m = RequestBuffer.request(() -> {
             try{
-                String prefix = getEmojiCode("warning");
+                String prefix = HelpMethods.getEmojiCode("warning");
                 return sendMessage(channel, prefix + " " + msg);
             } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
                 e.printStackTrace();
@@ -98,7 +97,7 @@ public class MonsterMessage {
     public static void addReaction(IMessage message, String emoji_string){
         try{
             RequestBuffer.request(() -> {
-                String e = getEmojiCode(emoji_string);
+                String e = HelpMethods.getEmojiCode(emoji_string);
                 message.addReaction(e);
             });
 
@@ -106,20 +105,4 @@ public class MonsterMessage {
             e.printStackTrace();
         }
     }
-
-    public static String getEmojiCode(String emoji_string){
-        com.vdurmont.emoji.Emoji emoji = EmojiManager.getForAlias(emoji_string);
-        return emoji.getUnicode();
-    }
-
-    // check if a string is a number
-    public static boolean isInteger(String s) {
-        try {
-            int x = Integer.parseInt(s);
-        } catch(Exception e){
-            return false;
-        }
-        return true;
-    }
-
 }

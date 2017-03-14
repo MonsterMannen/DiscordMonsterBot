@@ -2,6 +2,7 @@ package se.monstermannen.discordmonsterbot.commands.general;
 
 import se.monstermannen.discordmonsterbot.commands.Command;
 import se.monstermannen.discordmonsterbot.commands.CommandType;
+import se.monstermannen.discordmonsterbot.util.HelpMethods;
 import se.monstermannen.discordmonsterbot.util.MonsterMessage;
 import se.monstermannen.discordmonsterbot.util.UserMsgHolder;
 import sx.blah.discord.handle.obj.IChannel;
@@ -22,7 +23,7 @@ public class WhoSpamsCommand implements Command {
         int checkTime = 24; // default 24h
 
         if(args.length > 0) {
-            if (MonsterMessage.isInteger(args[0])) {
+            if (HelpMethods.isInteger(args[0])) {
                 checkTime = Integer.parseInt(args[0]);
             }
 
@@ -102,6 +103,11 @@ public class WhoSpamsCommand implements Command {
     @Override
     public String getCommand() {
         return "whoSpams";
+    }
+
+    @Override
+    public String[] getAliases() {
+        return new String[0];
     }
 
     @Override

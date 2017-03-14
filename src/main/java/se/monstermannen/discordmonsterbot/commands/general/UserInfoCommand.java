@@ -42,7 +42,7 @@ public class UserInfoCommand implements Command {
         }
 
         EmbedBuilder embed = new EmbedBuilder()
-                .withColor(Color.MAGENTA)
+                .withColor(Color.CYAN)
                 .withThumbnail(u.getAvatarURL())
                 .appendField(u.getDisplayName(channel.getGuild()), msg, false);
 
@@ -53,6 +53,11 @@ public class UserInfoCommand implements Command {
     @Override
     public String getCommand() {
         return "userinfo";
+    }
+
+    @Override
+    public String[] getAliases() {
+        return new String[]{"whois"};
     }
 
     @Override

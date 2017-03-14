@@ -11,6 +11,7 @@ import sx.blah.discord.handle.obj.IUser;
  * Shuffle playlist
  */
 public class ShuffleCommand implements Command {
+
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
         DiscordMonsterBot.getPlayer(channel.getGuild()).shuffle();
@@ -19,6 +20,11 @@ public class ShuffleCommand implements Command {
     @Override
     public String getCommand() {
         return "shuffle";
+    }
+
+    @Override
+    public String[] getAliases() {
+        return new String[0];
     }
 
     @Override

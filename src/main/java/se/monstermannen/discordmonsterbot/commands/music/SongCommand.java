@@ -4,6 +4,7 @@ import com.arsenarsen.lavaplayerbridge.player.Player;
 import se.monstermannen.discordmonsterbot.commands.Command;
 import se.monstermannen.discordmonsterbot.commands.CommandType;
 import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
+import se.monstermannen.discordmonsterbot.util.HelpMethods;
 import se.monstermannen.discordmonsterbot.util.MonsterMessage;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
@@ -22,7 +23,7 @@ public class SongCommand implements Command {
         Player player = DiscordMonsterBot.getPlayer(channel.getGuild());
 
         if(player.getPlayingTrack() == null){
-            MonsterMessage.sendErrorMessage(channel, "No song playing " + MonsterMessage.getEmojiCode("musical_note"));    // musical note emoji
+            MonsterMessage.sendErrorMessage(channel, "No song playing " + HelpMethods.getEmojiCode("musical_note"));    // musical note emoji
             return;
         }
 
@@ -61,6 +62,11 @@ public class SongCommand implements Command {
     @Override
     public String getCommand() {
         return "song";
+    }
+
+    @Override
+    public String[] getAliases() {
+        return new String[]{"playing", "current", "currentsong", "nowplaying"};
     }
 
     @Override

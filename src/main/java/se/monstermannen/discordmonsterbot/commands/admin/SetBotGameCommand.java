@@ -24,6 +24,11 @@ public class SetBotGameCommand implements Command {
     }
 
     @Override
+    public String[] getAliases() {
+        return new String[0];
+    }
+
+    @Override
     public String getDescription() {
         return "Changes the bots status game to specified string";
     }

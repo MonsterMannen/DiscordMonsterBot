@@ -66,6 +66,11 @@ public class ImdbCommand implements Command {
     }
 
     @Override
+    public String[] getAliases() {
+        return new String[]{"movie"};
+    }
+
+    @Override
     public String getDescription() {
         return "Get information about specified movie or series.";
     }

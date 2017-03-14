@@ -60,6 +60,11 @@ public class ListSongsCommand implements Command {
     }
 
     @Override
+    public String[] getAliases() {
+        return new String[0];
+    }
+
+    @Override
     public String getDescription() {
         return "List every song in the music folder.";
     }

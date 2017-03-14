@@ -37,6 +37,11 @@ public class SetBotAvatarCommand implements Command {
     }
 
     @Override
+    public String[] getAliases() {
+        return new String[0];
+    }
+
+    @Override
     public String getDescription() {
         return "Change the bots avatar to specified url";
     }

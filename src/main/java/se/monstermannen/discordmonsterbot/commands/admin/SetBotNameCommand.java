@@ -12,6 +12,11 @@ import sx.blah.discord.handle.obj.IUser;
  */
 public class SetBotNameCommand implements Command {
     @Override
+    public String[] getAliases() {
+        return new String[0];
+    }
+
+    @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
         if(args.length == 0) return;
 

@@ -2,6 +2,7 @@ package se.monstermannen.discordmonsterbot.commands.general;
 
 import se.monstermannen.discordmonsterbot.commands.Command;
 import se.monstermannen.discordmonsterbot.commands.CommandType;
+import se.monstermannen.discordmonsterbot.util.HelpMethods;
 import se.monstermannen.discordmonsterbot.util.MonsterMessage;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
@@ -17,13 +18,18 @@ public class VirusCommand implements Command {
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
         String msg = "Download and run this file to give people virus. \n"
                     + "https://monstermannen.github.io/freemovie.exe?xd=sexy_girl.jpg "
-                    + MonsterMessage.getEmojiCode("joy");
+                    + HelpMethods.getEmojiCode("joy");
         MonsterMessage.sendMessage(channel, msg);
     }
 
     @Override
     public String getCommand() {
         return "virus";
+    }
+
+    @Override
+    public String[] getAliases() {
+        return new String[0];
     }
 
     @Override

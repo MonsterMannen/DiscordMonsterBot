@@ -13,6 +13,8 @@ public interface Command {
 
     String getCommand();
 
+    String[] getAliases();
+
     String getDescription();
 
     CommandType getCommandType();

@@ -62,7 +62,7 @@ public class DiscordMonsterBot {
             // general commands
             commands.add(new HelpCommand());
             commands.add(new StatsCommand());
-            commands.add(new HelloCommand());
+            commands.add(new SayCommand());
             commands.add(new VirusCommand());
             commands.add(new FlipCommand());
             commands.add(new UserInfoCommand());
@@ -75,7 +75,7 @@ public class DiscordMonsterBot {
             commands.add(new LeaveCommand());
             commands.add(new AddSongCommand());
             commands.add(new PlayCommand());
-            commands.add(new PausCommand());
+            commands.add(new PauseCommand());
             commands.add(new SkipCommand());
             commands.add(new ClearCommand());
             commands.add(new VolumeCommand());
@@ -102,8 +102,6 @@ public class DiscordMonsterBot {
 
     // todo logger
     // todo fwd song
-    // todo loop -> repeat
-    // todo playlistcommand -> queue
     // todo random song list? + random song add
     // todo rip (text on img)
     // todo warn user

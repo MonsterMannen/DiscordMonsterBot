@@ -3,6 +3,7 @@ package se.monstermannen.discordmonsterbot.commands.general;
 import se.monstermannen.discordmonsterbot.commands.Command;
 import se.monstermannen.discordmonsterbot.commands.CommandType;
 import se.monstermannen.discordmonsterbot.DiscordMonsterBot;
+import se.monstermannen.discordmonsterbot.util.HelpMethods;
 import se.monstermannen.discordmonsterbot.util.MonsterMessage;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
@@ -54,16 +55,14 @@ public class HelpCommand implements Command {
 
     // give info about a command
     private void helpCommand(IChannel channel, String command){
-        String msg = "";
-        boolean found = false;
+        String msg = null;
         for(Command cmd : DiscordMonsterBot.getCommands()){
-            if(cmd.getCommand().equalsIgnoreCase(command)){
+            if(cmd.getCommand().equalsIgnoreCase(command) || HelpMethods.containsIgnoreCase(cmd.getAliases(), command)){
                 msg = cmd.getDescription();
-                found = true;
             }
         }
 
-        if(found){
+        if(msg != null){
             MonsterMessage.sendMessage(channel, msg);
         }else{
             MonsterMessage.sendErrorMessage(channel, "That command doesn't exist.");
@@ -73,6 +72,11 @@ public class HelpCommand implements Command {
     @Override
     public String getCommand() {
         return "help";
+    }
+
+    @Override
+    public String[] getAliases() {
+        return new String[0];
     }
 
     @Override

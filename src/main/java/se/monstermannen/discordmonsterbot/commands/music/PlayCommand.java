@@ -31,6 +31,11 @@ public class PlayCommand implements Command {
     }
 
     @Override
+    public String[] getAliases() {
+        return new String[]{"unpause", "unpaus"};
+    }
+
+    @Override
     public String getDescription() {
         return "Start/Unpause player or add a song if any is specified.";
     }

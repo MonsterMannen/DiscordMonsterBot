@@ -23,6 +23,11 @@ public class SkipCommand implements Command {
     }
 
     @Override
+    public String[] getAliases() {
+        return new String[]{"next"};
+    }
+
+    @Override
     public String getDescription() {
         return "Skip to next song.";
     }

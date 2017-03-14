@@ -8,9 +8,9 @@ import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
 
 /**
- * Paus current song command
+ * Pause current song command
  */
-public class PausCommand implements Command {
+public class PauseCommand implements Command {
 
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
@@ -19,7 +19,12 @@ public class PausCommand implements Command {
 
     @Override
     public String getCommand() {
-        return "paus";
+        return "pause";
+    }
+
+    @Override
+    public String[] getAliases() {
+        return new String[]{"paus"};
     }
 
     @Override

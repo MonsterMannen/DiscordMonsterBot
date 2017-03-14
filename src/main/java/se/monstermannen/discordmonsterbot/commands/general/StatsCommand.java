@@ -17,6 +17,7 @@ import java.lang.management.ManagementFactory;
  * Give stats about the bot
  */
 public class StatsCommand implements Command {
+
     private Runtime runtime;
     private int mem;
 
@@ -70,6 +71,11 @@ public class StatsCommand implements Command {
     @Override
     public String getCommand() {
         return "stats";
+    }
+
+    @Override
+    public String[] getAliases() {
+        return new String[]{"info"};
     }
 
     @Override

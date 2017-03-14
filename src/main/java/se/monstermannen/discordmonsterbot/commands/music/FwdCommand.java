@@ -27,6 +27,11 @@ public class FwdCommand implements Command {
     }
 
     @Override
+    public String[] getAliases() {
+        return new String[0];
+    }
+
+    @Override
     public String getDescription() {
         return "Forward current song by specified amount of seconds";
     }

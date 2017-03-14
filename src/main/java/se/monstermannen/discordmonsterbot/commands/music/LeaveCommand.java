@@ -32,6 +32,11 @@ public class LeaveCommand implements Command {
     }
 
     @Override
+    public String[] getAliases() {
+        return new String[0];
+    }
+
+    @Override
     public String getDescription() {
         return "Leave voice channel.";
     }

@@ -10,16 +10,29 @@ import sx.blah.discord.handle.obj.IUser;
 /**
  * Reply with what you said command
  */
-public class HelloCommand implements Command {
+public class SayCommand implements Command {
 
     @Override
     public void runCommand(IUser user, IChannel channel, IMessage message, String[] args) {
-        MonsterMessage.sendMessage(channel, message.getContent());
+        String reply = "";
+        if(args.length == 0){
+            reply = "xD";
+        }
+        else{
+            reply = message.getContent().substring(message.getContent().indexOf(" "));
+        }
+
+        MonsterMessage.sendMessage(channel, reply);
     }
 
     @Override
     public String getCommand() {
-        return "hello";
+        return "say";
+    }
+
+    @Override
+    public String[] getAliases() {
+        return new String[]{"hello", "echo"};
     }
 
     @Override

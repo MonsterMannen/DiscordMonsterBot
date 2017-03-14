@@ -24,6 +24,11 @@ public class FlipCommand implements Command {
     }
 
     @Override
+    public String[] getAliases() {
+        return new String[]{"random"};
+    }
+
+    @Override
     public String getDescription() {
         return "Return 1 or 0";
     }
