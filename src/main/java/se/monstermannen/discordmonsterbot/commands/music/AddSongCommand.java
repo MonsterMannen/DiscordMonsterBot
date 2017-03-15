@@ -97,7 +97,7 @@ public class AddSongCommand implements Command {
 
     @Override
     public String[] getAliases() {
-        return new String[0];
+        return new String[]{"add"};
     }
 
     @Override
