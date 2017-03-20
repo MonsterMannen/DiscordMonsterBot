@@ -76,7 +76,7 @@ public class HelpCommand implements Command {
 
     @Override
     public String[] getAliases() {
-        return new String[0];
+        return new String[]{"commands"};
     }
 
     @Override

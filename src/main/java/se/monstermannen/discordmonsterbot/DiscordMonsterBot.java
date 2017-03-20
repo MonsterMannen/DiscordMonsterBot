@@ -69,6 +69,7 @@ public class DiscordMonsterBot {
             commands.add(new WhoSpamsCommand());
             commands.add(new ImdbCommand());
             commands.add(new SwagCommand());
+            commands.add(new WarningCommand());
 
             // music commands
             commands.add(new JoinCommand());
@@ -106,6 +107,7 @@ public class DiscordMonsterBot {
     // todo rip (text on img)
     // todo warn user
     // todo aws amazon host? heroku?
+    // help -admin commands +music guide
 
 
     // return time in seconds since program start
