@@ -90,6 +90,14 @@
             <version>v3-rev182-1.22.0</version>
         </dependency>
 
+        <!-- logger
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+        -->
+
     </dependencies>
 
 </project>

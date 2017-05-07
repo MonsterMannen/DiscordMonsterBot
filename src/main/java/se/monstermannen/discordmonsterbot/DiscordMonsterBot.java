@@ -40,6 +40,7 @@ public class DiscordMonsterBot {
     private static PlayerManager manager;
     public static AddSongCommand addSong;
     // variables
+    //public static Logger logger = LoggerFactory.getLogger(DiscordMonsterBot.class);
     private static ArrayList<Command> commands = new ArrayList<>();
     public static int readMessages;
     public static int readCommands;
@@ -58,6 +59,10 @@ public class DiscordMonsterBot {
 
             client.getDispatcher().registerListener(new Events());	// add listener
             client.login();                                         // login :^)
+
+            // logger test
+            //BasicConfigurator.configure();
+            //logger.info("test log :D");
 
             // general commands
             commands.add(new HelpCommand());
