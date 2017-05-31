@@ -3,11 +3,13 @@ package se.monstermannen.discordmonsterbot;
 import com.sedmelluq.discord.lavaplayer.player.event.TrackEndEvent;
 import se.monstermannen.discordmonsterbot.commands.Command;
 import se.monstermannen.discordmonsterbot.commands.CommandType;
+import se.monstermannen.discordmonsterbot.util.CxBanner;
 import se.monstermannen.discordmonsterbot.util.HelpMethods;
 import se.monstermannen.discordmonsterbot.util.MonsterMessage;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.ReadyEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
+import sx.blah.discord.handle.impl.events.guild.channel.message.MessageUpdateEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.reaction.ReactionAddEvent;
 import sx.blah.discord.handle.impl.events.guild.voice.user.UserVoiceChannelJoinEvent;
 import sx.blah.discord.handle.impl.events.guild.voice.user.UserVoiceChannelLeaveEvent;
@@ -65,6 +67,8 @@ public class Events {
         System.out.printf("[%s][%s]<%s>: %s\n", g, c, a, msg); // console output
         DiscordMonsterBot.increaseReadMessages();
 
+        CxBanner.scanAndChangeCx(message);  // prank DS. Change all Cx to xD
+
         // return if not correct prefix or only prefix + 1 char
         if(!msg.startsWith(DiscordMonsterBot.PREFIX) || msg.length() < DiscordMonsterBot.PREFIX.length() + 1)
             return;
@@ -90,6 +94,11 @@ public class Events {
                 }
             }
         }
+    }
+
+    @EventSubscriber
+    public void onMessageEdit(MessageUpdateEvent event){
+        CxBanner.scanAndChangeCx(event.getNewMessage());  // prank DS. Change all Cx to xD
     }
     
     @EventSubscriber
